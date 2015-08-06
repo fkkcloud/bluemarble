@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var url = process.env.MONGOLAB_URI || 'mongodb://localhost/bluemarbledb';
+var url = process.env.MONGOLAB_URI || 'mongodb://localhost/lastsex';
 mongoose.connect(url);
 
 /*
