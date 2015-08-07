@@ -39,7 +39,7 @@ angular.module('app')
 
         var mapOptions = {
                 center      : initialMapCenter,
-                zoom        : 15,
+                zoom        : 11,
                 MapTypeId   : google.maps.MapTypeId.ROADMAP,
                 scrollwheel : false,
                 streetViewControl: false,
