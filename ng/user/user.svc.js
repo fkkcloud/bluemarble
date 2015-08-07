@@ -22,7 +22,9 @@ angular.module('app')
 	svc.remainLogin = function(){
 		console.log("Token:", localStorage.getItem('token'));
 		console.log("Application has been launched")
-		if (window.localStorage.getItem('token') != 'undefined')
+		if (window.localStorage.getItem('token') != 'undefined' && 
+			window.localStorage.getItem('token') != 'null' &&
+			window.localStorage.getItem('token') )
 		{
 			$http.defaults.headers.common['X-Auth'] = window.localStorage.getItem('token');
 
