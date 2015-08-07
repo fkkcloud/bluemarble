@@ -20,7 +20,5 @@
     "serve-favicon": "^2.3.0",
     "ws": "^0.7.2"
   },
-  "devDependencies": {
-    "protractor": "^2.1.0"
-  }
+  "devDependencies": {}
 }
