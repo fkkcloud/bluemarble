@@ -4,13 +4,15 @@ angular.module('app')
     // directive link function
     var link = function(scope, element, attrs) {
         var map;
+
+        var CLOUD_MAP_ID = 'custom_style'; // map style
         
         var imagePost = {
             url: 'https://catchme.ifyoucan.com/images/pictures/IYC_Icons/IYC_Location_Icon_Small.png',
             size: new google.maps.Size(100, 100),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(17, 25)
+            scaledSize: new google.maps.Size(1, 1)
         };
 
          var imageTarget = {
@@ -24,7 +26,7 @@ angular.module('app')
         // map config
         console.log('window.localStorage.latitude ', window.localStorage.latitude );
 
-        var initialMapCenter = new google.maps.LatLng(34.05, -118.24);
+        var initialMapCenter = new google.maps.LatLng(34.06148453403353, -118.2785067220459);
         
         if (!isNaN(window.localStorage.latitude) && !isNaN(window.localStorage.longitude))
         {
@@ -40,7 +42,12 @@ angular.module('app')
                 zoom        : 15,
                 MapTypeId   : google.maps.MapTypeId.ROADMAP,
                 scrollwheel : false,
-                streetViewControl: false
+                streetViewControl: false,
+                mapTypeControl: false,
+                mapTypeControlOptions: {
+                      mapTypeIds: [google.maps.MapTypeId.ROADMAP, CLOUD_MAP_ID]
+                    },
+                mapTypeId: CLOUD_MAP_ID
             };
         
         // draw map with helper markers
@@ -103,10 +110,12 @@ angular.module('app')
          // place a marker and infoWindow
         var infoWindow;
         var markers = [];
+
         function drawPostMarkers() {
             var posts = undefined;
             PostsSvc.fetchAll()
             .success(function(response){
+                console.log(response);
                 posts = response;
 
                 for (var i = 0; i < posts.length; i++)
@@ -128,39 +137,48 @@ angular.module('app')
 
                     var marker = new google.maps.Marker(markerOptions);
                     
-                    // add marker to array
-                    markers.push(marker);
 
-                    // mouse over to view the post information - closure
-                    google.maps.event.addListener(marker, 'click', (function(marker, post) {
+                    var openWindow = (function(marker, post) {
                         return function() {
                             // close window if not undefined
+
                             if (infoWindow !== void 0) {
                                 infoWindow.close();
                             }
 
-                            var html = '<div id="sexplace"><p> Target: ' + 
+                            var html = '<div> <strong class="post-content">"' + 
                                         post.sexTarget + 
-                                        '</p><p> Age: ' + 
+                                        '"</strong>   <span class="post-content-age">Age -  ' + 
                                         post.userAge +
-                                        '</p></div>';
+                                        '</span></div>';
 
                             // create new window
                             var infoWindowOptions = {
                                 content: html, 
-                                pixelOffset: new google.maps.Size(-37.5, 0),
+                                pixelOffset: new google.maps.Size(0, 0),
+                                disableAutoPan: true,
                             };
                             
                             infoWindow = new google.maps.InfoWindow(infoWindowOptions);
                             infoWindow.open(map, marker);
                         }
-                    })(marker, post));
+                    })(marker, post);
+
+                    openWindow();
+
+                    // add marker to array
+                    markers.push(marker);
+
+
+                    // mouse over to view the post information - closure
+                    //google.maps.event.addListener(marker, 'click', );
 
                     // mouse out to close the post info window
+                    /*
                     google.maps.event.addListener(marker, 'mouseout', function () {
                         if (infoWindow)
                             infoWindow.close();
-                    });
+                    });*/
                 }
             });
         }
@@ -234,10 +252,22 @@ angular.module('app')
         {
             // manually reload markers
             google.maps.event.addListener(map, 'maptypeid_changed', function() {
-                removeHelperMarker();
+                //removeHelperMarker();
                 removePostMarker();
                 drawPostMarkers();
             });
+        }
+
+        function setStyleForMap()
+        {
+            var featureOpts = [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#439aa5"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"color":"#32485c"},{"visibility":"simplified"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"color":"#e9dddb"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#c4e661"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#e9dddb"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#32485c"},{"weight":"0.7"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#e9dddb"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#32485c"},{"weight":"0.25"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#e9dddb"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#ef798e"},{"weight":"0.5"},{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"color":"#ef798e"}]},{"featureType":"transit.line","elementType":"geometry.fill","stylers":[{"weight":"2.06"}]},{"featureType":"transit.line","elementType":"geometry.stroke","stylers":[{"weight":"10.00"}]},{"featureType":"transit.line","elementType":"labels.text.stroke","stylers":[{"weight":"0.01"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"weight":"10.00"},{"color":"#439aa5"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"color":"#32485c"},{"weight":"0.85"}]}];
+
+            var styledMapOptions = {
+                name: 'Custom Style'
+              };
+
+            var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+            map.mapTypes.set(CLOUD_MAP_ID, customMapType);
         }
 
         // init the map
@@ -245,6 +275,8 @@ angular.module('app')
             if (map === void 0) {
                 map = new google.maps.Map(element[0], mapOptions);
             }
+
+            setStyleForMap();
 
             setLoadPostMarkers();
 

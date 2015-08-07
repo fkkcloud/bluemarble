@@ -156,6 +156,20 @@ tt2{
 
 
 
+.post-content {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 100;
+    color: #00e5e5;
+}
+
+.post-content-age {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 200;
+    color: #da635d;
+}
+
 #sextime {
  	font-family: Roboto;
     font-size: 15px;
