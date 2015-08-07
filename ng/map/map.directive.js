@@ -1,6 +1,6 @@
 
 angular.module('app')
-.directive('appMap', function(PostsSvc, UtilSvc) {
+.directive('appMap', function(PostsSvc, UtilSvc, $timeout, $compile) {
     // directive link function
     var link = function(scope, element, attrs) {
         var map;
@@ -24,7 +24,7 @@ angular.module('app')
         };
 
         // map config
-        console.log('window.localStorage.latitude ', window.localStorage.latitude );
+        //console.log('window.localStorage.latitude ', window.localStorage.latitude );
 
         var initialMapCenter = new google.maps.LatLng(34.06148453403353, -118.2785067220459);
         
@@ -33,9 +33,9 @@ angular.module('app')
             initialMapCenter = new google.maps.LatLng(window.localStorage.latitude, window.localStorage.longitude);
         }
 
-        console.log('window.localStorage.latitude ', window.localStorage.latitude );
+        //console.log('window.localStorage.latitude ', window.localStorage.latitude );
         
-        console.log(initialMapCenter);
+        //console.log(initialMapCenter);
 
         var mapOptions = {
                 center      : initialMapCenter,
@@ -115,15 +115,20 @@ angular.module('app')
             var posts = undefined;
             PostsSvc.fetchAll()
             .success(function(response){
-                console.log(response);
+                //console.log(response);
                 posts = response;
 
                 for (var i = 0; i < posts.length; i++)
                 {
                     var post = posts[i];
 
-                    if (!post.hasOwnProperty('sexLocation'))
-                        continue;
+                    if (markers[i]){
+                        if (markers[i].post._id == post._id)
+                            continue;
+                    }
+                    
+                    //if (!post.hasOwnProperty('sexLocation'))
+                    //    continue;
 
                     var location = angular.fromJson(post.sexLocation);
                     var googleLoc = new google.maps.LatLng(location.lat, location.lon);
@@ -132,11 +137,19 @@ angular.module('app')
                         position: googleLoc,
                         map: map,
                         title: "Sex",
-                        icon: imagePost
+                        //icon: imagePost
                     };
 
                     var marker = new google.maps.Marker(markerOptions);
-                    
+                    // add marker to array
+                    markers.push(
+                        {
+                            marker: marker,
+                            post  : post
+                        });
+
+                    var parent = scope;
+                    var child = parent.$new(true);
 
                     var openWindow = (function(marker, post) {
                         return function() {
@@ -146,15 +159,21 @@ angular.module('app')
                                 infoWindow.close();
                             }
 
+                            child.content = post.sexTarget;
+                            child.age = post.userAge;
+
                             var html = '<div> <strong class="post-content">"' + 
-                                        post.sexTarget + 
+                                        child.content + 
                                         '"</strong>   <span class="post-content-age">Age -  ' + 
-                                        post.userAge +
+                                        child.age +
                                         '</span></div>';
+
+
+                            var compiled = $compile(html)(child);
 
                             // create new window
                             var infoWindowOptions = {
-                                content: html, 
+                                content: compiled[0], 
                                 pixelOffset: new google.maps.Size(0, 0),
                                 disableAutoPan: true,
                             };
@@ -163,11 +182,7 @@ angular.module('app')
                             infoWindow.open(map, marker);
                         }
                     })(marker, post);
-
                     openWindow();
-
-                    // add marker to array
-                    markers.push(marker);
 
 
                     // mouse over to view the post information - closure
@@ -220,7 +235,7 @@ angular.module('app')
                 window.localStorage.longitude = place.geometry.location.longitude;
 
                 map.panTo(place.geometry.location);
-                map.setZoom(16);
+                //map.setZoom(16);
             });
         }
 
@@ -253,8 +268,9 @@ angular.module('app')
             // manually reload markers
             google.maps.event.addListener(map, 'maptypeid_changed', function() {
                 //removeHelperMarker();
-                removePostMarker();
-                drawPostMarkers();
+                //removePostMarker();
+
+                drawPostMarkers(); 
             });
         }
 
