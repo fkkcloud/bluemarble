@@ -182,12 +182,42 @@ angular.module('app')
                             infoWindow.open(map, marker);
                         }
                     })(marker, post);
-                    
+
                     openWindow();
 
 
                     // mouse over to view the post information - closure
-                    //google.maps.event.addListener(marker, 'click', );
+                    google.maps.event.addListener(marker, 'click', (function(marker, post) {
+                        return function() {
+                            // close window if not undefined
+
+                            if (infoWindow !== void 0) {
+                                infoWindow.close();
+                            }
+
+                            child.content = post.sexTarget;
+                            child.age = post.userAge;
+
+                            var html = '<div> <strong class="post-content">"' + 
+                                        child.content + 
+                                        '"</strong>   <span class="post-content-age">Age -  ' + 
+                                        child.age +
+                                        '</span></div>';
+
+
+                            var compiled = $compile(html)(child);
+
+                            // create new window
+                            var infoWindowOptions = {
+                                content: compiled[0], 
+                                pixelOffset: new google.maps.Size(0, 0),
+                                disableAutoPan: true,
+                            };
+                            
+                            infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker, post));
 
                     // mouse out to close the post info window
                     /*
