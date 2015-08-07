@@ -159,7 +159,7 @@ angular.module('app')
                                 infoWindow.close();
                             }
 
-                            child.content = post.sexTarget.substring(0, 12);
+                            child.content = post.sexTarget.substring(0, 24);
                             child.age = post.userAge;
 
                             var html = '<div> <strong class="post-content">"' + 
@@ -195,7 +195,7 @@ angular.module('app')
                                 infoWindow.close();
                             }
 
-                            child.content = post.sexTarget.substring(0, 12);
+                            child.content = post.sexTarget.substring(0, 24);
                             child.age = post.userAge;
 
                             var html = '<div> <strong class="post-content">"' + 
