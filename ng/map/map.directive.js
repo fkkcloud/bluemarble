@@ -182,6 +182,7 @@ angular.module('app')
                             infoWindow.open(map, marker);
                         }
                     })(marker, post);
+                    
                     openWindow();
 
 
