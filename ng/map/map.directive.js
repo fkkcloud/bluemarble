@@ -26,7 +26,7 @@ angular.module('app')
         // map config
         //console.log('window.localStorage.latitude ', window.localStorage.latitude );
 
-        var initialMapCenter = new google.maps.LatLng(34.06148453403353, -118.2785067220459);
+        var initialMapCenter = new google.maps.LatLng(35.71083783530009, 138.603515625);
         
         if (!isNaN(window.localStorage.latitude) && !isNaN(window.localStorage.longitude))
         {

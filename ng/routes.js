@@ -23,9 +23,9 @@ angular.module('app')
 			templateUrl: '/templates/account.html'
 		})
 	// Redirect to the root page.
-	/*
+	
 	.otherwise(
 		{
    			redirectTo: '/'
-		});*/
+		});
 });
