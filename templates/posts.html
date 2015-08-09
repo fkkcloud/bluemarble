@@ -40,7 +40,7 @@
 			<li ng-repeat="post in posts" class='list-group-item list-group-item-warning'>
 				<p> <strong id='sexposttarget'> {{ post.sexTarget }} </strong> </p>  
 				<p> {{ post.sexTime | date:'hh:mma'}} </p>
-				<p><strong> {{ post.userAge }} </strong> yrs old </p>
+				<p> Danger Rate <strong> {{ post.userAge }} </strong></p>
 				<button ng-click='moveToLoc($index)' class="btn btn-block btn-warning" id='sexfindbtn'> Find them </button>
 				<tt2> {{ post.date | date:'MM dd, hh:mma, yyyy'}}</tt2>
 				<!--
