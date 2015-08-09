@@ -200,7 +200,7 @@ angular.module('app')
 
                             var html = '<div> <strong class="post-content">"' + 
                                         child.content + 
-                                        '"...</strong>   <span class="post-content-age">Age -  ' + 
+                                        '"...</strong>   <span class="post-content-age">Joy Rate -  ' + 
                                         child.age +
                                         '</span></div>';
 
