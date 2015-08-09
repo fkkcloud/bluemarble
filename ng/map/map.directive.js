@@ -164,9 +164,9 @@ angular.module('app')
 
                             var html = '<div> <strong class="post-content">"' + 
                                         child.content + 
-                                        '..."</strong>   <span class="post-content-age">Age -  ' + 
+                                        '..."</strong>   <span class="post-content-age">Danger Rate -  ' + 
                                         child.age +
-                                        '</span></div>';
+                                        '/100</span></div>';
 
 
                             var compiled = $compile(html)(child);
