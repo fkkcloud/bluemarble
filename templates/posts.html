@@ -42,8 +42,9 @@
 				<p> {{ post.sexTime | date:'hh:mma'}} </p>
 				<p> Danger Rate <strong> {{ post.userAge }} </strong></p>
 				<button ng-click='moveToLoc($index)' class="btn btn-block btn-warning" id='sexfindbtn'> Find them </button>
-				<tt2> {{ post.date | date:'MM dd, hh:mma, yyyy'}}</tt2>
+				
 				<!--
+					<tt2> {{ post.date | date:'MM dd, hh:mma, yyyy'}}</tt2>
 				<button ng-click='likePost($index)' class="btn btn-block btn-default block-right" id='sexlikebtn'> + {{post.like}} </button>
 				-->
 			</li>
