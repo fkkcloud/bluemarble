@@ -3,6 +3,7 @@ var router = express.Router();
 
 router.use(express.static(__dirname + '/../assets'));
 router.use(express.static(__dirname + '/../scripts'));
+router.use(express.static(__dirname + '/../resources'));
 router.use(express.static(__dirname + '/../node_modules/sweetalert/dist'));
 
 router.use('/templates', express.static(__dirname + '/../templates'));
