@@ -37,6 +37,11 @@ angular.module('app')
 			controller: 'AccountCtrl',
 			templateUrl: '/templates/contactus.html'
 		})
+	.when('/iloveboram',
+		{
+			controller: 'AccountCtrl',
+			templateUrl: '/templates/boram.html'
+		})
 	// Redirect to the root page.
 	
 	.otherwise(
