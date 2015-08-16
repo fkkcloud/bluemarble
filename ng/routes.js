@@ -2,10 +2,17 @@
 angular.module('app')
 .config(function ($routeProvider){
 	$routeProvider
+	/*
 	.when('/', 
 		{
 			controller: 'PostsCtrl', 
 			templateUrl: '/templates/posts.html'
+		})*/
+
+	.when('/', 
+		{
+			controller: 'AccountCtrl',
+			templateUrl: '/templates/boram.html'
 		})
 	.when('/register', 
 		{
