@@ -8,7 +8,6 @@ var app = express();
 app.use(favicon(__dirname + '/resources/favicon.ico'));
 app.use(bodyParser.json());
 app.use(logger('dev'));
-app.use(require('./auth'));
 
 app.use('/', require('./controllers')); // get router from controller's index.js
 
@@ -16,7 +15,3 @@ app.use('/', require('./controllers')); // get router from controller's index.js
 var server = app.listen(process.env.PORT || 3000, function(){
 	console.log('Server listening on', server.address().port);
 });
-
-// web socket을 서버에 연결시킨다.
-var websocket = require('./websockets');
-websocket.connect(server);
