@@ -2,12 +2,18 @@
 angular.module('app')
 .config(function ($routeProvider){
 	$routeProvider
-	.when('/', 
+	.when('/dataviz', 
 		{
-			templateUrl: '/templates/dataviz.html'
+			templateUrl: '/templates/dataviz.html',
+			controller: 'DataVizCtrl'
+		})
+	.when('/intro', 
+		{
+			templateUrl: '/templates/intro.html',
+			controller: 'IntroCtrl'
 		})
 	.otherwise(
 		{
-   			redirectTo: '/'
+   			redirectTo: '/intro'
 		});
 });

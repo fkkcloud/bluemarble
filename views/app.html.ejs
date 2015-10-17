@@ -50,7 +50,7 @@
 
 	<!-- navigation bar -->
 	<nav class='navbar navbar-inverse navbar-noround' role='navigation'>
-		<div class='container'>
+		<header class='container'>
    			<div class="navbar-header">
 	   			<button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed">
 	   				<span class='sr-only'>Toggle navigation</span>
@@ -58,39 +58,33 @@
 	   				<span class='icon-bar'></span>
 	   				<span class='icon-bar'></span>
 	   			</button>
-	            <a class="navbar-brand option-menu" id="google" href="/#/">UCSF Computational Biology Data Visualization</a><!--A BlueMarble Traveler</a>-->
+	            <!--<a class="navbar-brand option-menu"href="/#/">Institute for Computational Health Sciences</a>-->
+	            	<a ng-href="http://bioinformatics.ucsf.edu/" class="logo"></a>
 			</div>
 
 			<div ng-class="{'in':!navCollapsed}" class="navbar-collapse collapse" collapse="navCollapsed">
-				<ul class='nav navbar-nav'  id='google'>
-					
-	                <li ng-if='currentUser'>
-	                    <a ng-href="/#/account" ng-click="changePassword()">
-	                    	Account
+				<ul class='nav navbar-nav'>
+	                <li>
+	                    <a ng-href="/#/intro" ng-click="do()">
+	                    	Intro
 	                    </a>
 	                </li>
-					<li ng-if='currentUser'>
-	                    <a ng-href="/#/logout" ng-click="logout()">
-	                    	Logout
+					<li>
+	                    <a ng-href="/#/dataviz" ng-click="do()">
+	                    	Data
 	                    </a>
 	                </li>
 	                
 				</ul>
-				<!-- let's distract user by hiding username like hiding clock at casino!
-				<p ng-if='currentUser' class="navbar-text navbar-right" id='google'>
-	               Signed in as {{currentUser.userName}}
-	       		</p>
-	       		-->
 			</div>
-		</div>
+		</haeder>
 	</nav>
 </div>
 
-	<div ng-view></div>
-	<div id='canvasHolder'></div>
 
-	<!-- pages ngview -->
-	
+<div ng-view></div>
+
+<div class='data-visibility' id='canvasHolder'></div>	
 	
 </body>
 </html>

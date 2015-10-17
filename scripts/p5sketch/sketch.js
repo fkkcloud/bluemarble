@@ -41,18 +41,14 @@ function setup() {
     $.getJSON("nodesUS.json", loadNodesUS);
 
     //eventManager.setup();
-  var canvasHolder = select('#canvasHolder'),
-        canvasWidth  = canvasHolder.width,
-        canvasHeight = canvasHolder.height;
-  
-  console.log(canvasHolder);
-  print(canvasWidth + ', ' + canvasHeight);
- 
-  createCanvas(canvasWidth, canvasHeight).parent('canvasHolder');
 }
 
 function draw() {
-    //createCanvas(window.innerWidth, window.innerHeight);
+    var canvasHolder = select('#canvasHolder'),
+        canvasWidth  = canvasHolder.width,
+        canvasHeight = canvasHolder.height; 
+    createCanvas(canvasWidth, canvasHeight).parent('canvasHolder');
+    
     background(51);
 
 
