@@ -1,47 +1,68 @@
 
-// gotta get the rounded edges for nav-inverse!
-.navbar-noround {
-    border-radius: 0%;
-}
-
-#navbarcollapse{
-    font-family: Roboto; 
-}
-
-.navbar-noround {
-    border-radius: 0px;
-}
-
+/* ----------------------------------------------
+ global
+---------------------------------------------- */
 .web-bg {
-    font-family: Roboto; 
-    background-color: #393939;
+    font-family: 'lato'; 
+    background: #393939;
 }
-
 .data-visibility {
     display:none;
 }
 .data-visibility.active{
     display:block;
 }
-
-.data-page {
-    font-family: Roboto;
-    color: #fff;
-}
-
-.intro-page {
-    font-family: Roboto;
-    color: #fff;
-    background-color: 
-}
-
 #canvasHolder {
-	width: 100%;
-	height: 450px;
-	position: relative;
-	margin: auto;
+    width: 100%;
+    height: 450px;
+    position: relative;
+    margin: auto;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Lato Light'), local('Lato-Light'), url(http://fonts.gstatic.com/s/lato/v11/IY9HZVvI1cMoAHxvl0w9LVKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Lato Light'), local('Lato-Light'), url(http://fonts.gstatic.com/s/lato/v11/22JRxvfANxSmnAhzbFH8PgLUuEpTyoUstqEm5AMlJo4.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(http://fonts.gstatic.com/s/lato/v11/8qcEw_nrk_5HEcCpYdJu8BTbgVql8nDJpwnrE27mub0.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(http://fonts.gstatic.com/s/lato/v11/MDadn8DQ_3oT6kvnUq_2r_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
+/* ----------------------------------------------
+ nav
+---------------------------------------------- */
+.navbar-noround {
+    border-radius: 0%;
+}
+#navbarcollapse{
+    font-family: 'lato'; 
+}
+.navbar-noround {
+    border-radius: 0px;
+}
 .logo {
     margin-top: 4px;
     display:block;
@@ -52,10 +73,397 @@
     background-position: 0px 40px;
     transition: background-position 0.5s;
 }
-
 .logo:hover{
     background-position: 0 0px;
 }
 
+/* -----------------------------------------------
+ data pag
+----------------------------------------------- */
+.data-page {
+    background: #393939;
+}
 
+/* ----------------------------------------------
+ intro page
+---------------------------------------------- */
+.intro-page {
+    background-color: #F93939 !important;
+}
+
+/* ----------------------------------------------
+ slider
+---------------------------------------------- */
+.slide-wrap {
+  margin: 5% auto 0;
+  width: 70%;
+}
+.slide-mask {
+  position: relative;
+  overflow: hidden;
+  height: 480px;
+  width:  100%;
+}
+.slide-group {
+  position: absolute; 
+  top:  0px; 
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+.slide {
+  height: 480px;
+  width: 100%;
+  font: 100 90px/135px "lato";
+  font-size: 2em;
+  color: #fff;
+  text-align: center;
+  list-style-type: none;
+  background-color: #333333;
+  display: block;
+  float: left;
+}
+
+/* ----------------------------------------------
+ slider
+---------------------------------------------- */
+.slide-nav {
+  text-align: center;
+}
+.slide-nav ul {
+    margin: 0 0 0 20px;
+    padding: 0;
+}
+.slide-nav li {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: rgb(175, 56, 56);
+  cursor: pointer;
+  margin-left: .5em;
+}
+.slide-nav li.current {
+  background: rgb(144, 39, 39);
+}
+
+/* ----------------------------------------------
+ disease
+---------------------------------------------- */
+
+.disease {
+
+  position:relative;
+  display:block;
+  left: 40%;
+  width: 80px;
+  height: 80px;
+  background-color: #4AA02C;
+  border-radius: 50%;
+  border-width: 0;
+  border-style: solid;
+  border-color: #FF5050;
+  transform: scale(0.0);
+
+  -webkit-animation: node 45s 800ms infinite ease-in forwards;
+}
+
+@-webkit-keyframes node {
+  2.5%    { background-color: #4AA02C; transform: scale(1.0);} // Complications of Pregnancy, Childbirth, and the Puerperium
+  /* node explanation */
+  7.5%   { background-color: #4AA02C;} 
+  10%   { background-color: #C11B17 ;} // Diseases of Blood and Blood Forming Organs
+  /* explain node color */
+  12.5%   { background-color: #C11B17 ;}
+  15%   { background-color: #D4A017 ;} // Diseases of Nervous System and Sense Organs
+  17.5%   { background-color: #D4A017 ;}
+  20%   { background-color: #4AA02C ; border-width: 0; }
+  22.5%   { border-width: 0; }
+  25%   { border-width: 8px;}
+  /* explain node border color  */
+  30%   { border-color: #FF5050; }
+  32.5%   { border-color: #ff8c19; }
+  35%   { border-color: #ff8c19; }
+  37.5%   { border-color: #1ebaff;}
+  /* explain node size */
+  42.5%   { transform: scale(1.0);border-width: 8px;}
+  45%   { transform: scale(1.6); }
+  47.5%   { transform: scale(1.6); }
+  50%   { transform: scale(0.75); }
+  52.5%    { transform: scale(0.75);}
+  55%  { transform: scale(1.0);}
+  /* explain other node type  */
+  60%  { transform: scale(1.0); border-radius: 50%;}
+  62.5%  { border-radius: 10%; }
+  67.5%  { transform: scale(1.0); border-width: 8px;}
+  70%   { background-color: #4AA02C ; border-color: #1ebaff; border-width: 0px; transform: scale(0.0);}
+}
+
+/*
+"Diseases of Circulatory System"="#FF0000", 7
+
+"Infectious and Parasitic Diseases"="#FF00FF", 1
+
+"Diseases of Digestive System"="#736F6E", 9
+
+"Neoplasms"="#151B8D", 2
+
+"Diseases of Blood and Blood Forming Organs"="#C11B17", 4
+
+"Diseases of Nervous System and Sense Organs"="#D4A017", 6
+
+ "Diseases of Musculoskeletal and Connective Tissue"="#98AFC7", 13
+
+"Congenital Anomalies"="#800080", 11?
+
+ "Diseases of Respiratory System"="#FDD017", 8
+
+"Diseases of Genitourinary System"="#FFFFFF", 10
+
+"Diseases Skin and Subcutaneous Tissue"="#F9B7FF", 12
+
+"Endocrine, Nutritional, and Metabolic Diseases and Immunity Disorders"="#F87217", 3
+
+"Complications of Pregnancy, Childbirth, and the Puerperium"="#4AA02C",
+
+"Mental Disorders"="#00FFFF", 5
+
+"Newborn (Perinatal) Guidelines"="#000000"
+
+"DEAD"="#FFFFFF", 9
+*/
+
+/* ----------------------------------------------
+ line
+---------------------------------------------- */
+
+.lines {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 280px;
+  left: 310px;
+  transform: scale(4.5);
+}
+.dash-lines {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 280px;
+  left: 310px;
+  transform: scale(4.5);
+  opacity: 0;
+  animation: dashhide 20s infinite;
+}
+.path01 {
+  stroke: #1ebaff;
+  stroke-dasharray: 80;
+  stroke-dashoffset: -80;
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
+  transform: scale(1.0);
+}
+.path02 {
+  stroke: #1ebaff;
+  stroke-dasharray: 90;
+  stroke-dashoffset: -90;
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
+  transform: scale(1.0);
+}
+.path03 {
+    stroke: #1ebaff;
+  stroke-dasharray: 90;
+  stroke-dashoffset: -90;
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
+  transform: scale(1.0);
+}
+.path04 {
+    stroke: #1ebaff;
+  stroke-dasharray: 100;
+  stroke-dashoffset: -100;
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
+  transform: scale(1.0);
+}
+.path05 {
+    stroke: #1ebaff;
+  stroke-dasharray: 100;
+  stroke-dashoffset: -100;
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
+  transform: scale(1.0);
+}
+.path06 {
+    stroke: #1ebaff;
+  stroke-dasharray: 100;
+  stroke-dashoffset: -100;
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
+  transform: scale(1.0);
+}
+.dash-path01 {
+  stroke: #333333;
+  stroke-dasharray: 3;
+  stroke-dashoffset: -3;
+  transform: scale(1.0);
+}
+.dash-path02 {
+  stroke: #333333;
+  stroke-dasharray: 3;
+  stroke-dashoffset: -3;
+  transform: scale(1.0);
+}
+.dash-path03 {
+    stroke: #333333;
+  stroke-dasharray: 3;
+  stroke-dashoffset: -3;
+  transform: scale(1.0);
+}
+.dash-path04 {
+    stroke: #333333;
+  stroke-dasharray: 3;
+  stroke-dashoffset: -3;
+  transform: scale(1.0);
+}
+.dash-path05 {
+    stroke: #333333;
+  stroke-dasharray: 4;
+  stroke-dashoffset: -4;
+  transform: scale(1.0);
+}
+.dash-path06 {
+    stroke: #333333;
+  stroke-dasharray: 4;
+  stroke-dashoffset: -4;
+  transform: scale(1.0);
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes strokeclr {
+  10% {
+    stroke: #1ebaff;
+  }
+  20% {
+    stroke: #FF5050;
+  }
+  30% {
+    stroke: #FF5050;
+  }
+  40% {
+    stroke: #ff8c19;
+  }
+  50% {
+    stroke: #ff8c19;
+  }
+  55% {
+    stroke: #1ebaff;
+  }
+}
+
+@keyframes dashhide {
+  55% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes deathhide {
+  55% {
+    border-radius: 50%;
+  }
+  60% {
+    border-radius: 10%;
+  }
+  99% {
+    border-radius: 10%;
+  }
+  100% {
+    border-radius: 50%;
+  }
+}
+
+.start-node{
+  position: absolute;
+  top: 65%;
+  left: 24%;
+  width: 24px;
+  height: 24px;
+  background-color: #4AA02C;
+  border-radius: 50%;
+  z-index:10;
+  border: 2px solid #FF5050;
+  -webkit-animation: nodestart 2.5s 50ms infinite ease-out;
+  transform: scale(1.0);
+}
+.end-node{
+  position: absolute;
+  top: 65%;
+  left: 54%;
+  width: 24px;
+  height: 24px;
+  background-color: #C11B17;
+  border-radius: 50%;
+  z-index:10;
+  border: 2px solid #ff8c19;
+  -webkit-animation: nodeend 2.5s 150ms infinite ease-out, deathhide 20s 100ms infinite ease-out;
+  transform: scale(1.0);
+}
+
+@-webkit-keyframes nodestart {
+  0% {
+    transform: scale(1.0);
+    background-color: #4AA02C;
+  }
+
+  7% {
+    background-color: #fff;
+  }
+
+  14% {
+    transform: scale(1.4);
+    background-color: #4AA02C;
+  }
+
+  21% {
+    background-color: #fff;
+  }
+
+  28% {
+    transform: scale(1.0);
+    background-color: #4AA02C;
+  }
+}
+
+@-webkit-keyframes nodeend {
+  72% {
+    transform: scale(1.0);
+    background-color: #C11B17;
+  }
+
+  79% {
+    background-color: #fff;
+  }
+
+  86% {
+    transform: scale(1.4);
+    background-color: #C11B17;
+  }
+
+  93% {
+    background-color: #fff;
+  }
+
+  100% {
+    transform: scale(1.0);
+    background-color: #C11B17;
+  }
+}
 
