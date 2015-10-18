@@ -147,11 +147,10 @@
 }
 
 /* ----------------------------------------------
- disease
+ node
 ---------------------------------------------- */
 
-.disease {
-
+.node {
   position:relative;
   display:block;
   left: 40%;
@@ -163,8 +162,9 @@
   border-style: solid;
   border-color: #FF5050;
   transform: scale(0.0);
-
-  -webkit-animation: node 45s 800ms infinite ease-in forwards;
+}
+.node-animation{
+    -webkit-animation: node 45s 800ms infinite ease-in forwards;
 }
 
 @-webkit-keyframes node {
@@ -233,68 +233,158 @@
 */
 
 /* ----------------------------------------------
- line
+ line - nodes
 ---------------------------------------------- */
+.start-node{
+  position: relative;
+  display: inline-block;
+  float:left;
+  top: 145px;
+  left: 90px;
+  width: 24px;
+  height: 24px;
+  background-color: #4AA02C;
+  border-radius: 50%;
+  z-index:10;
+  border: 2px solid #FF5050;
+  transform: scale(1.0);
+}
+.start-node-animation{
+  -webkit-animation: nodestart 2.5s 50ms infinite ease-out;
+}
+.end-node{
+  position: relative;
+  display: inline-block;
+  float:left;
+  top: 145px;
+  left: 340px;
+  width: 24px;
+  height: 24px;
+  background-color: #C11B17;
+  border-radius: 50%;
+  z-index:10;
+  border: 2px solid #ff8c19;
+  transform: scale(1.0);
+}
+.end-node-animation{
+  -webkit-animation: nodeend 2.5s 150ms infinite ease-out, deathhide 20s 100ms infinite ease-out; 
+}
+@-webkit-keyframes nodestart {
+  0% {
+    transform: scale(1.0);
+    background-color: #4AA02C;
+  }
 
+  7% {
+    background-color: #fff;
+  }
+
+  14% {
+    transform: scale(1.4);
+    background-color: #4AA02C;
+  }
+
+  21% {
+    background-color: #fff;
+  }
+
+  28% {
+    transform: scale(1.0);
+    background-color: #4AA02C;
+  }
+}
+
+@-webkit-keyframes nodeend {
+  72% {
+    transform: scale(1.0);
+    background-color: #C11B17;
+  }
+
+  79% {
+    background-color: #fff;
+  }
+
+  86% {
+    transform: scale(1.4);
+    background-color: #C11B17;
+  }
+
+  93% {
+    background-color: #fff;
+  }
+
+  100% {
+    transform: scale(1.0);
+    background-color: #C11B17;
+  }
+}
+
+/* ----------------------------------------------
+ line - lines
+---------------------------------------------- */
 .lines {
-  position: absolute;
+  position: relative;
+  display: inline;
+  float:left;
+  top: 105px;
+  left: 138px;
   width: 100px;
   height: 100px;
-  top: 280px;
-  left: 310px;
   transform: scale(4.5);
 }
 .dash-lines {
-  position: absolute;
+  position: relative;
+  display: inline;
+  float:left;
+  top: 105px;
+  left: 138px;
   width: 100px;
   height: 100px;
-  top: 280px;
-  left: 310px;
   transform: scale(4.5);
   opacity: 0;
+  margin-left: -100px;
+}
+.dash-lines-animation {
   animation: dashhide 20s infinite;
 }
 .path01 {
   stroke: #1ebaff;
   stroke-dasharray: 80;
   stroke-dashoffset: -80;
-  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
   transform: scale(1.0);
 }
 .path02 {
   stroke: #1ebaff;
   stroke-dasharray: 90;
   stroke-dashoffset: -90;
-  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
   transform: scale(1.0);
 }
 .path03 {
-    stroke: #1ebaff;
+  stroke: #1ebaff;
   stroke-dasharray: 90;
   stroke-dashoffset: -90;
-  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
   transform: scale(1.0);
 }
 .path04 {
-    stroke: #1ebaff;
+  stroke: #1ebaff;
   stroke-dasharray: 100;
   stroke-dashoffset: -100;
-  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
   transform: scale(1.0);
 }
 .path05 {
-    stroke: #1ebaff;
+  stroke: #1ebaff;
   stroke-dasharray: 100;
   stroke-dashoffset: -100;
-  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
   transform: scale(1.0);
 }
 .path06 {
-    stroke: #1ebaff;
+  stroke: #1ebaff;
   stroke-dasharray: 100;
   stroke-dashoffset: -100;
-  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
   transform: scale(1.0);
+}
+.path-animation{
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
 }
 .dash-path01 {
   stroke: #333333;
@@ -332,6 +422,7 @@
   stroke-dashoffset: -4;
   transform: scale(1.0);
 }
+
 
 @keyframes dash {
   to {
@@ -387,83 +478,6 @@
   }
   100% {
     border-radius: 50%;
-  }
-}
-
-.start-node{
-  position: absolute;
-  top: 65%;
-  left: 24%;
-  width: 24px;
-  height: 24px;
-  background-color: #4AA02C;
-  border-radius: 50%;
-  z-index:10;
-  border: 2px solid #FF5050;
-  -webkit-animation: nodestart 2.5s 50ms infinite ease-out;
-  transform: scale(1.0);
-}
-.end-node{
-  position: absolute;
-  top: 65%;
-  left: 54%;
-  width: 24px;
-  height: 24px;
-  background-color: #C11B17;
-  border-radius: 50%;
-  z-index:10;
-  border: 2px solid #ff8c19;
-  -webkit-animation: nodeend 2.5s 150ms infinite ease-out, deathhide 20s 100ms infinite ease-out;
-  transform: scale(1.0);
-}
-
-@-webkit-keyframes nodestart {
-  0% {
-    transform: scale(1.0);
-    background-color: #4AA02C;
-  }
-
-  7% {
-    background-color: #fff;
-  }
-
-  14% {
-    transform: scale(1.4);
-    background-color: #4AA02C;
-  }
-
-  21% {
-    background-color: #fff;
-  }
-
-  28% {
-    transform: scale(1.0);
-    background-color: #4AA02C;
-  }
-}
-
-@-webkit-keyframes nodeend {
-  72% {
-    transform: scale(1.0);
-    background-color: #C11B17;
-  }
-
-  79% {
-    background-color: #fff;
-  }
-
-  86% {
-    transform: scale(1.4);
-    background-color: #C11B17;
-  }
-
-  93% {
-    background-color: #fff;
-  }
-
-  100% {
-    transform: scale(1.0);
-    background-color: #C11B17;
   }
 }
 

@@ -24,6 +24,40 @@ angular.module('app')
 	  var slideIndex = $bullet.index($(this));
 
 	  updateIndex(slideIndex);
+
+	  
+	  $node = $('.node');
+	  $node.removeClass('node-animation');
+		setTimeout(function() {
+		    $node.addClass('node-animation');
+		},1);
+		
+
+		/*
+	  $startNode = $('.start-node');
+	  $startNode.removeClass('start-node-animation');
+		setTimeout(function() {
+		    $startNode.addClass('start-node-animation');
+		},1);
+
+	  $endNode = $('.end-node');
+	  $endNode.removeClass('end-node-animation');
+		setTimeout(function() {
+		    $endNode.addClass('end-node-animation');
+		},1);
+
+		
+	   $dashLines = $('.dash-lines');
+	   $dashLines.removeClass('dash-lines-animation');
+		setTimeout(function() {
+		    $dashLines.addClass('dash-lines-animation');
+		},1);
+
+	   $path01 = $('.path01');
+	   $path01.removeClass('path-animation');
+		setTimeout(function() {
+		    $path01.addClass('path-animation');
+		},1);*/
 	};
 
 	var updateIndex = function(currentSlide) {
