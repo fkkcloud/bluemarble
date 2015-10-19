@@ -12,9 +12,27 @@ angular.module('app')
 
 	var slidesTotal = ($slide.length - 1),
 	    current = 0,
-	    isAutoSliding = false;
+	    isAutoSliding = true;
 
 	$bullet.first().addClass('current');
+
+	/* reset the div and animation */
+	var resetSlides = function() {
+		// reload node slide and animation
+		var divClone_node = $(".slide-node").clone(); // Do this on $(document).ready(function() { ... })
+		$(".slide-node").html("Loading! If you see this message for a while, please refresh the page"); // Change the content temporarily
+
+		// Any changes to "#some_div" after this point will affect the value of divClone
+		$(".slide-node").replaceWith(divClone_node); // Restore element with divClone itself
+	
+	  	// reload lines slide and animation
+	  	var divClone_lines = $(".slide-lines").clone(); // Do this on $(document).ready(function() { ... })
+
+		$(".slide-lines").html("Loading! If you see this message for a while, please refresh the page"); // Change the content temporarily
+
+		// Any changes to "#some_div" after this point will affect the value of divClone
+		$(".slide-lines").replaceWith(divClone_lines); // Restore element with divClone itself
+	}
 
 	var clickSlide = function() {
 	  //stop auto sliding
@@ -25,21 +43,7 @@ angular.module('app')
 
 	  updateIndex(slideIndex);
 
-	  // reload node slide and animation
-		var divClone_node = $(".slide-node").clone(); // Do this on $(document).ready(function() { ... })
-		$(".slide-node").html("Loading! If you see this message for a while, please refresh the page"); // Change the content temporarily
-
-		// Any changes to "#some_div" after this point will affect the value of divClone
-		$(".slide-node").replaceWith(divClone_node); // Restore element with divClone itself
-	
-	  // reload lines slide and animation
-	  	var divClone_lines = $(".slide-lines").clone(); // Do this on $(document).ready(function() { ... })
-
-		$(".slide-lines").html("Loading! If you see this message for a while, please refresh the page"); // Change the content temporarily
-		
-		// Any changes to "#some_div" after this point will affect the value of divClone
-		$(".slide-lines").replaceWith(divClone_lines); // Restore element with divClone itself
-	
+	  resetSlides();
 	};
 
 	var updateIndex = function(currentSlide) {
@@ -63,9 +67,11 @@ angular.module('app')
 	    $slideGroup.animate({
 	      'top': '-' + slidePosition + '00%'
 	    });
+
+	    resetSlides();
 	};
 
 	$bullet.on( 'click', clickSlide);
 
-	var autoSlide = window.setInterval(updateIndex, 6000);
+	var autoSlide = window.setInterval(updateIndex, 36000);
 	});
