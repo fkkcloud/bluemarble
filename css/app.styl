@@ -255,7 +255,7 @@
   transform: scale(1.0);
 }
 .start-node-animation{
-  -webkit-animation: nodestart 2.5s 50ms infinite ease-out;
+  -webkit-animation: nodestart 2.5s 100ms infinite ease-out;
 }
 .end-node{
   position: relative;
@@ -350,46 +350,46 @@
   margin-left: -100px;
 }
 .dash-lines-animation {
-  animation: dashhide 20s infinite;
+  animation: dashhide 30s 3s infinite;
 }
 .path01 {
-  stroke: #1ebaff;
+  stroke: #393939;
   stroke-dasharray: 80;
   stroke-dashoffset: -80;
   transform: scale(1.0);
 }
 .path02 {
-  stroke: #1ebaff;
+  stroke: #393939;
   stroke-dasharray: 90;
   stroke-dashoffset: -90;
   transform: scale(1.0);
 }
 .path03 {
-  stroke: #1ebaff;
+  stroke: #393939;
   stroke-dasharray: 90;
   stroke-dashoffset: -90;
   transform: scale(1.0);
 }
 .path04 {
-  stroke: #1ebaff;
+  stroke: #393939;
   stroke-dasharray: 100;
   stroke-dashoffset: -100;
   transform: scale(1.0);
 }
 .path05 {
-  stroke: #1ebaff;
+  stroke: #393939;
   stroke-dasharray: 100;
   stroke-dashoffset: -100;
   transform: scale(1.0);
 }
 .path06 {
-  stroke: #1ebaff;
+  stroke: #393939;
   stroke-dasharray: 100;
   stroke-dashoffset: -100;
   transform: scale(1.0);
 }
 .path-animation{
-  animation: dash 2.5s 100ms ease-out infinite, strokeclr 20s infinite;
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 30s 3s infinite;
 }
 .dash-path01 {
   stroke: #393939;
@@ -436,7 +436,7 @@
 }
 
 @keyframes strokeclr {
-  10% {
+  15% {
     stroke: #1ebaff;
   }
   20% {
@@ -445,14 +445,20 @@
   30% {
     stroke: #FF5050;
   }
-  40% {
+  35% {
+    stroke: #ff8c19;
+  }
+  45% {
     stroke: #ff8c19;
   }
   50% {
-    stroke: #ff8c19;
-  }
-  55% {
     stroke: #1ebaff;
+  }
+  99% {
+    stroke: #1ebaff;
+  }
+  100% {
+    stroke: #393939;
   }
 }
 
