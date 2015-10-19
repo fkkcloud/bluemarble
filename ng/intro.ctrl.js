@@ -25,39 +25,21 @@ angular.module('app')
 
 	  updateIndex(slideIndex);
 
-	  
-	  $node = $('.node');
-	  $node.removeClass('node-animation');
-		setTimeout(function() {
-		    $node.addClass('node-animation');
-		},1);
+	  // reload node slide and animation
+		var divClone_node = $(".slide-node").clone(); // Do this on $(document).ready(function() { ... })
+		$(".slide-node").html("Loading! If you see this message for a while, please refresh the page"); // Change the content temporarily
+
+		// Any changes to "#some_div" after this point will affect the value of divClone
+		$(".slide-node").replaceWith(divClone_node); // Restore element with divClone itself
+	
+	  // reload lines slide and animation
+	  	var divClone_lines = $(".slide-lines").clone(); // Do this on $(document).ready(function() { ... })
+
+		$(".slide-lines").html("Loading! If you see this message for a while, please refresh the page"); // Change the content temporarily
 		
-
-		/*
-	  $startNode = $('.start-node');
-	  $startNode.removeClass('start-node-animation');
-		setTimeout(function() {
-		    $startNode.addClass('start-node-animation');
-		},1);
-
-	  $endNode = $('.end-node');
-	  $endNode.removeClass('end-node-animation');
-		setTimeout(function() {
-		    $endNode.addClass('end-node-animation');
-		},1);
-
-		
-	   $dashLines = $('.dash-lines');
-	   $dashLines.removeClass('dash-lines-animation');
-		setTimeout(function() {
-		    $dashLines.addClass('dash-lines-animation');
-		},1);
-
-	   $path01 = $('.path01');
-	   $path01.removeClass('path-animation');
-		setTimeout(function() {
-		    $path01.addClass('path-animation');
-		},1);*/
+		// Any changes to "#some_div" after this point will affect the value of divClone
+		$(".slide-lines").replaceWith(divClone_lines); // Restore element with divClone itself
+	
 	};
 
 	var updateIndex = function(currentSlide) {
