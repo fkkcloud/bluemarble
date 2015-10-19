@@ -350,7 +350,7 @@
   margin-left: -100px;
 }
 .dash-lines-animation {
-  animation: dashhide 30s 3s infinite;
+  animation: dashhide 30s 8s infinite;
 }
 .path01 {
   stroke: #393939;
@@ -389,7 +389,7 @@
   transform: scale(1.0);
 }
 .path-animation{
-  animation: dash 2.5s 100ms ease-out infinite, strokeclr 30s 3s infinite;
+  animation: dash 2.5s 100ms ease-out infinite, strokeclr 30s 8s infinite;
 }
 .dash-path01 {
   stroke: #393939;
