@@ -12,7 +12,7 @@ angular.module('app')
 
 	var slidesTotal = ($slide.length - 1),
 	    current = 0,
-	    isAutoSliding = true;
+	    isAutoSliding = false;
 
 	$bullet.first().addClass('current');
 
@@ -73,5 +73,5 @@ angular.module('app')
 
 	$bullet.on( 'click', clickSlide);
 
-	var autoSlide = window.setInterval(updateIndex, 36000);
+	var autoSlide = window.setInterval(updateIndex, 80000);
 	});
