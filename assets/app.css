@@ -115,7 +115,7 @@
 .slide {
   height: 580px;
   width: 100%;
-  font: 100 90px/135px "lato";
+  font-family: "lato";
   font-size: 2em;
   color: #fff;
   text-align: center;
@@ -423,6 +423,8 @@
   border-style: solid;
   border-color: #393939;
   transform: scale(0.0);
+  margin: 40px 0px 20px 0px;
+  overflow:hidden;
 }
 .node-animation{
     -webkit-animation: node 90s 0s linear forwards;
@@ -443,10 +445,10 @@
   }
   10%   {
     border-width: 0px;
-    background-color: #FF3300; /* red "Heart Failuer" */
+    background-color: #FF9966; /* red "Heart Failuer" */
     }
   13%   { 
-    background-color: #FF3300;
+    background-color: #FF9966;
   } 
   14%   { 
     background-color: #FF66CC; /* magenta "Infectious and Parasitic diseases" */
@@ -461,25 +463,25 @@
     background-color: #FFF;
   }
   22%   { 
-    background-color: #FF9966; /* orage "Endocrine, metabolic and immune disease" */
+    background-color: #FF3300; /* orage "Endocrine, metabolic and immune disease" */
   }
   25%   { 
-    background-color: #FF9966; 
+    background-color: #FF3300; 
   }
   26%   { 
     transform: scale(1.0); /* size change start */
   }
   27%   { 
-    transform: scale(1.4); 
+    transform: scale(0.0); 
   }
-  30%   { 
-    transform: scale(1.4); 
+  29%   { 
+    transform: scale(0.0); 
   }
-  31%   { 
-    transform: scale(0.75); 
+  32%   { 
+    transform: scale(1.4);
   }
   34%   { 
-    transform: scale(0.75);
+    transform: scale(1.4);
   }
   35%  { 
     transform: scale(1.0); /* size change end */
@@ -509,7 +511,7 @@
     border-color: #FF5050; /* red */ /* border end */
   }
   53%  {
-    background-color: #FF9966; /* orage Endocrine, metabolic and immune disease */
+    background-color: #FF3300;
     border-width: 8px;
     border-radius: 50%;
     border-color: #FF5050; /* red */
@@ -525,20 +527,22 @@
     transform: scale(1.0); /* death size change start */
   }
   58%  {
-    transform: scale(1.4);
+    transform: scale(0.0);
+  }
+  59%  {
+    transform: scale(0.0);
   }
   62%  {
     transform: scale(1.4);
   }
-  63%  {
-    transform: scale(0.75);
+  65%  {
+    transform: scale(1.4);
   }
   66%  {
-    transform: scale(0.75);
-  }
-  67%  {
-    border-width: 0px;
     transform: scale(1.0); /* death size change end */
+  }
+  69%  {
+    border-width: 0px;
   }
   70%  {
     border-width: 8px; /* death border change end */
@@ -625,33 +629,10 @@
   overflow: hidden;
    /*border: 1px solid #565656; */
 }
-
-.node-name {
-  position: absolute;
-  left: 46%;
-  top: 30%;
-  width: 90px;
-  font-size: 12px;
-  line-height : 14px;
-  color: #DDDDDD;
-}
-
-.node-meta-data {
-  position:relative;
-  width: 50%;
-  margin: 0 auto;
-  height: 56px;
-  font-size: 16px;
-  line-height : 18px;
-  overflow: hidden;
-  /*border: 1px solid #565656; */
-}
-
 .node-description-each {
   width: 100%;
   margin-top: 94px;
 }
-
 .node-description-slides {
   position: absolute;
   top:0px; /* -6.5 each step */
@@ -661,8 +642,6 @@
 .node-description-slides-animation {
   -webkit-animation: node-description-slides 90s 0s linear forwards;
 }
-
-
 @-webkit-keyframes node-description-slides {
 /* "Round-shaped node represents a disease" */
   2%    {
@@ -724,15 +703,15 @@
 
     /* "Squared node means died outcomes for each disease"*/  
   54%  {
-    top:-53em; /* -6.5 each step */   }
+    top:-53em; /* -6.5 each step */  }
   57%  {
-    top:-53em; /* -6.5 each step */   }
+    top:-53em; /* -6.5 each step */  }
 
     /* "Size of death node means Case Fatality Rate (CFR)"*/
   58%  {
-    top:-59.5em; /* -6.5 each step */   }
+    top:-59.5em; /* -6.5 each step */  }
   70%  {
-    top:-59.5em; /* -6.5 each step */   }
+    top:-59.5em; /* -6.5 each step */  }
 
    /* "Each node has distinct border color by mean age of died patients" */
   72%  {
@@ -753,5 +732,186 @@
     transform: scale(0.0);
     opacity: 0;
     top:-80em; /* -6.5 each step */  
+  }
+}
+.node-meta-mask {
+  position:relative;
+  width: 100%;
+  margin: 32px auto 10px auto;
+  font-size: 16px;
+  line-height : 18px;
+  height: 36px;
+  overflow: hidden;
+}
+.node-meta-data {
+  position:absolute;
+  width:inherit;
+  text-align: center;
+  opacity:0;
+}
+.node-meta-first-animation {
+  -webkit-animation: node-meta-first  90s 0s linear forwards;
+}
+.node-meta-second-animation {
+  -webkit-animation: node-meta-second 90s 0s linear forwards;
+}
+.node-meta-third-animation {
+  -webkit-animation: node-meta-third  90s 0s linear forwards;
+}
+.node-meta-fourth-animation {
+  -webkit-animation: node-meta-fourth 90s 0s linear forwards;
+}
+@-webkit-keyframes node-meta-first {
+  28% {
+    opacity:0;
+  }
+  29% {
+    opacity:1;
+  }
+  34% {
+    opacity:1;
+  }
+  35% {
+    opacity:0;
+  }
+}
+@-webkit-keyframes node-meta-second {
+  40% {
+    opacity:0;
+  }
+  41% {
+    opacity:1;
+  }
+  52% {
+    opacity:1;
+  }
+  53% {
+    opacity:0;
+  }
+}
+@-webkit-keyframes node-meta-third {
+  58% {
+    opacity:0;
+  }
+  59% {
+    opacity:1;
+  }
+  65% {
+    opacity:1;
+  }
+  66% {
+    opacity:0;
+  }
+}
+@-webkit-keyframes node-meta-fourth {
+  70% {
+    opacity:0;
+  }
+  71% {
+    opacity:1;
+  }
+  81% {
+    opacity:1;
+  }
+  83% {
+    opacity:0;
+  }
+}
+
+.node-name {
+  position:absolute;
+  display: block;
+  text-align: center;
+  top: 48px;
+  left: 0px;
+  width: 100%;
+  font-size: 12px;
+  line-height : 14px;
+  color: #DDDDDD;
+  opacity:0;
+}
+.node-name-first-animation {
+  -webkit-animation: node-name-first  90s 0s linear forwards;
+}
+.node-name-second-animation {
+  -webkit-animation: node-name-second 90s 0s linear forwards;
+}
+.node-name-third-animation {
+  -webkit-animation: node-name-third  90s 0s linear forwards;
+}
+.node-name-fourth-animation {
+  -webkit-animation: node-name-fourth 90s 0s linear forwards;
+}
+.node-name-fifth-animation {
+  -webkit-animation: node-name-fifth  90s 0s linear forwards;
+}
+@-webkit-keyframes node-name-first {
+  9% {
+    opacity:0;
+  }
+  10% {
+    opacity:1;
+  }
+  13% {
+    opacity:1;
+  }
+  14% {
+    opacity:0;
+  }
+}
+@-webkit-keyframes node-name-second {
+  13% {
+    opacity:0;
+  }
+  14% {
+    opacity:1;
+  }
+  17% {
+    opacity:1;
+  }
+  18% {
+    opacity:0;
+  }
+}
+@-webkit-keyframes node-name-third {
+  17% {
+    opacity:0;
+  }
+  18% {
+    opacity:1;
+  }
+  21% {
+    opacity:1;
+  }
+  22% {
+    opacity:0;
+  }
+}
+@-webkit-keyframes node-name-fourth {
+  21% {
+    opacity:0;
+  }
+  22% {
+    opacity:1;
+  }
+  53% {
+    opacity:1;
+  }
+  54% {
+    opacity:0;
+  }
+}
+@-webkit-keyframes node-name-fifth {
+  53% {
+    opacity:0;
+  }
+  54% {
+    opacity:1;
+  }
+  83% {
+    opacity:1;
+  }
+  86% {
+    opacity:0;
   }
 }
