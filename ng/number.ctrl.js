@@ -10,10 +10,11 @@ angular.module('app')
 	    var num           = parseInt($it.attr('data-num'));
 	    var time_duration = parseInt($it.attr('time-duration'));
 	    var time_delay    = parseInt($it.attr('time-delay'));
+	    var format_info   = parseInt($it.attr('format-info'));
 
-	    init_increase($it, num, cur, time_duration, time_delay);
+	    init_increase($it, num, cur, time_duration, time_delay, format_info);
 
-	    function init_increase($it, num, cur, time_duration, time_delay)
+	    function init_increase($it, num, cur, time_duration, time_delay, format_info)
 	    {
 	        var steps       = 100;
 	        var timetotal   = time_duration;
@@ -43,8 +44,19 @@ angular.module('app')
 	          		}
 	        	}     
 	        	
-	        	var j = (j = i.length) > 2 ? j % 2 : 0;
-	       		return (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{2})(?=\d)/g, "$1" + t);
+	        	if (format_info == 3){
+	        		var j = (j = i.length) > 3 ? j % 3 : 0;
+	       			return (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t);
+	        	}
+	        	if (format_info == 4){
+	        		var j = (j = i.length) > 4 ? j % 4 : 0;
+	       			return (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{4})(?=\d)/g, "$1" + t);
+	        	}
+	        	else {
+	        		var j = (j = i.length) > 2 ? j % 2 : 0;
+	       			return (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{2})(?=\d)/g, "$1" + t);
+	        	}
+	        	
 	      	}
 
 	      	function loop()
@@ -74,7 +86,7 @@ angular.module('app')
 	          		} 
 	          		else 
 	          		{          
-	            		htms+='<em>'+ chars[i]+'</em>';
+	            		htms+='<span>'+chars[i]+'</span>';
 	          		}
 	        	}
 	        	return htms;

@@ -4,6 +4,48 @@
 ---------------------------------------------- */
 .slide-lines{}
 
+.start-node-label {
+  position:absolute:
+  display:inline-block;
+  font-size: 14px !important;
+  width:150px;
+  margin: 40px 0 12px -30px;
+}
+.end-node-label-0 {
+  position:absolute:
+  display:inline-block;
+  font-size: 14px !important;
+  width:120px;
+  margin: 24px 0 12px -30px;
+  -webkit-animation: label0animation 2s 37s ease-in forwards;
+  opacity:1;
+}
+.end-node-label-1 {
+  position:absolute:
+  display:inline-block;
+  font-size: 10px !important;
+  width:120px;
+  margin: -50px 0 12px -30px;
+  -webkit-animation: label1animation 2s 37s ease-in forwards;
+  opacity:0;
+}
+@-webkit-keyframes label0animation{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes  label1animation{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .start-node{
   position: relative;
   display: inline-block;
@@ -62,13 +104,13 @@
   }
 
   57% {
-    background-color: #FF7777;
+    background-color: #0066CC;
     transform: scale(1.4);
     border-radius: 10%;
   }
 
   100% {
-    background-color: #FF7777;
+    background-color: #0066CC;
     transform: scale(1.4);
     border-radius: 10%;
   }
