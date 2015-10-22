@@ -1,0 +1,49 @@
+.ex-description-mask {
+  position:relative;
+  width: 76%;
+  margin: 32px auto 1px auto;
+  font-size: 16px;
+  line-height : 18px;
+  height: 36px;
+  top: 70px;
+  left: -20px;
+}
+.ex-description {
+	top: 320px;
+  left: -50px;
+  position:absolute;
+  width:inherit;
+  text-align: center;
+  opacity:0;
+}
+
+.ex-description-01 {
+	-webkit-animation: ex-description-animation 7s 12s ease-in;
+}
+.ex-description-02 {
+	-webkit-animation: ex-description-animation 7s 21s ease-in;
+}
+.ex-description-03 {
+	-webkit-animation: ex-description-animation 7s 30s ease-in;
+}
+.ex-description-04 {
+	-webkit-animation: ex-description-animation 7s 39s ease-in;
+}
+.ex-description-05 {
+	-webkit-animation: ex-description-animation 12s 48s ease-in;
+}
+
+@keyframes ex-description-animation {
+	0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
