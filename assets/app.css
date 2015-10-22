@@ -146,6 +146,346 @@
   background: rgb(144, 39, 39);
 }
 
+.ex2-lines {
+  position: absolute;
+  margin-left:-60px;
+}
+.ex2-path01 {
+  stroke: #1ebaff;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path02-0 {
+  stroke: #ff0000;
+  stroke-dasharray: 90;
+  stroke-dashoffset: 90;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path02-1 {
+  stroke: #ff0000;
+  stroke-dasharray: 115;
+  stroke-dashoffset: 115;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path02-2 {
+  stroke: #ff0000;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path02-3 {
+  stroke: #ff0000;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path02-4 {
+  stroke: #ff0000;
+  stroke-dasharray: 110;
+  stroke-dashoffset: 110;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path03 {
+  stroke: #ff4411;
+  stroke-dasharray: 90;
+  stroke-dashoffset: 90;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path04-0 {
+  stroke: #FFFF99;
+  stroke-dasharray: 90;
+  stroke-dashoffset: 90;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path04-1 {
+  stroke: #FFFF99;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path04-2 {
+  stroke: #FFFF99;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path05 {
+  stroke: #ff4422;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transform: scale(1.0);
+  opacity:0;
+}
+.ex2-path01-animation{
+  animation: exdash 6s 4s ease-out forwards;
+}
+.ex2-path02-animation{
+  animation: exdash 8s 8s ease-out forwards;
+}
+.ex2-path03-animation{
+  animation: exdash 6s 12s ease-out forwards;
+}
+.ex2-path04-animation{
+  animation: exdash 8s 16s ease-out forwards;
+}
+.ex2-path05-animation{
+  animation: exdash 6s 20s ease-out forwards;
+}
+
+.ex2-path01-dash-0 {
+  stroke: #393939;
+  stroke-dasharray: 1.8;
+  stroke-dashoffset: -1.8;
+  transform: scale(1.0);
+}
+.ex2-path01-dash-1 {
+  stroke: #393939;
+  stroke-dasharray: 2.1;
+  stroke-dashoffset: 2.1;
+  transform: scale(1.0);
+}
+.ex2-path01-dash-2 {
+  stroke: #393939;
+  stroke-dasharray: 2.2;
+  stroke-dashoffset: 2.2;
+  transform: scale(1.0);
+}
+
+
+.ex2-path03-dash-0 {
+  stroke: #393939;
+  stroke-dasharray: 2.3;
+  stroke-dashoffset: 2.3;
+  transform: scale(1.0);
+}
+.ex2-path03-dash-1 {
+  stroke: #393939;
+  stroke-dasharray: 2;
+  stroke-dashoffset: -2;
+  transform: scale(1.0);
+}
+.ex2-path03-dash-2 {
+  stroke: #393939;
+  stroke-dasharray: 2.1;
+  stroke-dashoffset: -2.1;
+  transform: scale(1.0);
+}
+
+
+.ex2-path05-dash-0 {
+  stroke: #393939;
+  stroke-dasharray: 2.2;
+  stroke-dashoffset: -2.2;
+  transform: scale(1.0);
+}
+.ex2-path05-dash-1 {
+  stroke: #393939;
+  stroke-dasharray: 2;
+  stroke-dashoffset: 2;
+  transform: scale(1.0);
+}
+.ex2-path05-dash-2 {
+  stroke: #393939;
+  stroke-dasharray: 1.7;
+  stroke-dashoffset: -1.7;
+  transform: scale(1.0);
+}
+
+/* ----------------------------------------------
+ line - nodes
+---------------------------------------------- */
+.slide-ex{}
+
+.ex2-node1{
+  position: absolute;
+  display: inline-block;
+  top: 310px;
+  left: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  z-index:10;
+  background-color: #FF7777;
+  border: 0px solid #FF0000;
+  transform: scale(0.0);
+}
+.ex2-node1-animation {
+  -webkit-animation: ex2-node1-animation 2s 4s ease-out forwards;
+}
+@-webkit-keyframes ex2-node1-animation {
+  to {
+    border-width: 4px;
+    transform: scale(1.0);
+  }
+}
+.ex2-node2{
+  position: absolute;
+  display: inline-block;
+  top: 180px;
+  left: 240px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  z-index:10;
+  background-color: #002952;
+  border: 0px solid #FF0000;
+  transform: scale(0.0);
+}
+.ex2-node2-animation {
+  -webkit-animation: ex2-node2-animation 1.5s 6s ease-out forwards;
+}
+@-webkit-keyframes ex2-node2-animation {
+  to {
+    border-radius: 10%;
+    border-width: 2px;
+    transform: scale(1.0);
+  }
+}
+.ex2-node3{
+  position: absolute;
+  display: inline-block;
+  top: 390px;
+  left: 280px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  z-index:10;
+  background-color: #FFF;
+  border: 0px solid #FF0000;
+  transform: scale(0.0);
+}
+.ex2-node3-animation {
+  -webkit-animation: ex2-node3-animation 1.3s 9s ease-out forwards;
+}
+@-webkit-keyframes ex2-node3-animation {
+  to {
+    border-width: 3px;
+    transform: scale(1.0);
+  }
+}
+.ex2-node4{
+  position: absolute;
+  display: inline-block;
+  top: 230px;
+  left: 440px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  z-index:10;
+  background-color: #002952;
+  border: 0px solid #FF0000;
+  transform: scale(0.0);
+}
+.ex2-node4-animation {
+  -webkit-animation: ex2-node4-animation 2.2s 12s ease-out forwards;
+}
+@-webkit-keyframes ex2-node4-animation {
+  to {
+    border-radius: 10%;
+    border-width: 4px;
+    transform: scale(1.0);
+  }
+}
+.ex2-node5{
+  position: absolute;
+  display: inline-block;
+  top: 430px;
+  left: 515px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  z-index:10;
+  background-color: #FF66CC;
+  border: 0px solid #FF0000;
+  transform: scale(0.0);
+}
+.ex2-node5-animation {
+  -webkit-animation: ex2-node5-animation 1.1s 15s ease-out forwards;
+}
+@-webkit-keyframes ex2-node5-animation {
+  to {
+    border-width: 3px;
+    transform: scale(1.0);
+  }
+}
+.ex2-node6{
+  position: absolute;
+  display: inline-block;
+  top: 430px;
+  left: 690px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  z-index:10;
+  background-color: #002952;
+  border: 0px solid #FF0000;
+  transform: scale(0.0);
+}
+.ex2-node6-animation {
+  -webkit-animation: ex2-node6-animation 2.4s 18s ease-out forwards;
+}
+@-webkit-keyframes ex2-node6-animation {
+  to {
+    border-radius: 10%;
+    border-width: 4px;
+    transform: scale(1.0);
+  }
+}
+.ex2-description-mask {
+  position:relative;
+  width: 76%;
+  margin: 32px auto 1px auto;
+  font-size: 16px;
+  line-height : 18px;
+  height: 36px;
+  top: 70px;
+  left: -20px;
+}
+.ex2-description {
+  top: 320px;
+  left: -50px;
+  position:absolute;
+  width:inherit;
+  text-align: center;
+  opacity:0;
+}
+
+.ex2-description-01 {
+  -webkit-animation: ex2-animation 6s 4s ease-in;
+}
+.ex2-description-02 {
+  -webkit-animation: ex2-animation 6s 10s ease-in;
+}
+.ex2-description-03 {
+  -webkit-animation: ex2-animation 9s 16s ease-in;
+}
+
+@-webkit-keyframes ex2-animation {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .ex-description-mask {
   position:relative;
   width: 76%;
