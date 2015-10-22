@@ -4,7 +4,96 @@
   <div class="slide-mask">
     <ul class="slide-group">
 
-      <!-- node slide -->
+
+    <!-- lines slide -->
+      <li class="slide">
+        <header>Concept of Lines</header>
+      </li> 
+
+      <!--
+      <li class="slide">
+        <header>Concept of Lines</header>
+        <div class="slide-lines">
+          <div class="start-node start-node-animation"></div>
+          <div class="end-node end-node-animation"></div>
+          
+          <div class="patient patientX-animation">Patient X</div>
+          <div class="patient patientY-animation">Patient Y</div>
+
+          <section class="lines">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+               width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+
+              <path class="path01 path-animation-first" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50C50,19.207,20.833,50,20.833,50"/>
+
+              <path class="path02 path-animation-second" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50C50-8.16,20.833,50,20.833,50"/>
+
+              <path class="path03 path-animation-third" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50C50,6.105,20.833,50,20.833,50"/>
+
+              <path class="path04 path-animation-fourth" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50C50-17.147,20.833,50,20.833,50"/>
+
+              <path class="path05 path-animation-fifth" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50.826c-31.999-65.27-61.166,0-61.166,0"/>
+
+              <path class="path06 path-animation-sixth" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M82,50.586c-31.999-53.852-61.167,0-61.167,0"/>
+            </svg>
+          </section>
+          <section class="dash-lines dash-lines-animation">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+               width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+
+              <path class="dash-path01" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50C50,19.207,20.833,50,20.833,50"/>
+
+              <path class="dash-path02" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50C50-8.16,20.833,50,20.833,50"/>
+
+              <path class="dash-path03" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50C50,6.105,20.833,50,20.833,50"/>
+
+              <path class="dash-path04" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50C50-17.147,20.833,50,20.833,50"/>
+
+              <path class="dash-path05" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50.826c-31.999-65.27-61.166,0-61.166,0"/>
+
+              <path class="dash-path06" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M82,50.586c-31.999-53.852-61.167,0-61.167,0"/>
+            </svg>
+          </section>
+
+          <section class="line-meta-mask">
+            <div class="line-meta line-meta-01">
+            Shared patient=
+            <span data-num='410900' 
+              time-duration='5500' 
+              time-delay='24800' 
+              class="a"></span>
+            </div>
+            <div class="line-meta line-meta-02">
+            Patient=
+            <span data-num='7531' 
+              time-duration='5000' 
+              time-delay='30800' 
+              class="a"></span>
+            </div>
+            <div class="line-meta line-meta-03">
+            Mean age of died patient=
+            <span data-num='7684' 
+              time-duration='4500' 
+              time-delay='53200' 
+              class="a"></span>
+            </div>
+          </section>
+
+          <section class="line-description-mask">
+            <div class="line-description line-description-01">"A patient X was diagnosed as heart failure and suffered by kidney failure within one-year"</div>
+            <div class="line-description line-description-02">"We represented it as an edge line between disease pair"</div>
+            <div class="line-description line-description-03">"Color of edge denotes mean age of shared patient"</div>
+            <div class="line-description line-description-04">"By number for shared patient between nodes, number of edge lines will be increased"
+  </div>
+            <div class="line-description line-description-05">"Patient Y died with Heart failure"</div>
+            <div class="line-description line-description-06">"Dashed line means a died outcome with a line linked disease" </div>
+            <div class="line-description line-description-07">"Number of dashed line by number of death"</div>
+            <div class="line-description line-description-08">"2659 people died with heart failure"
+  </div>
+          </section>
+        </div>
+      </li> 
+
       <li class="slide">
         <header>Concept of Node</header>
         <div class="slide-node">
@@ -58,7 +147,6 @@
               <div class="node-description-each"> "Infectious and parasitic diseases" </div>
               <div class="node-description-each">  "Disease of genitourinary system"</div>
               <div class="node-description-each">  "Endocrine, metabolic and immune disease" </div> 
-              <!-- Groups of diseases are determined by Chapters of diagnosis (eg. ICD-9 CM)" -->
               <div class="node-description-each">"Size of circle node presents incidence of disease"</div>
               <div class="node-description-each">"Each node has distinct border color by mean age of disease patients."</div>
               <div class="node-description-each">"Squared node means died outcomes for each disease"
@@ -71,54 +159,7 @@
           </section>
         </div>
       </li> 
-
-      <!-- lines slide -->
-      <li class="slide">
-        <header>Line</header>
-        <div class="slide-lines">
-          <div class="start-node start-node-animation"></div>
-          <div class="end-node end-node-animation"></div>
-          <section class="lines">
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-               width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-
-              <path class="path01 path-animation" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50C50,19.207,20.833,50,20.833,50"/>
-
-              <path class="path02 path-animation" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50C50-8.16,20.833,50,20.833,50"/>
-
-              <path class="path03 path-animation" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50C50,6.105,20.833,50,20.833,50"/>
-
-              <path class="path04 path-animation" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50C50-17.147,20.833,50,20.833,50"/>
-
-              <path class="path05 path-animation" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M81.999,50.826c-31.999-65.27-61.166,0-61.166,0"/>
-
-              <path class="path06 path-animation" fill="none" stroke="#000000" stroke-width="0.3" stroke-miterlimit="10" d="M82,50.586c-31.999-53.852-61.167,0-61.167,0"/>
-            </svg>
-          </section>
-          <section class="dash-lines dash-lines-animation">
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-               width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-
-              <path class="dash-path01" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50C50,19.207,20.833,50,20.833,50"/>
-
-              <path class="dash-path02" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50C50-8.16,20.833,50,20.833,50"/>
-
-              <path class="dash-path03" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50C50,6.105,20.833,50,20.833,50"/>
-
-              <path class="dash-path04" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50C50-17.147,20.833,50,20.833,50"/>
-
-              <path class="dash-path05" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M81.999,50.826c-31.999-65.27-61.166,0-61.166,0"/>
-
-              <path class="dash-path06" fill="none" stroke="#000000" stroke-width="0.8" stroke-miterlimit="10" d="M82,50.586c-31.999-53.852-61.167,0-61.167,0"/>
-            </svg>
-          </section>
-        </div>
-      </li> 
-
-
-      <!-- lines slide -->
-      <li class="slide">
-      </li> 
+      -->
     </ul>
   </div>
 
