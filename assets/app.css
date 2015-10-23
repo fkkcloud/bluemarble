@@ -1100,16 +1100,17 @@
   }
 }
 @keyframes line-meta-03-animation {
-  76% {
+
+  82% {
     opacity: 0;
   }
-  77% {
+  83% {
     opacity: 1;
   }
-  88% {
+  94% {
     opacity: 1;
   }
-  89% {
+  95% {
     opacity: 0;
   }
 }
@@ -1491,25 +1492,25 @@
   56% {
     stroke: #FF5050;
   }
-  76% {
+  79% {
     stroke: #fff;
   }
-  77% {
-    stroke: #1ebaff;
-  }
-  79% {
-    stroke: #1ebaff;
-  }
-  80% {
-    stroke: #FFFF99;
-  }
-  81% {
-    stroke: #FFFF99;
-  }
   83% {
-    stroke: #FF5050;
+    stroke: #fff;
   }
   84% {
+    stroke: #1ebaff;
+  }
+  86% {
+    stroke: #1ebaff;
+  }
+  87% {
+    stroke: #FFFF99;
+  }
+  89% {
+    stroke: #FFFF99;
+  }
+  90% {
     stroke: #FF5050;
   }
   100% {
@@ -1621,12 +1622,12 @@
     transform: scale(1.0); 
     border-color: #999999;
   }
-  9%    {
+  8%    {
     border-width: 4px;
     background-color: #393939;
     border-color: #999999;
   }
-  10%   {
+  9%   {
     border-width: 0px;
     background-color: #FF9966; /* red "Heart Failuer" */
     }
@@ -2036,10 +2037,10 @@
   -webkit-animation: node-name-fifth  90s 0s linear forwards;
 }
 @-webkit-keyframes node-name-first {
-  9% {
+  3% {
     opacity:0;
   }
-  10% {
+  4% {
     opacity:1;
   }
   13% {
