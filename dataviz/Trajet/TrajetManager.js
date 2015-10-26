@@ -27,11 +27,11 @@ var TrajetManager = function(width, height) {
 
     var array = [];
 
-    var width = window.innerWidth;
+    var width =  window.innerWidth;
     var height = window.innerHeight;
 
     keys.forEach(function (key) { 
-      var edge_data = this.dataManager.edges[key];
+      var edge_data = this.dataManager.edges[key]; // get data
 
       var stepWidth = etagesManager.getStepWidth();
 
@@ -57,7 +57,13 @@ var TrajetManager = function(width, height) {
         edge_data.noCase_all, 
         edge_data.noCase_mergedPath, 
         edge_data.type, 
-        edge_data.noCase_cluster, 
+        edge_data.noCase_cluster,
+        edge_data.mean_start,
+        edge_data.mean_end,
+        edge_data.size_start,
+        edge_data.size_end,
+        edge_data.source_Ch,
+        edge_data.group_cluster,
         stepWidth);
 
       new_edge.setup();
@@ -104,36 +110,18 @@ var TrajetManager = function(width, height) {
     return this.trajets;
   }
 
-  this.getTrajetsByFloor = function(floor) {
-    var allTrajetsByFloor = [];
+  this.toggleShowByCluster = function(clusterID, val) {
     for (var i = 0; i < this.trajets.length; i++) {
-      var trajet = this.trajets[i];
-      if (trajet.getEtageStart() == floor) {
-        allTrajetsByFloor.push(trajet);
-      }
-    };
-
-    return allTrajetsByFloor;
-  }
-
-  this.setAllState = function(newState) {
-    for (var i = this.trajets.length - 1; i >= 0; i--) {
-      var trajet = this.trajets[i];
-      trajet.setState(newState);
+      if (this.trajets[i].group_cluster == clusterID)
+        this.trajets[i].show = val;
     }
   };
 
-  this.setAllStateByFloor = function(newState, floor) {
-    for (var i = this.trajets.length - 1; i >= 0; i--) {
-      var trajet = this.trajets[i];
-      if (trajet.getEtageStart() == floor) {
-        trajet.setState(newState);
-      }
+  this.toggleShowByChapter = function(chapterID, val) {
+    for (var i = 0; i < this.trajets.length; i++) {
+      if (this.trajets[i].source_ch == chapterID)
+        this.trajets[i].show = val;
     }
-  };
-
-  this.setSliderValue = function(newSliderValue) {
-    this.sliderValue = newSliderValue;
   };
 
 };

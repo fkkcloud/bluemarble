@@ -36,18 +36,21 @@ function setup() {
     //createCanvas(window.innerWidth, window.innerHeight);
     //background(51);
     smooth();
-    frameRate(16);
+    frameRate(16);    
 
     $.getJSON("nodesUS.json", loadNodesUS);
 
+    setTimeout(function(){
+          var canvasHolder = select('#canvasHolder'),
+          canvasWidth  = canvasHolder.width,
+          canvasHeight = canvasHolder.height; 
+          createCanvas(canvasWidth, canvasHeight).parent('canvasHolder');
+    }, 10);
     //eventManager.setup();
 }
 
 function draw() {
-    var canvasHolder = select('#canvasHolder'),
-        canvasWidth  = canvasHolder.width,
-        canvasHeight = canvasHolder.height; 
-    createCanvas(canvasWidth, canvasHeight).parent('canvasHolder');
+
     
     background(51);
 

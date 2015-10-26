@@ -1,16 +1,34 @@
-var Etage = function(id, originalPos, scaledPos, originalSize, scaledSize, node_type, ch, name, node_meanAge_all, node_meanAge_mergedPath, group_mergePath, node_meanAge_cluster, group_cluster) {
+var Etage = function(id, 
+    originalPos, 
+    scaledPos, 
+    originalSize, 
+    scaledSize, 
+    node_type, 
+    ch, 
+    name, 
+    node_meanAge_all, 
+    node_meanAge_mergedPath, 
+    group_mergePath, 
+    node_meanAge_cluster, 
+    group_cluster) 
+{
   this.id                       = id;
   this.node_type                = node_type;
+  
   this.originalPos              = originalPos;
   this.pos                      = scaledPos;
+
   this.originalSize             = originalSize;
   this.size                     = scaledSize;
+
   this.ch                       = ch;
   this.name                     = name;
+
   this.node_meanAge_all         = node_meanAge_all;
   this.node_meanAge_mergedPath  = node_meanAge_mergedPath;
-  this.group_mergePath          = group_mergePath;
   this.node_meanAge_cluster     = node_meanAge_cluster;
+
+  this.group_mergePath          = group_mergePath;
   this.group_cluster            = group_cluster;
 
   // node color by chapter
@@ -19,10 +37,23 @@ var Etage = function(id, originalPos, scaledPos, originalSize, scaledSize, node_
   else
     this.color                    = color(node_color[this.ch]);
 
-  this.state                    = 1;
+  this.show                       = true;
 
   this.setup = function() {
-    //this.color = createVector(244, 220, 255);
+
+    var r = map(this.node_meanAge_all, 50, 80, 30, 255);
+    var g = map(this.node_meanAge_all, 50, 80, 186, 30);
+    var b = map(this.node_meanAge_all, 50, 80, 255, 30);
+    this.stroke_color = createVector(r, g, b);
+
+    if (this.node_type == 'die')
+    {
+      this.strokeWidth = this.originalSize * 3;
+    }
+    else
+    {
+      this.strokeWidth = this.originalSize * 2;
+    }
   };
 
   this.run = function() {
@@ -33,32 +64,32 @@ var Etage = function(id, originalPos, scaledPos, originalSize, scaledSize, node_
   // Method to display
   this.display = function() {
 
-    if (this.state == 0) 
+    if (!this.show) // hide
     {
-      stroke(0);
-      fill(51);
-      ellipse(this.pos.x, this.pos.y, this.size, this.size);
+      //
     } 
-    else if (this.state == 1) 
+    else // show
     {
-      var temp_color = createVector(255, 255, 255);
       if (this.node_type == 'die')
       {
-        strokeWeight(0.8);
-        stroke(temp_color.x, temp_color.y, temp_color.z);
+        
+        strokeWeight(this.strokeWidth);
+        stroke(this.stroke_color.x, this.stroke_color.y, this.stroke_color.z);
+
         fill(this.color);
         rect(this.pos.x, this.pos.y, this.size, this.size)
         fill(0);
       }
       else{
-        strokeWeight(1);
-        stroke(temp_color.x, temp_color.y, temp_color.z);
+        
+        strokeWeight(this.strokeWidth);
+        stroke(this.stroke_color.x, this.stroke_color.y, this.stroke_color.z);
+
         fill(this.color);
         ellipse(this.pos.x, this.pos.y, this.size, this.size);
         fill(0);
         //text('test', this.pos.x - 3, this.pos.y + 4);  
       }
-      
     }
   };
 
@@ -76,17 +107,4 @@ var Etage = function(id, originalPos, scaledPos, originalSize, scaledSize, node_
   this.getPosition = function() {
     return this.pos;
   }
-
-  this.getColor = function() {
-    return this.color;
-  };
-
-  this.getState = function() {
-    return this.state;
-  };
-
-  this.setState = function(newState) {
-    this.state = newState;
-  };
-
 };

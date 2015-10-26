@@ -121,11 +121,17 @@ var EtageManager = function() {
   //GETTERs 
   this.getEtages = function(){
     return this.etages;
-  }
-
+  };
 
   this.getStepWidth = function() {
     return this.stepWidth;
+  };
+
+  this.toggleShowByCluster = function(clusterID, val) {
+    for (var i = 0; i < this.etages.length; i++) {
+      if (this.etages[i].group_cluster == clusterID)
+        this.etages[i].show = val;
+    };
   };
 
 };
