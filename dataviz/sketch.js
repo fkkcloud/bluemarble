@@ -5,7 +5,7 @@ var x = width / 2;
 var y = height / 2;
 
 var etageManager  = new EtageManager();
-var trajetManager = new TrajetManager();
+var trajetManager = new TrajetManager(width, height);
 //var eventManager  = new EventManager(etageManager, trajetManager);
 
 var dataManager = {

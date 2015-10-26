@@ -58,8 +58,8 @@ var Trajet = function(edgeStart,
   };
 
   this.setup = function() {
-    var multiplier_x = 5;
-    var multiplier_y = 5;
+    var multiplier_x = map(this.size_start, 0, 1, 0.6, 1.6);
+    var multiplier_y = map(this.size_end, 0, 1, 4, 5);
 
     // half dist between 2 nodes
     this.middle = this.findHalfLength(); 
@@ -80,14 +80,21 @@ var Trajet = function(edgeStart,
     var r = parseInt(random(2, 3))
     this.step.max = this.middle * r;
 
-    // line color
-    var r = map(this.mean_end, 50, 80, 30, 255);
-    var g = map(this.mean_end, 50, 80, 186, 30);
-    var b = map(this.mean_end, 50, 80, 255, 30);
-
-    // fill the colors of the lines
+    var r, g, b;
+    if (this.mean_end >= 55 && this.mean_end < 66){
+      r = map(this.mean_end, 58, 65, 30, 255);
+      g = map(this.mean_end, 58, 65, 186, 255);
+      b = map(this.mean_end, 58, 65, 255, 153);
+    } else if (this.mean_end >= 66) {
+      r = map(this.mean_end, 65, 75, 255, 255);
+      g = map(this.mean_end, 65, 75, 255, 80);
+      b = map(this.mean_end, 65, 75, 153, 80);
+    } else if (this.mean_end < 55) {
+      r = 30;
+      g = 186;
+      b = 255;
+    }
     this.color = createVector(r, g, b);
-    this.fillalpha = map(this.noCase_all, 0, 10000, 0.12, 0.20);
   };
 
   this.run = function() {
@@ -98,8 +105,8 @@ var Trajet = function(edgeStart,
   this.display = function() {
 
     if (this.show){
-      stroke(this.color.x, this.color.y, this.color.z, 165);
-      fill(this.color.x, this.color.y, this.color.z, 24);
+      stroke(this.color.x, this.color.y, this.color.z, 125);
+      fill(this.color.x, this.color.y, this.color.z, 20);
 
       var x_varient1 = this.r1;
       var x_varient2 = this.r2;

@@ -38,15 +38,17 @@ var TrajetManager = function(width, height) {
       var original_edge_start = createVector(parseFloat(edge_data.pos_start.x), parseFloat(edge_data.pos_start.y));
       var original_edge_end   = createVector(parseFloat(edge_data.pos_end.x),   parseFloat(edge_data.pos_end.y));
 
-      var width_scale_factor  = (width  * 0.011);
+      var width_scale_factor  = (width  * 0.015);
       var height_scale_factor = (height * 0.115) * -1.0;
 
+      var offset_X = 550;
+
       var scaled_edge_start = createVector(
-        original_edge_start.x * width_scale_factor, 
+        original_edge_start.x * width_scale_factor  - offset_X, 
         original_edge_start.y * height_scale_factor + height);
 
       var scaled_edge_end = createVector(
-        original_edge_end.x * width_scale_factor, 
+        original_edge_end.x * width_scale_factor  - offset_X, 
         original_edge_end.y * height_scale_factor + height);
 
       var new_edge = new Trajet(

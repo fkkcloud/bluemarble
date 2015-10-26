@@ -41,18 +41,32 @@ var Etage = function(id,
 
   this.setup = function() {
 
-    var r = map(this.node_meanAge_all, 50, 80, 30, 255);
-    var g = map(this.node_meanAge_all, 50, 80, 186, 30);
-    var b = map(this.node_meanAge_all, 50, 80, 255, 30);
+    var r, g, b;
+    if (this.node_meanAge_all >= 55 && this.node_meanAge_all < 66){
+      r = map(this.node_meanAge_all, 58, 65, 30, 255);
+      g = map(this.node_meanAge_all, 58, 65, 186, 255);
+      b = map(this.node_meanAge_all, 58, 65, 255, 153);
+    } else if (this.node_meanAge_all >= 66) {
+      r = map(this.node_meanAge_all, 65, 75, 255, 255);
+      g = map(this.node_meanAge_all, 65, 75, 255, 80);
+      b = map(this.node_meanAge_all, 65, 75, 153, 80);
+    } else if (this.node_meanAge_all < 55) {
+      r = 30;
+      g = 186;
+      b = 255;
+    }
     this.stroke_color = createVector(r, g, b);
+
+    var size_multiplier_die = map(this.originalSize, 0, 1, 1.5, 2.75)
+    var size_multiplier     = map(this.originalSize, 0, 1, 1.5, 3);
 
     if (this.node_type == 'die')
     {
-      this.strokeWidth = this.originalSize * 3;
+      this.strokeWidth = size_multiplier_die;
     }
     else
     {
-      this.strokeWidth = this.originalSize * 2;
+      this.strokeWidth = size_multiplier;
     }
   };
 
@@ -72,12 +86,11 @@ var Etage = function(id,
     {
       if (this.node_type == 'die')
       {
-        
         strokeWeight(this.strokeWidth);
         stroke(this.stroke_color.x, this.stroke_color.y, this.stroke_color.z);
 
         fill(this.color);
-        rect(this.pos.x, this.pos.y, this.size, this.size)
+        rect(this.pos.x - this.size * 0.5, this.pos.y - this.size * 0.5, this.size, this.size)
         fill(0);
       }
       else{
@@ -86,7 +99,7 @@ var Etage = function(id,
         stroke(this.stroke_color.x, this.stroke_color.y, this.stroke_color.z);
 
         fill(this.color);
-        ellipse(this.pos.x, this.pos.y, this.size, this.size);
+        ellipse(this.pos.x , this.pos.y, this.size, this.size);
         fill(0);
         //text('test', this.pos.x - 3, this.pos.y + 4);  
       }

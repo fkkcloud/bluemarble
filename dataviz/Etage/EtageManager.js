@@ -32,15 +32,17 @@ var EtageManager = function() {
     keys.forEach(function (key) { 
         var node_data = this.dataManager.nodes[key];
 
-        var width_scale_factor  = (width  * 0.011);
+        var width_scale_factor  = (width  * 0.015);
         var height_scale_factor = (height * 0.115) * -1.0;
 
         var original_post = createVector(
           parseFloat(node_data.pos.x),
           parseFloat(node_data.pos.y));
 
+        var offset_X = 550;
+
         var scaled_pos = createVector(
-          original_post.x * width_scale_factor, 
+          original_post.x * width_scale_factor - offset_X, 
           original_post.y * height_scale_factor + height);
         
         var scale_factor = map(node_data.normalized_size, 0.0, 0.5, 45, 35);
