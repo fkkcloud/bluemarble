@@ -39,6 +39,16 @@ var Etage = function(id,
 
   this.show                       = true;
 
+  this.timer = 0; // timer per each lines
+
+  var delay_time = map(this.node_meanAge_cluster, 45, 85, 60, 405); // 1000, 16000
+  var delay_time_delta = map(this.node_meanAge_cluster, 45, 85, 20, 165); // 100, 2000
+  var d = new Date(); /* except */
+
+  this.trigger_delay = delay_time - delay_time_delta; //d.getTime() + delay_time - delay_time_delta; // trigger time
+
+  this.anim_duration = 2400;
+
   this.setup = function() {
 
     var r, g, b;
@@ -84,22 +94,43 @@ var Etage = function(id,
     } 
     else // show
     {
+      /*
+      var d = new Date();
+      var now = d.getTime();
+      
+      if (now < this.trigger_delay)
+        return;
+      */
+
+      if (frame < this.trigger_delay)
+        return;
+
+      if (this.timer <= 1) {
+        this.timer += 0.01;
+      }
+
+      var size_mult = map(this.timer, 0.0, 1.0, 0.0, 1.0);
+      if (size_mult > 1.0)
+        size_mult = 1.0;
+
       if (this.node_type == 'die')
       {
-        strokeWeight(this.strokeWidth);
+        strokeWeight(this.strokeWidth * size_mult);
         stroke(this.stroke_color.x, this.stroke_color.y, this.stroke_color.z);
 
         fill(this.color);
-        rect(this.pos.x - this.size * 0.5, this.pos.y - this.size * 0.5, this.size, this.size)
+        rect(this.pos.x - this.size * 0.5, this.pos.y - this.size * 0.5, this.size * size_mult, this.size * size_mult)
+        //scale(size_mult);
         fill(0);
       }
       else{
         
-        strokeWeight(this.strokeWidth);
+        strokeWeight(this.strokeWidth * size_mult);
         stroke(this.stroke_color.x, this.stroke_color.y, this.stroke_color.z);
 
         fill(this.color);
-        ellipse(this.pos.x , this.pos.y, this.size, this.size);
+        ellipse(this.pos.x , this.pos.y, this.size * size_mult, this.size * size_mult);
+        //scale(size_mult);
         fill(0);
         //text('test', this.pos.x - 3, this.pos.y + 4);  
       }

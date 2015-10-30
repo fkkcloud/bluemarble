@@ -4,6 +4,8 @@ var height = window.innerHeight;
 var x = width / 2;
 var y = height / 2;
 
+var frame = 0;
+
 var etageManager  = new EtageManager();
 var trajetManager = new TrajetManager(width, height);
 //var eventManager  = new EventManager(etageManager, trajetManager);
@@ -34,9 +36,10 @@ function setup() {
     //var canvas = createCanvas(width, height);
     //canvas.parent('canvasHolder');
     //createCanvas(window.innerWidth, window.innerHeight);
-    //background(51);
-    smooth();
-    frameRate(16);    
+    background(51);
+
+    smooth(10);
+    frameRate(60);    
 
     $.getJSON("nodesUS.json", loadNodesUS);
 
@@ -60,5 +63,9 @@ function draw() {
 
     trajetManager.run();
     etageManager.run();
+
+    save('render.' + frame + '.jpg');
+
+    frame++;
 }
 

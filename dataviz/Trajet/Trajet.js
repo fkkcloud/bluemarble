@@ -57,6 +57,21 @@ var Trajet = function(edgeStart,
     current: 0
   };
 
+  // traffic counts
+  this.traffic_counts = 1;//map(this.noCase_all, 0, 1000000, 1, 10);
+
+  // calculate traffic points data
+  this.traffic_points_data = [];
+  for (var i = 0; i < this.traffic_counts; i++){
+    this.traffic_points_data.push([]);
+  }
+
+  this.timer = 0; // timer per each lines
+
+  var delay_time = map(this.mean_start, 45, 85, 60, 405); // 1000, 16000
+  var d = new Date(); /* except */
+  this.trigger_delay = delay_time;//d.getTime() + delay_time; // trigger time
+
   this.setup = function() {
     var multiplier_x = map(this.size_start, 0, 1, 0.6, 1.6);
     var multiplier_y = map(this.size_end, 0, 1, 4, 5);
@@ -64,7 +79,9 @@ var Trajet = function(edgeStart,
     // half dist between 2 nodes
     this.middle = this.findHalfLength(); 
     var prev_mid = this.middle;
-    this.middle = map(this.middle, 0, 4000, 50, 520)
+    this.middle = map(this.middle, 0, 4000, 50, 520);
+
+    this.line_height = map(this.middle, 0, 4000, 40, 540);
 
     // start node x varient
     this.r1 = random(this.middle * 0.175, this.middle * 0.275) * this.size_start * multiplier_x; 
@@ -105,51 +122,7 @@ var Trajet = function(edgeStart,
   this.display = function() {
 
     if (this.show){
-      stroke(this.color.x, this.color.y, this.color.z, 125);
-      fill(this.color.x, this.color.y, this.color.z, 20);
-
-      var x_varient1 = this.r1;
-      var x_varient2 = this.r2;
-
-      var hauteur1 = this.rh1;
-      var hauteur2 = this.rh2;
-
-      if (this.start.x < this.end.x) {
-
-        bezier(
-          this.start.x, this.start.y,
-          this.start.x + x_varient1, this.start.y - hauteur1,//this.start.x - bezierVariation1, this.start.y + hauteur,
-          this.end.x   - x_varient2, this.end.y   - hauteur2,//this.start.x - bezierVariation2, this.start.y + hauteur,
-          this.end.x, this.end.y
-        );
-
-        /*
-        var t = this.step.current / this.step.max;
-        var x = bezierPoint(this.start.x, this.start.x + bezierVariation1, this.start.x + bezierVariation2, this.end.x, t);
-        var y = bezierPoint(this.start.y, this.start.y - hauteur, this.start.y - hauteur, this.end.y, t);*/
-
-      } else {
-        bezier(
-          this.start.x, this.start.y,
-          this.start.x - x_varient1, this.start.y + hauteur1,//this.start.x - bezierVariation1, this.start.y + hauteur,
-          this.end.x   + x_varient2, this.end.y   + hauteur2,//this.start.x - bezierVariation2, this.start.y + hauteur,
-          this.end.x, this.end.y
-        );
-
-        /*
-        var t = this.step.current / this.step.max;
-        var x = bezierPoint(this.start.x, this.start.x - bezierVariation1, this.start.x - bezierVariation2, this.end.x, t);
-        var y = bezierPoint(this.start.y, this.start.y + hauteur, this.start.y + hauteur, this.end.y, t);*/
-
-      }
-
-      /*ellipse(x, y, 5, 5);
-
-      if (this.step.current > this.step.max) {
-        this.step.current = 0;
-      }
-
-      this.step.current++;*/
+      this.drawEdge();
     }
     else {
       // dont show anything
@@ -175,4 +148,120 @@ var Trajet = function(edgeStart,
   };
 
 
+  /*
+    @start              - start position
+    @end                - end position
+    @lines_mem          - to store the line information per edge traffics
+    @start_milli_sec    - when it will start to draw line - trigger in milliseconds
+    @line_type 1        - solid, 
+               0        - dashed
+  */
+  this.drawEdge = function() {
+    /*
+    var d = new Date();
+    var now = d.getTime();
+    
+    if (now < this.trigger_delay)
+      return;
+    */
+
+    if (frame < this.trigger_delay)
+      return;
+
+    var t1, t2, t3;
+
+    var line_type_var = !(this.type == 0) ? 0.85 : 0.1;
+
+    var type_multiplier = !(this.type == 0) ? 1.5 : 1.0;
+    
+    if (this.timer <= 1) {
+      this.timer += 0.01;
+    }
+    
+    for (var line_id = 0; line_id < this.traffic_counts; line_id++){
+
+
+      var curveHelpPoint = this.getCurvePoint(this.start, this.end, this.line_height * type_multiplier + line_id * 10, true);
+
+      t1 = p5.Vector.lerp(this.start, curveHelpPoint, this.timer);
+      t2 = p5.Vector.lerp(curveHelpPoint, this.end, this.timer);
+      t3 = p5.Vector.lerp(t1, t2, this.timer);
+
+      this.traffic_points_data[line_id].push(t3);
+      
+      for (var i=0; i < this.traffic_points_data[line_id].length; i++) 
+      {
+        
+        if (this.type == 1)
+        {
+          stroke(this.color.x, this.color.y, this.color.z, 4);
+          noFill();
+          strokeWeight(line_type_var);
+          beginShape();
+          vertex(this.start.x, this.start.y);
+          bezierVertex(t1.x, t1.y, t3.x, t3.y, t3.x, t3.y);
+          vertex(t3.x, t3.y);
+          endShape();
+        }
+        
+        /*
+        if (this.type === 1)
+        {
+          stroke(this.color.x, this.color.y, this.color.z, 40);
+          noFill();
+          strokeWeight(line_type_var * 20);
+          if (i > 0 && i < this.traffic_points_data[line_id].length -1) 
+          {
+            line(this.traffic_points_data[line_id][i-1].x, this.traffic_points_data[line_id][i-1].y, this.traffic_points_data[line_id][i].x, this.traffic_points_data[line_id][i].y);
+          }
+          else if (i === 0 || i === this.traffic_points_data[line_id].length -1) 
+          {
+            point(this.traffic_points_data[line_id][i].x, this.traffic_points_data[line_id][i].y);
+          }
+        } 
+        */
+        else if (this.type == 0)
+        {
+          stroke(this.color.x, this.color.y, this.color.z, 100);
+          noFill();
+          strokeWeight(line_type_var * 20);
+          var mod = i % 4;
+          if (mod === 0 && i > 0 && i < this.traffic_points_data[line_id].length -1) 
+          {
+            line(this.traffic_points_data[line_id][i-1].x, this.traffic_points_data[line_id][i-1].y, this.traffic_points_data[line_id][i].x, this.traffic_points_data[line_id][i].y);
+          }
+          else if (i === 0 || i === this.traffic_points_data[line_id].length -1) 
+          {
+            point(this.traffic_points_data[line_id][i].x, this.traffic_points_data[line_id][i].y);
+          }
+        }
+      }
+
+    }
+
+  }
+
+
+
+  /*
+  @p1 - start position
+  @p2 - end position
+  @height - how far it will be away from the ground vector
+  @direction - whether it will go up or down from the ground vector
+  */
+  this.getCurvePoint = function(p1, p2, height, direction) {
+    var side = direction < 1 ? 1 : -1;
+    
+    var midPoint = createVector((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5, 0);
+    
+    var groundVector  = createVector(p1.x-p2.x, p1.y-p2.y, 0);
+    groundVector.normalize();
+    
+    var upVector = createVector(0, 0, 1);
+    
+    var resVector = p5.Vector.cross(groundVector, upVector);
+    resVector.mult(height * side);
+    
+    return p5.Vector.add(resVector, midPoint);
+  }
 };
