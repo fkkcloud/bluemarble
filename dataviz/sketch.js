@@ -4,7 +4,7 @@ var height = window.innerHeight;
 var x = width / 2;
 var y = height / 2;
 
-var frame = 0;
+var GLOBAL_FRAME = 0;
 
 var etageManager  = new EtageManager();
 var trajetManager = new TrajetManager(width, height);
@@ -64,8 +64,8 @@ function draw() {
     trajetManager.run();
     etageManager.run();
 
-    save('render.' + frame + '.jpg');
+    //save('render.' + GLOBAL_FRAME + '.jpg');
 
-    frame++;
+    GLOBAL_FRAME++;
 }
 

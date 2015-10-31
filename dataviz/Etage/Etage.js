@@ -42,7 +42,7 @@ var Etage = function(id,
   this.timer = 0; // timer per each lines
 
   var delay_time = map(this.node_meanAge_cluster, 45, 85, 60, 405); // 1000, 16000
-  var delay_time_delta = map(this.node_meanAge_cluster, 45, 85, 20, 165); // 100, 2000
+  var delay_time_delta = map(this.node_meanAge_cluster, 45, 85, 15, 135); // 100, 2000
   var d = new Date(); /* except */
 
   this.trigger_delay = delay_time - delay_time_delta; //d.getTime() + delay_time - delay_time_delta; // trigger time
@@ -102,14 +102,14 @@ var Etage = function(id,
         return;
       */
 
-      if (frame < this.trigger_delay)
+      if (GLOBAL_FRAME < this.trigger_delay)
         return;
 
       if (this.timer <= 1) {
         this.timer += 0.01;
       }
 
-      var size_mult = map(this.timer, 0.0, 1.0, 0.0, 1.0);
+      var size_mult = this.timer;
       if (size_mult > 1.0)
         size_mult = 1.0;
 
