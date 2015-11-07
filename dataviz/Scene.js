@@ -38,8 +38,8 @@ function loadEdgesUS(json){
 
 // as data gets ready, create manager for node and edge
 function dataReadyAndSetupManagers(){
-  //etageManager.setup(dataManager);
   EdgeManager.setup(dataManager);
+  NodeManager.setup(dataManager);
 }
 
 var init = function () {
@@ -59,43 +59,17 @@ var init = function () {
 
 	SCENE = new THREE.Scene();
 
-
-			function setup_circle(pos, startframe)
-			{
-				var radius   = 10,
-					segments = 12,
-					line_material = new THREE.LineBasicMaterial( { color: 0x0000ff } ),
-					material = new THREE.MeshBasicMaterial( { color:0x00ff00 } ),
-					line_geometry = new THREE.CircleGeometry( radius, segments ),
-					geometry = new THREE.CircleGeometry( radius, segments )
-				
-				var circle_shaded = new THREE.Mesh( geometry, material );
-				
-				// Remove center vertex
-				line_geometry.vertices.shift();
-				
-				line_material.linewidth = 3;
-				var circle_outline = new THREE.Line( line_geometry, line_material );
-
-				var node = new THREE.Object3D();
-				node.add(circle_shaded);
-				node.add(circle_outline);
-				
-				node.position = pos;
-				SCENE.add(node);
-			}
-			setup_circle(new THREE.Vector3(0, 0, 0), 0);
-
 	controls = new THREE.OrbitControls( camera );
 
-	
 	EdgeManager = new EdgeManager(800, 800);
+	NodeManager = new NodeManager(800, 800);
 }
 
 var animate = function () {
 	FRAME++;
 
 	EdgeManager.run();
+	NodeManager.run();
 
 	requestAnimationFrame( animate );
 	//controls.update();
