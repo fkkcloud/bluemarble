@@ -45,25 +45,14 @@
 		varying float vAlpha; // get alpah from vertex shader
 
 		void main() {
-			gl_FragColor = vec4( color, vAlpha );
+			gl_FragColor = vec4( color * vAlpha, vAlpha );
 		}
 	</script>
 	<!-- End Shaders -->
-		
 
-    <!-- p5 -->
-    <script src="p5/p5.js" type="text/javascript"></script>
-    <script src="p5/p5.dom.js" type="text/javascript"></script>
-    <script src="p5/p5.sound.js" type="text/javascript"></script>
-
-    <!-- data visualization nodes -->
-    <script src="Etage/Etage.js" type="text/javascript"></script>
-    <script src="Trajet/Trajet.js" type="text/javascript"></script>
-    <script src="Etage/EtageManager.js" type="text/javascript"></script>
-    <script src="Trajet/TrajetManager.js" type="text/javascript"></script>
-
-    <!-- p5 sketch -->
-    <script src="sketch.js" type="text/javascript"></script>
+	<script src="Edge.js"></script> 
+	<script src="EdgeManager.js"></script> 
+	<script src="Scene.js"></script> 
 
    <!-- sweet alert -->
 	<script src="./sweetalert.min.js"></script> 
@@ -106,10 +95,12 @@
 	</nav>
 </div>
 
-
+<!--
 <div ng-view></div>
- <div class='data-visibility' id='canvasHolder'></div> 
 
+<div id='canvasHolder'></div> 
+-->
+<!-- class='data-visibility'-->
 	
 </body>
 </html>
