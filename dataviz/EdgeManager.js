@@ -26,8 +26,8 @@ var EdgeManager = function(width, height) {
       var original_edge_start = new THREE.Vector3(parseFloat(edge_data.pos_start.x), parseFloat(edge_data.pos_start.y), 0);
       var original_edge_end   = new THREE.Vector3(parseFloat(edge_data.pos_end.x),   parseFloat(edge_data.pos_end.y)  , 0);
 
-      var width_scale_factor  = (width  * 0.02);
-      var height_scale_factor = (height * 0.115);
+      var width_scale_factor  = (width  * 0.038);
+      var height_scale_factor = (height * 0.112);
 
       var scaled_edge_start = new THREE.Vector3(
         original_edge_start.x * width_scale_factor, 

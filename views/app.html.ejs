@@ -27,6 +27,8 @@
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r57/three.min.js"></script>
 
+    <script src="https://dl.dropboxusercontent.com/u/3587259/Code/Threejs/OrbitControls.js"></script>
+
 	<!-- Shaders -->
 	<script type="x-shader/x-vertex" id="line_vertexshader">
 
@@ -45,7 +47,7 @@
 		varying float vAlpha; // get alpah from vertex shader
 
 		void main() {
-			gl_FragColor = vec4( color * vAlpha, vAlpha );
+			gl_FragColor = vec4( color, vAlpha );
 		}
 	</script>
 	<!-- End Shaders -->

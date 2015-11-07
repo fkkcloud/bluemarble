@@ -1,4 +1,4 @@
-var camera, SCENE, renderer;
+var camera, SCENE, renderer, controls;
 var EdgeManager;
 var FRAME = 0;
 
@@ -46,14 +46,14 @@ var init = function () {
 	$.getJSON("nodesUS.json", loadNodesUS);
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
-	renderer.setSize( 1200, 800 );
+	renderer.setSize( 1240, 620 );
 
 	setTimeout(function(){
 		document.body.appendChild( renderer.domElement );
 	}, 2000);
 
-	camera = new THREE.PerspectiveCamera( 45, 1200 / 800, 1, 1000 );
-	camera.position.x = 800;
+	camera = new THREE.PerspectiveCamera( 45, 1240 / 620, 1, 1000 );
+	camera.position.x = 1860;
 	camera.position.y = 400;
 	camera.position.z = 1000;
 
@@ -85,15 +85,20 @@ var init = function () {
 				SCENE.add(node);
 			}
 			setup_circle(new THREE.Vector3(0, 0, 0), 0);
+
+	controls = new THREE.OrbitControls( camera );
+
 	
 	EdgeManager = new EdgeManager(800, 800);
 }
 
 var animate = function () {
 	FRAME++;
+
 	EdgeManager.run();
 
 	requestAnimationFrame( animate );
+	//controls.update();
 	renderer.render( SCENE, camera );
 }
 
