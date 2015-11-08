@@ -34,8 +34,8 @@ var NodeManager = function(width, height) {
     keys.forEach(function (key) { 
         var node_data = this.dataManager.nodes[key];
 
-        var width_scale_factor  = (width  * 0.038);
-        var height_scale_factor = (height * 0.112);
+        var width_scale_factor  = (width  * 0.035);
+        var height_scale_factor = (height * 0.16);
 
         var original_post = new THREE.Vector3(
           parseFloat(node_data.pos.x),
@@ -47,14 +47,16 @@ var NodeManager = function(width, height) {
           original_post.y * height_scale_factor,
           0.0);
         
-        var scale_factor = mapRange([0.0, 0.5], [45, 27.5], node_data.normalized_size);
-
+        var scale_factor = mapRange([0.05, 0.6], [34, 31], node_data.normalized_size);
         var scaled_size = node_data.normalized_size * scale_factor;
 
-        var fix_min_scale_factor = mapRange([0.0, 3.0], [10.0, 1.0], scaled_size);
-
-        if (scaled_size < 3.0)
+        if (scaled_size <= 5.0){
+          var fix_min_scale_factor = mapRange([0.2, 5.0], [7.5, 1.0], scaled_size);
           scaled_size *= fix_min_scale_factor;
+        }
+
+        // clamp min and max
+        scaled_size = Math.min(Math.max(0.5, scaled_size), 20.0);
 
         /* 
         id, 
@@ -101,11 +103,19 @@ var NodeManager = function(width, height) {
     };
   };
 
-  this.toggleShowByCluster = function(clusterID, val) {
+  this.toggleVisibility = function(val) {
     for (var i = 0; i < this.nodes.length; i++) {
-      if (this.nodes[i].group_cluster == clusterID)
-        this.nodes[i].show = val;
+      if (val)
+        this.nodes[i].show();
+      else
+        this.nodes[i].hide();
     };
+  };
+
+  this.reset = function() {
+    for (var i = 0; i < this.nodes.length; i++) {
+      this.nodes[i].reset();
+    }
   };
 
 };

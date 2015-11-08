@@ -1,6 +1,8 @@
 var camera, SCENE, renderer, controls;
 var EdgeManager;
+var NodeManager;
 var FRAME = 0;
+var bAnimate = false;
 
 function mapRange(from, to, s) 
 {
@@ -45,28 +47,32 @@ function dataReadyAndSetupManagers(){
 var init = function () {
 	$.getJSON("nodesUS.json", loadNodesUS);
 
-	renderer = new THREE.WebGLRenderer({antialias: true});
-	renderer.setSize( 1240, 620 );
+	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+	renderer.setSize( 1240, 820 );
+	renderer.setClearColor( 0x000000, 0 );
 
 	setTimeout(function(){
-		document.body.appendChild( renderer.domElement );
+		document.getElementById("canvasHolder").appendChild( renderer.domElement );
+		bAnimate = true;
 	}, 2000);
 
-	camera = new THREE.PerspectiveCamera( 45, 1240 / 620, 1, 1000 );
-	camera.position.x = 1860;
+	camera = new THREE.PerspectiveCamera( 80, 1240 / 820, 10, 3510 );
+	camera.position.x = 2760;
 	camera.position.y = 400;
-	camera.position.z = 1000;
+	camera.position.z = 900;
 
 	SCENE = new THREE.Scene();
 
-	controls = new THREE.OrbitControls( camera );
+	//controls = new THREE.OrbitControls( camera );
 
-	EdgeManager = new EdgeManager(800, 800);
-	NodeManager = new NodeManager(800, 800);
+	EdgeManager = new EdgeManager(1240, 820);
+	NodeManager = new NodeManager(1240, 820);
 }
 
 var animate = function () {
-	FRAME++;
+	if (bAnimate){
+		FRAME++;
+	}
 
 	EdgeManager.run();
 	NodeManager.run();

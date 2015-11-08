@@ -36,15 +36,16 @@ var Edge = function(edgeStart,
   this.size_end          = size_end;
 
   this.line_geometries   = [];
+  this.line_meshes       = [];
 
   this.source_ch   = source_ch;
+
+  this.resetted = false;
 
   if (group_cluster == 'undefined' || !group_cluster)
     this.group_cluster     = 17; // if there is no group, trimmed, it is 17;
   else
     this.group_cluster     = group_cluster;
-
-  this.show = 1;
 
   this.timer = 0;
   this.currentFrame = 0; // timer per each lines
@@ -60,8 +61,7 @@ var Edge = function(edgeStart,
   };
 
   this.run = function() {
-    if (this.show)
-      this.animate();
+    this.animate();
   };
 
   this.setupColor = function(mean) {
@@ -95,6 +95,7 @@ var Edge = function(edgeStart,
       var center_point = getCenterPoints(start, end);
       var reverse = start.x > end.x ? -1.0 : 1.0;
       center_point.y += length_point * 0.3 * mapRange([0.0, 1.0], [0.65, 1.35], Math.random()) * reverse;
+      //center_point.z = length_point * 0.3 * mapRange([0.0, 1.0], [0.65, 1.35], Math.random());
 
       var curve = new THREE.QuadraticBezierCurve3(start, center_point, end);
       
@@ -147,6 +148,7 @@ var Edge = function(edgeStart,
       var line_mesh = new THREE.Line( line_geometry, shaderMaterial );
 
       this.line_geometries.push(line_geometry);
+      this.line_meshes.push(line_mesh);
 
       SCENE.add(line_mesh);
     }
@@ -154,6 +156,15 @@ var Edge = function(edgeStart,
 
   this.animate = function() 
   { 
+    // resetting the animation
+    if (this.resetted){
+      for (var k = 0; k < this.line_geometries.length; k++){
+        this.line_geometries[k].custom_attributes.vtx_alpha.needsUpdate = true;
+        this.resetted = false;
+      }
+      return;
+    }
+
     for (var k = 0; k < this.line_geometries.length; k++){
       
       if (FRAME < this.line_geometries[k].custom_startframe  || // before the animation is started
@@ -175,6 +186,27 @@ var Edge = function(edgeStart,
     }
     
     //Math.ceil()
+  }
+
+  this.show = function(){
+        for (var k = 0; k < this.line_meshes.length; k++){
+      this.line_meshes[k].visible = true;
+    }
+  }
+
+  this.hide = function(){
+    for (var k = 0; k < this.line_meshes.length; k++){
+      this.line_meshes[k].visible = false;
+    }
+  }
+
+  this.reset = function(){
+    for (var k = 0; k < this.line_geometries.length; k++){
+      for (var index = 0; index < this.line_geometries[k].vertices.length; index++){
+        this.line_geometries[k].custom_attributes.vtx_alpha.value[index] = 0.0;          
+      }
+    }
+    this.resetted = true;
   }
 
 };

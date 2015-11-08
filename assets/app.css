@@ -13,14 +13,17 @@
     display:block;
 }
 #canvasHolder {
-    width: 800px;
-    height: 800px;
+    width: 1240px;
+    height: 820px;
     position: relative;
     margin: auto;
-    border: solid 4px white;
+    //border: solid 1px gray;
 }
 .checkbox_data{
   display:inline;
+}
+#btn-reset {
+
 }
 /* latin-ext */
 @font-face {

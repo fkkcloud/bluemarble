@@ -41,11 +41,9 @@ var Node = function(id,
     this.color.setHSL(HSL.h, 1.0, 0.42);
   }
 
-  this.show                       = true;
-
   this.timer = 0;
 
-  var delay_time = mapRange([45, 85], [60, 405], this.node_meanAge_cluster); // 1000, 16000
+  var delay_time       = mapRange([45, 85], [60, 405], this.node_meanAge_cluster); // 1000, 16000
   var delay_time_delta = mapRange([45, 85], [15, 135], this.node_meanAge_cluster); // 100, 2000
   var d = new Date(); /* except */
 
@@ -68,6 +66,7 @@ var Node = function(id,
       g = 186;
       b = 255;
     }
+
     var rgb = "rgb(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ")";
     this.stroke_color = new THREE.Color(rgb);
 
@@ -79,18 +78,18 @@ var Node = function(id,
 
     this.setupColor(this.node_meanAge_all);
    
-    var size_multiplier_die = mapRange([0, 1], [1.5, 2.75], this.originalSize)
-    var size_multiplier     = mapRange([0, 1], [1.5, 3], this.originalSize);
+    var size_stroke_die = mapRange([0, 1], [2.5, 3.25], this.originalSize)
+    var size_stroke     = mapRange([0, 1], [2.5, 3.5],  this.originalSize);
 
     if (this.node_type == 'die')
     {
-      this.strokeWidth = size_multiplier_die;
       this.segments = 4;
+      this.strokeWidth = size_stroke_die;
     }
     else
     {
       this.segments = Math.ceil(this.size);
-      this.strokeWidth = size_multiplier;
+      this.strokeWidth = size_stroke;
     }
 
     // Circle
@@ -110,23 +109,46 @@ var Node = function(id,
     this.node = new THREE.Object3D();
     this.node.add(circle_shaded);
     this.node.add(circle_outline);
-    this.node.position = new THREE.Vector3(this.pos.x, this.pos.y, 0.1);
-    this.node.scale.set(0.0, 0.0, 0.0);
 
-    SCENE.add(this.node); 
+    this.node.position = new THREE.Vector3();
+    this.node.position.x = this.pos.x;
+    this.node.position.y = this.pos.y;
+    this.node.position.z = 0.1;
+
+    this.node.scale.set(0.001, 0.001, 0.001);
+
+    this.node.rotation.z += Math.PI * 0.25;
+
+    SCENE.add(this.node);
   };
 
   this.run = function() {
-    if (this.show) // hide
-    {
-      if (FRAME < this.trigger_delay)
-        return;
+    if (FRAME < this.trigger_delay)
+      return;
 
-      if (this.timer <= 1) {
-        this.timer += 0.01;
-        this.node.scale.set(this.timer, this.timer, this.timer);
-      }
+    if (this.timer <= 1) {
+      this.timer += 0.01;
+      this.node.scale.set(this.timer, this.timer, this.timer);
     }
   };
+
+  this.show = function(){
+    this.node.visible = true;
+    for(var i = 0,il = this.node.children.length;i<il;i++){
+      this.node.children[i].visible = true;
+    }
+  }
+
+  this.hide = function(){
+    this.node.visible = false;
+    for(var i = 0,il = this.node.children.length;i<il;i++){
+      this.node.children[i].visible = false;
+    }
+  }
+
+  this.reset = function() {
+    this.node.scale.set(0.001, 0.001, 0.001);
+    this.timer = 0;
+  }
 
 };

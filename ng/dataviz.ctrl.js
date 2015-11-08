@@ -15,57 +15,77 @@ CLUSTER
 ////////////////////////////////////////////////////////////////////////////
 */
 
+    // reset animation.
+    $('#btn-reset').click(function() {
+      FRAME = 0;
+      EdgeManager.reset();
+      NodeManager.reset();
+    });
+
+    //set initial state.
+    $('#checkbox_hide_nodes').change(function() {
+        if($(this).is(":checked")) {
+          NodeManager.toggleVisibility(true);
+        }
+        else
+        {
+          NodeManager.toggleVisibility(false);
+        }
+    });
+
    	//set initial state.
     $('#checkbox_c_all').change(function() {
-    	var toggleVal = $(this).is(":checked");
-		$('#checkbox_c0').prop('checked', toggleVal);
-		$('#checkbox_c0').trigger('change');
-		$('#checkbox_c1').prop('checked', toggleVal);
-		$('#checkbox_c1').trigger('change');
-		$('#checkbox_c2').prop('checked', toggleVal);
-		$('#checkbox_c2').trigger('change');
-		$('#checkbox_c3').prop('checked', toggleVal); 
-		$('#checkbox_c3').trigger('change');
-		$('#checkbox_c4').prop('checked', toggleVal);
-		$('#checkbox_c4').trigger('change');
-		$('#checkbox_c5').prop('checked', toggleVal);
-		$('#checkbox_c5').trigger('change');
-		$('#checkbox_c6').prop('checked', toggleVal);
-		$('#checkbox_c6').trigger('change');
-		$('#checkbox_c7').prop('checked', toggleVal); 
-		$('#checkbox_c7').trigger('change');
-		$('#checkbox_c8').prop('checked', toggleVal);
-		$('#checkbox_c8').trigger('change');
-		$('#checkbox_c9').prop('checked', toggleVal);
-		$('#checkbox_c9').trigger('change');
-		$('#checkbox_c10').prop('checked', toggleVal);
-		$('#checkbox_c10').trigger('change');
-		$('#checkbox_c11').prop('checked', toggleVal); 
-		$('#checkbox_c11').trigger('change');
-		$('#checkbox_c12').prop('checked', toggleVal);
-		$('#checkbox_c12').trigger('change');
-		$('#checkbox_c13').prop('checked', toggleVal);
-		$('#checkbox_c13').trigger('change');
-		$('#checkbox_c14').prop('checked', toggleVal);
-		$('#checkbox_c14').trigger('change');
-		$('#checkbox_c15').prop('checked', toggleVal); 
-		$('#checkbox_c15').trigger('change');
-		$('#checkbox_c16').prop('checked', toggleVal); 
-		$('#checkbox_c16').trigger('change');
-		$('#checkbox_c17').prop('checked', toggleVal); 
-		$('#checkbox_c17').trigger('change');    	
+
+      var toggleVal = $(this).is(":checked");
+  		$('#checkbox_c0').prop('checked', toggleVal);
+  		$('#checkbox_c0').trigger('change');
+  		$('#checkbox_c1').prop('checked', toggleVal);
+  		$('#checkbox_c1').trigger('change');
+  		$('#checkbox_c2').prop('checked', toggleVal);
+  		$('#checkbox_c2').trigger('change');
+  		$('#checkbox_c3').prop('checked', toggleVal); 
+  		$('#checkbox_c3').trigger('change');
+  		$('#checkbox_c4').prop('checked', toggleVal);
+  		$('#checkbox_c4').trigger('change');
+  		$('#checkbox_c5').prop('checked', toggleVal);
+  		$('#checkbox_c5').trigger('change');
+  		$('#checkbox_c6').prop('checked', toggleVal);
+  		$('#checkbox_c6').trigger('change');
+  		$('#checkbox_c7').prop('checked', toggleVal); 
+  		$('#checkbox_c7').trigger('change');
+  		$('#checkbox_c8').prop('checked', toggleVal);
+  		$('#checkbox_c8').trigger('change');
+  		$('#checkbox_c9').prop('checked', toggleVal);
+  		$('#checkbox_c9').trigger('change');
+  		$('#checkbox_c10').prop('checked', toggleVal);
+  		$('#checkbox_c10').trigger('change');
+  		$('#checkbox_c11').prop('checked', toggleVal); 
+  		$('#checkbox_c11').trigger('change');
+  		$('#checkbox_c12').prop('checked', toggleVal);
+  		$('#checkbox_c12').trigger('change');
+  		$('#checkbox_c13').prop('checked', toggleVal);
+  		$('#checkbox_c13').trigger('change');
+  		$('#checkbox_c14').prop('checked', toggleVal);
+  		$('#checkbox_c14').trigger('change');
+  		$('#checkbox_c15').prop('checked', toggleVal); 
+  		$('#checkbox_c15').trigger('change');
+  		$('#checkbox_c16').prop('checked', toggleVal); 
+  		$('#checkbox_c16').trigger('change');
+  		$('#checkbox_c17').prop('checked', toggleVal); 
+  		$('#checkbox_c17').trigger('change');  
+
     });
 
     //set initial state.
     $('#checkbox_c0').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(0, true);
+          EdgeManager.toggleShowByCluster(0, true);
           //etageManager.toggleShowByCluster(0, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(0, false);
+          EdgeManager.toggleShowByCluster(0, false);
           //etageManager.toggleShowByCluster(0, false);
         }
     });
@@ -74,12 +94,12 @@ CLUSTER
     $('#checkbox_c1').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(1, true);
+          EdgeManager.toggleShowByCluster(1, true);
           //etageManager.toggleShowByCluster(1, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(1, false);
+          EdgeManager.toggleShowByCluster(1, false);
           //etageManager.toggleShowByCluster(1, false);
         }
     });
@@ -87,12 +107,12 @@ CLUSTER
     $('#checkbox_c2').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(2, true);
+          EdgeManager.toggleShowByCluster(2, true);
           //etageManager.toggleShowByCluster(2, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(2, false);
+          EdgeManager.toggleShowByCluster(2, false);
           //etageManager.toggleShowByCluster(2, false);
         }
     });
@@ -100,12 +120,12 @@ CLUSTER
     $('#checkbox_c3').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(3, true);
+          EdgeManager.toggleShowByCluster(3, true);
           //etageManager.toggleShowByCluster(3, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(3, false);
+          EdgeManager.toggleShowByCluster(3, false);
           //etageManager.toggleShowByCluster(3, false);
         }
     });
@@ -113,12 +133,12 @@ CLUSTER
     $('#checkbox_c4').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(4, true);
+          EdgeManager.toggleShowByCluster(4, true);
           //etageManager.toggleShowByCluster(4, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(4, false);
+          EdgeManager.toggleShowByCluster(4, false);
           //etageManager.toggleShowByCluster(4, false);
         }
     });
@@ -127,12 +147,12 @@ CLUSTER
     $('#checkbox_c5').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(5, true);
+          EdgeManager.toggleShowByCluster(5, true);
           //etageManager.toggleShowByCluster(5, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(5, false);
+          EdgeManager.toggleShowByCluster(5, false);
           //etageManager.toggleShowByCluster(5, false);
         }
     });
@@ -141,12 +161,12 @@ CLUSTER
     $('#checkbox_c6').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(6, true);
+          EdgeManager.toggleShowByCluster(6, true);
           //etageManager.toggleShowByCluster(6, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(6, false);
+          EdgeManager.toggleShowByCluster(6, false);
           //etageManager.toggleShowByCluster(6, false);
         }
     });
@@ -155,12 +175,12 @@ CLUSTER
     $('#checkbox_c7').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(7, true);
+          EdgeManager.toggleShowByCluster(7, true);
           //etageManager.toggleShowByCluster(7, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(7, false);
+          EdgeManager.toggleShowByCluster(7, false);
           //etageManager.toggleShowByCluster(7, false);
         }
     });
@@ -169,12 +189,12 @@ CLUSTER
     $('#checkbox_c8').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(8, true);
+          EdgeManager.toggleShowByCluster(8, true);
           //etageManager.toggleShowByCluster(8, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(8, false);
+          EdgeManager.toggleShowByCluster(8, false);
           //etageManager.toggleShowByCluster(8, false);
         }
     });
@@ -183,12 +203,12 @@ CLUSTER
     $('#checkbox_c9').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(9, true);
+          EdgeManager.toggleShowByCluster(9, true);
           //etageManager.toggleShowByCluster(9, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(9, false);
+          EdgeManager.toggleShowByCluster(9, false);
           //etageManager.toggleShowByCluster(9, false);
         }
     });
@@ -197,12 +217,12 @@ CLUSTER
     $('#checkbox_c10').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(10, true);
+          EdgeManager.toggleShowByCluster(10, true);
           //etageManager.toggleShowByCluster(10, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(10, false);
+          EdgeManager.toggleShowByCluster(10, false);
           //etageManager.toggleShowByCluster(10, false);
         }
     });
@@ -211,12 +231,12 @@ CLUSTER
     $('#checkbox_c11').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(11, true);
+          EdgeManager.toggleShowByCluster(11, true);
           //etageManager.toggleShowByCluster(11, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(11, false);
+          EdgeManager.toggleShowByCluster(11, false);
           //etageManager.toggleShowByCluster(11, false);
         }
     });
@@ -225,12 +245,12 @@ CLUSTER
     $('#checkbox_c12').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(12, true);
+          EdgeManager.toggleShowByCluster(12, true);
           //etageManager.toggleShowByCluster(12, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(12, false);
+          EdgeManager.toggleShowByCluster(12, false);
           //etageManager.toggleShowByCluster(12, false);
         }
     });
@@ -239,12 +259,12 @@ CLUSTER
     $('#checkbox_c13').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(13, true);
+          EdgeManager.toggleShowByCluster(13, true);
           //etageManager.toggleShowByCluster(13, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(13, false);
+          EdgeManager.toggleShowByCluster(13, false);
           //etageManager.toggleShowByCluster(13, false);
         }
     });
@@ -253,12 +273,12 @@ CLUSTER
     $('#checkbox_c14').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(14, true);
+          EdgeManager.toggleShowByCluster(14, true);
           //etageManager.toggleShowByCluster(14, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(14, false);
+          EdgeManager.toggleShowByCluster(14, false);
           //etageManager.toggleShowByCluster(14, false);
         }
     });
@@ -266,12 +286,12 @@ CLUSTER
     $('#checkbox_c15').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(15, true);
+          EdgeManager.toggleShowByCluster(15, true);
           //etageManager.toggleShowByCluster(15, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(15, false);
+          EdgeManager.toggleShowByCluster(15, false);
           //etageManager.toggleShowByCluster(15, false);
         }
     });
@@ -279,12 +299,12 @@ CLUSTER
     $('#checkbox_c16').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(16, true);
+          EdgeManager.toggleShowByCluster(16, true);
           //etageManager.toggleShowByCluster(16, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(16, false);
+          EdgeManager.toggleShowByCluster(16, false);
           //etageManager.toggleShowByCluster(16, false);
         }
     });
@@ -293,12 +313,12 @@ CLUSTER
     $('#checkbox_c17').change(function() {
       console.log("checkbox!");
         if($(this).is(":checked")) {
-          trajetManager.toggleShowByCluster(17, true);
+          EdgeManager.toggleShowByCluster(17, true);
           //etageManager.toggleShowByCluster(17, true);
         }
         else
         {
-          trajetManager.toggleShowByCluster(17, false);
+          EdgeManager.toggleShowByCluster(17, false);
           //etageManager.toggleShowByCluster(17, false);
         }
     });
