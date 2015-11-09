@@ -16,4 +16,5 @@ angular.module('app')
 		{
    			redirectTo: '/intro'
 		});
+
 });
