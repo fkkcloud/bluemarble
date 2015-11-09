@@ -25,7 +25,7 @@
     <!-- meta data -->
     <script src="node_color_ref.js"></script>
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>
 
     <script src="https://dl.dropboxusercontent.com/u/3587259/Code/Threejs/OrbitControls.js"></script>
 
@@ -33,21 +33,23 @@
 	<script type="x-shader/x-vertex" id="line_vertexshader">
 
 		attribute float vtx_alpha; // get vertex attributes
-		varying float vAlpha; // send alpha to fragment shader
+
+		varying float curr_alpha; // send alpha to fragment shader
 
 		void main() {
-			vAlpha = vtx_alpha;
-			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+			curr_alpha = vtx_alpha;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 		}
 
 	</script>
 	<script type="x-shader/x-fragment" id="line_fragmentshader">
 
 		uniform vec3 color; // get unifrom value from outside
-		varying float vAlpha; // get alpah from vertex shader
+
+		varying float curr_alpha; // get alpah from vertex shader
 
 		void main() {
-			gl_FragColor = vec4( color, vAlpha );
+			gl_FragColor = vec4( color, curr_alpha );
 		}
 	</script>
 	<!-- End Shaders -->
@@ -102,9 +104,7 @@
 
 <div ng-view></div>
 
-<div id='canvasHolder'></div> 
-
-<!-- class='data-visibility'-->
+<div class='data-visibility' id='canvasHolder'></div> 
 	
 </body>
 </html>

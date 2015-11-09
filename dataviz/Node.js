@@ -12,6 +12,7 @@ var Node = function(id,
     node_meanAge_cluster, 
     group_cluster) 
 {
+
   this.id                       = id;
   this.node_type                = node_type;
   
@@ -31,16 +32,6 @@ var Node = function(id,
   this.group_mergePath          = group_mergePath;
   this.group_cluster            = group_cluster;
 
-  // node color by chapter
-  if (this.ch == '99'){
-    this.color                    = new THREE.Color(node_color[0]);
-  }
-  else{
-    this.color                    = new THREE.Color(node_color[this.ch]);
-    var HSL = this.color.getHSL();
-    this.color.setHSL(HSL.h, 1.0, 0.42);
-  }
-
   this.timer = 0;
 
   var delay_time       = mapRange([45, 85], [60, 405], this.node_meanAge_cluster); // 1000, 16000
@@ -52,23 +43,44 @@ var Node = function(id,
   this.anim_duration = 2400;
 
   this.setupColor = function(mean) {
+    
+    // node color by chapter
+    if (this.ch == '99'){
+
+      this.color = new THREE.Color(node_color[0]);
+
+    }
+    else{
+
+      this.color = new THREE.Color(node_color[this.ch]);
+      var HSL = this.color.getHSL();
+      this.color.setHSL(HSL.h, 1.0, 0.42);
+
+    }
+
+    // node border color by mean
     var r, g, b;
     if (mean >= 55 && mean < 68){
+
       r = mapRange([58, 68], [30, 255], mean);
       g = mapRange([58, 68], [186, 255], mean);
       b = mapRange([58, 68], [255, 153], mean);
+
     } else if (mean >= 68) {
+
       r = mapRange([67, 75], [255, 255], mean);
       g = mapRange([67, 75], [255, 80], mean);
       b = mapRange([67, 75], [153, 80], mean);
+
     } else if (mean < 55) {
+
       r = 30;
       g = 186;
       b = 255;
+
     }
 
-    var rgb = "rgb(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ")";
-    this.stroke_color = new THREE.Color(rgb);
+    this.stroke_color = new THREE.Color( rgbToHex(r, g, b) );
 
     var HSL = this.stroke_color.getHSL();
     this.stroke_color.setHSL(HSL.h, 1.0, 0.42);
@@ -76,79 +88,121 @@ var Node = function(id,
 
   this.setup = function() {
 
-    this.setupColor(this.node_meanAge_all);
-   
-    var size_stroke_die = mapRange([0, 1], [2.5, 3.25], this.originalSize)
-    var size_stroke     = mapRange([0, 1], [2.5, 3.5],  this.originalSize);
-
+    // settings for node mesh
+    var radius = this.size;
+    var segments;
     if (this.node_type == 'die')
-    {
-      this.segments = 4;
-      this.strokeWidth = size_stroke_die;
-    }
+      segments = 4;
     else
-    {
-      this.segments = Math.ceil(this.size);
-      this.strokeWidth = size_stroke;
+      segments = Math.ceil(this.size);
+
+    // geo creations
+    var circle_geometry = new THREE.CircleGeometry( radius, segments );
+
+    // buffer geo creations
+    var buffered_circle_geometry = new THREE.BufferGeometry().fromGeometry(circle_geometry);
+    
+    buffered_circle_geometry.computeBoundingSphere();
+
+    // materials
+    this.setupColor(this.node_meanAge_all);
+    var circle_material        = new THREE.MeshBasicMaterial( { color: this.color } ); 
+    var circle_border_material = new THREE.MeshBasicMaterial( { color: this.stroke_color } );   
+
+    // mesh creations
+    var circle_shaded         = new THREE.Mesh( buffered_circle_geometry, circle_material ); 
+    var circle_border_shaded  = new THREE.Mesh( buffered_circle_geometry, circle_border_material );
+
+    // set border width
+    var size_stroke_die = mapRange([0, 1], [1.35, 1.25], this.originalSize);
+    var size_stroke     = mapRange([0, 1], [1.275, 1.175], this.originalSize);
+    if (this.node_type =='die'){
+
+      circle_border_shaded.scale.set(size_stroke_die, size_stroke_die, size_stroke_die);  
+
+    }
+    else {
+
+      circle_border_shaded.scale.set(size_stroke, size_stroke, size_stroke); 
+
     }
 
-    // Circle
-    var radius = this.size,
-      segments = this.segments,
-      circle_border_material = new THREE.LineBasicMaterial( { color: this.stroke_color } ),
-      circle_material        = new THREE.MeshBasicMaterial( { color: this.color } ),
-      circle_border_geometry = new THREE.CircleGeometry( radius, segments ),
-      circle_geometry        = new THREE.CircleGeometry( radius, segments )
+    // set z-depth per nodes
+    var border_z_offset = -0.025;
+    var z_depth         = mapRange([0, 1], [2.5, 0.65], this.originalSize);
 
-    circle_border_geometry.vertices.shift();    
-    circle_border_material.linewidth = this.strokeWidth;
+    // apply z-depth
+    circle_shaded.position.z        = z_depth;
+    circle_border_shaded.position.z = z_depth + border_z_offset;
 
-    var circle_shaded = new THREE.Mesh( circle_geometry, circle_material );        
-    var circle_outline = new THREE.Line( circle_border_geometry, circle_border_material );
-
+    // create node mesh
     this.node = new THREE.Object3D();
-    this.node.add(circle_shaded);
-    this.node.add(circle_outline);
 
+    // add node meshes
+    this.node.add(circle_border_shaded);
+    this.node.add(circle_shaded);
+
+    // set position nodes meshes
     this.node.position = new THREE.Vector3();
     this.node.position.x = this.pos.x;
     this.node.position.y = this.pos.y;
     this.node.position.z = 0.1;
 
+    // set scale for nodes initial
     this.node.scale.set(0.001, 0.001, 0.001);
 
+    // initial rotation values
     this.node.rotation.z += Math.PI * 0.25;
 
+    // finally add to SCENE
     SCENE.add(this.node);
+
   };
 
   this.run = function() {
+
     if (FRAME < this.trigger_delay)
       return;
 
+
     if (this.timer <= 1) {
+
       this.timer += 0.01;
       this.node.scale.set(this.timer, this.timer, this.timer);
+
     }
+
   };
 
   this.show = function(){
+
     this.node.visible = true;
+
     for(var i = 0,il = this.node.children.length;i<il;i++){
+
       this.node.children[i].visible = true;
+
     }
+
   }
 
   this.hide = function(){
+
     this.node.visible = false;
+
     for(var i = 0,il = this.node.children.length;i<il;i++){
+
       this.node.children[i].visible = false;
+
     }
+
   }
 
   this.reset = function() {
+
     this.node.scale.set(0.001, 0.001, 0.001);
     this.timer = 0;
+
   }
 
 };
