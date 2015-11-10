@@ -97,9 +97,9 @@ var NodeManager = function(width, height) {
     this.nodes = array; 
   };
 
-  this.run = function() {
+  this.run = function(time) {
     for (var i = 0; i < this.nodes.length; i++) {
-      this.nodes[i].run();
+      this.nodes[i].run(time);
     };
   };
 

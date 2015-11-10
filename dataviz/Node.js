@@ -57,7 +57,7 @@ var Node = function(id,
       this.color.setHSL(HSL.h, 1.0, 0.42);
 
     }
-
+    
     // node border color by mean
     var r, g, b;
     if (mean >= 55 && mean < 68){
@@ -106,15 +106,24 @@ var Node = function(id,
 
     // materials
     this.setupColor(this.node_meanAge_all);
-    var circle_material        = new THREE.MeshBasicMaterial( { color: this.color } ); 
-    var circle_border_material = new THREE.MeshBasicMaterial( { color: this.stroke_color } );   
+    var circle_material        = new THREE.MeshBasicMaterial( { color: new THREE.Color('#FFFFFF') } ); 
+    var circle_border_material = new THREE.MeshBasicMaterial( { color: this.stroke_color } );
+
+    // set tween color material
+    var target_color    = { r : this.color.r, g : this.color.g, b : this.color.b };
+    this.tween_color    = new TWEEN.Tween(circle_material.color)
+    .to(target_color, 3000)
+    .easing(TWEEN.Easing.Elastic.InOut)
+    .onUpdate(function(){
+      circle_material.color.setRGB(this.r, this.g, this.b);
+    });
 
     // mesh creations
     var circle_shaded         = new THREE.Mesh( buffered_circle_geometry, circle_material ); 
     var circle_border_shaded  = new THREE.Mesh( buffered_circle_geometry, circle_border_material );
 
     // set border width
-    var size_stroke_die = mapRange([0, 1], [1.35, 1.25], this.originalSize);
+    var size_stroke_die = mapRange([0, 1], [1.35,  1.25],  this.originalSize);
     var size_stroke     = mapRange([0, 1], [1.275, 1.175], this.originalSize);
     if (this.node_type =='die'){
 
@@ -136,7 +145,8 @@ var Node = function(id,
     circle_border_shaded.position.z = z_depth + border_z_offset;
 
     // create node mesh
-    this.node = new THREE.Object3D();
+    var node = new THREE.Object3D();
+    this.node = node;
 
     // add node meshes
     this.node.add(circle_border_shaded);
@@ -151,6 +161,15 @@ var Node = function(id,
     // set scale for nodes initial
     this.node.scale.set(0.001, 0.001, 0.001);
 
+    // set tween for scale
+    var target_scale    = {target_size : 1.0 };
+    this.tween_scale    = new TWEEN.Tween(node.scale)
+    .to(target_scale, 3000)
+    .easing(TWEEN.Easing.Elastic.InOut)
+    .onUpdate(function(){
+      node.scale.set(this.target_size, this.target_size, this.target_size);
+    });
+
     // initial rotation values
     this.node.rotation.z += Math.PI * 0.25;
 
@@ -159,16 +178,27 @@ var Node = function(id,
 
   };
 
-  this.run = function() {
+  this.run = function(time) {
 
     if (FRAME < this.trigger_delay)
       return;
 
-
     if (this.timer <= 1) {
 
       this.timer += 0.01;
-      this.node.scale.set(this.timer, this.timer, this.timer);
+
+      if (this.timer == 0.01){
+
+        this.tween_scale.start();
+        this.tween_color.start();
+
+      }
+
+      this.tween_scale.update(time);
+      this.tween_color.update(time);
+
+      //this.material.color.set();
+      //this.node.scale.set(this.timer, this.timer, this.timer);
 
     }
 
