@@ -2,6 +2,22 @@
 angular.module('app')
 .controller('DataVizCtrl', function($rootScope, $scope, $window){
 
+  $scope.meanAge = 48.0;
+
+  $scope.updateMeanAge = function(){
+    if (FRAME > 400)
+      return;
+
+    var newMeanAge = mapRange([0, 400.0], [48.0, 78.0], FRAME);
+    $scope.meanAge = newMeanAge;
+    $scope.$apply();
+    requestAnimationFrame($scope.updateMeanAge);
+  }
+
+  $scope.updateMeanAge();
+
+  //setInterval($scope.updateMeanAge, 100);
+
 	function setVisibility(){
 		$('.data-visibility').addClass('active');
 	}

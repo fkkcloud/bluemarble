@@ -25,6 +25,14 @@
 #btn-reset {
 
 }
+#mean-age {
+  font-family: "lato";
+  font-size: 1.4em;
+  color: #F9F9D9;
+  float:right;
+  text-align:left;
+  width: 240px;
+}
 /* latin-ext */
 @font-face {
   font-family: 'Lato';

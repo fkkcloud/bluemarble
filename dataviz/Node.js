@@ -32,15 +32,9 @@ var Node = function(id,
   this.group_mergePath          = group_mergePath;
   this.group_cluster            = group_cluster;
 
-  this.timer = 0;
+  this.timer                    = 0;
 
-  var delay_time       = mapRange([45, 85], [60, 405], this.node_meanAge_cluster); // 1000, 16000
-  var delay_time_delta = mapRange([45, 85], [15, 135], this.node_meanAge_cluster); // 100, 2000
-  var d = new Date(); /* except */
-
-  this.trigger_delay = delay_time - delay_time_delta; //d.getTime() + delay_time - delay_time_delta; // trigger time
-
-  this.anim_duration = 2400;
+  this.trigger_delay = mapRange([35, 85], [-60, 365], this.node_meanAge_all);
 
   this.setupColor = function(mean) {
     

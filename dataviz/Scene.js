@@ -3,6 +3,19 @@ var EdgeManager;
 var NodeManager;
 var FRAME = 0;
 var bAnimate = false;
+var stats;
+
+var setState = function() {
+	stats = new Stats();
+	stats.setMode( 0 ); // 0: fps, 1: ms, 2: mb
+
+	// align top-left
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.left = '0px';
+	stats.domElement.style.top = '0px';
+
+	document.body.appendChild( stats.domElement );
+}
 
 var init = function () {
 	$.getJSON("nodesUS.json", loadNodesUS);
@@ -13,6 +26,7 @@ var init = function () {
 
 	setTimeout(function(){
 		document.getElementById("canvasHolder").appendChild( renderer.domElement );
+		setState();
 		bAnimate = true;
 	}, 2000);
 
@@ -25,6 +39,7 @@ var init = function () {
 
 	//controls = new THREE.OrbitControls( camera );
 	// normalized device coordinates
+	/*
 	document.onmousedown = function(event){
 	    var mouse = {};
 
@@ -42,26 +57,29 @@ var init = function () {
 		console.log(intersects.length);
 		if (intersects.length > 0)
 			INTERSECTED = intersects[ 0 ].object.scale.set(3, 3, 3);
-	}
-
-
-	
+	}*/
 
 	EdgeManager = new EdgeManager(1240, 820);
 	NodeManager = new NodeManager(1240, 820);
 }
 
 var animate = function (time) {
+	if (stats) // debug
+		stats.begin();
+
 	if (bAnimate){
 		FRAME++;
 	}
 
 	EdgeManager.run();
 	NodeManager.run(time);
+	renderer.render( SCENE, camera );
+
+	if (stats) // debug
+		stats.end();
 
 	requestAnimationFrame( animate );
 	//controls.update();
-	renderer.render( SCENE, camera );
 }
 
 init();
