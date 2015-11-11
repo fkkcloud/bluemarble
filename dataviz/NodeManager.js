@@ -56,7 +56,7 @@ var NodeManager = function(width, height) {
         }
 
         // clamp min and max
-        scaled_size = Math.min(Math.max(0.5, scaled_size), 20.0);
+        scaled_size = Math.min(Math.max(3.5, scaled_size), 20.0);
 
         /* 
         id, 

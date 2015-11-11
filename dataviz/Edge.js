@@ -25,7 +25,6 @@ var Edge = function(edgeStart,
   this.noCase_mergedPath = noCase_mergedPath;
   this.noCase_cluster    = noCase_cluster;
 
-  this.type              = type;
   this.orientation       = 1;
   this.middle            = 0;
 
@@ -38,12 +37,21 @@ var Edge = function(edgeStart,
   this.line_geometries   = [];
   this.line_meshes       = [];
 
+  this.pointer_geometries = [];
+  this.pointer_meshes     = [];
+  this.pointer_rotation   = [];
+
   this.startframes       = [];
   this.endframes         = [];
 
   this.source_ch         = source_ch;
 
   this.resetted          = false;
+
+  if (type == '0')
+    this.type = 0;
+  else
+    this.type = 1;
 
   if (group_cluster == 'undefined' || !group_cluster)
     this.group_cluster     = 17; // if there is no group, trimmed, it is 17;
@@ -58,8 +66,8 @@ var Edge = function(edgeStart,
 
   this.setup = function() {
 
-      this.setupColor(this.mean_end);
-      this.setupGeometry(this.start, this.end, this.trigger_delay, this.noCase_all);
+    this.setupColor(this.mean_end);
+    this.setupGeometry(this.start, this.end, this.trigger_delay, this.noCase_all);
 
   };
 
@@ -96,9 +104,57 @@ var Edge = function(edgeStart,
 
   }
 
+  this.setupPointer = function(points)
+  {
+      // setup triangle
+      var pointer_vertices = new Float32Array( 3 * 3 );
+      pointer_vertices[0] =  0.0;
+      pointer_vertices[1] =  1.0;
+      pointer_vertices[2] =  0.0;
+      pointer_vertices[3] = -1.0;
+      pointer_vertices[4] = -1.0;
+      pointer_vertices[5] =  0.0;
+      pointer_vertices[6] =  1.0;
+      pointer_vertices[7] = -1.0;
+      pointer_vertices[8] =  0.0;      
+      var pointer_geo = new THREE.BufferGeometry();
+      pointer_geo.addAttribute('position', new THREE.BufferAttribute(pointer_vertices, 3));
+      pointer_geo.rotateZ(Math.PI);
+      //pointer_geo.computeBoundingSphere();
+      //pointer_geo.computeBoundingBox();
+
+      var pointerMaterial = new THREE.MeshBasicMaterial( { color : this.color } );
+      var pointer_mesh = new THREE.Mesh( pointer_geo, pointerMaterial );
+      pointer_mesh.scale.set(3, 3, 3);
+
+      this.pointer_geometries.push(pointer_geo);
+      this.pointer_meshes.push(pointer_mesh);
+      SCENE.add(pointer_mesh);
+
+      var angles = [];
+      var upVector = new THREE.Vector3(0.0, 1.0, 0.0);
+      for (var i = 0; i < points.length; i++){
+
+        // last points does not have forward vector so just use previous
+        if (i === points.length - 1){
+          angles.push(angles[i-1]);
+          break;
+        }
+
+        // get angle between 2
+        var v1 = new THREE.Vector3(points[i].x, points[i].y, points[i].z);
+        var v2 = new THREE.Vector3(points[i+1].x, points[i+1].y, points[i+1].z);
+        v2.subVectors(v1, v2);
+        v2.normalize();
+        var dot = upVector.dot(v2);
+        var angle = Math.acos(dot);
+        angles.push(angle);
+      }
+      this.pointer_rotation.push(angles);
+  }
+
   this.setupGeometry = function(start, end, startframe, traffic_count)
-  {    
-    
+  {
     var length_point = getLength(start, end);
 
     var mapped_traffic = mapRange([15000, 250000], [3, 16], traffic_count);
@@ -145,7 +201,7 @@ var Edge = function(edgeStart,
         positions[i * 3 + 2] = points[i].z;
 
       }
-      line_geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+      line_geometry.addAttribute( 'position' , new THREE.BufferAttribute( positions, 3 ) );
       
       // alpha - vertex
       var vertexAlphas = new Float32Array( points.length );
@@ -183,6 +239,8 @@ var Edge = function(edgeStart,
       // finally add to the SCENE
       SCENE.add(line_mesh);
 
+      this.setupPointer(points);
+
     }
   }
 
@@ -207,7 +265,7 @@ var Edge = function(edgeStart,
       if (FRAME < this.startframes[k]  || // before the animation is started
           FRAME > this.endframes[k])      // after the animation is done
       {
-
+        this.pointer_meshes[k].position.set(99999.0, 99999.0, 99999.0);
         this.line_geometries[k].getAttribute('vtx_alpha').needsUpdate = false; 
         continue;
 
@@ -217,14 +275,31 @@ var Edge = function(edgeStart,
       
       if ( i < this.line_geometries[k].getAttribute('vtx_alpha').count ) {
 
+        // index will match the vertex count in the geo to grab each vertex's vtx_alpha attribute.
         var index = Math.floor(i);
-        this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.15);
+        if (this.type === 0){
 
+          if (index % 4 === 0)
+            this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.0);
+          else
+            this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.15);
+
+        } else {
+
+          this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.15);
+
+        }
+        
+
+        // pointers
+        var position = this.line_geometries[k].getAttribute('position');
+        this.pointer_meshes[k].position.set(position.array[index * 3 + 0], position.array[index * 3 + 1], position.array[index * 3 + 2]);
+        this.pointer_meshes[k].rotation.z = this.pointer_rotation[k][index];
       }
       
       if ( FRAME < this.endframes[k] ) {
 
-        var attribute = this.line_geometries[k].getAttribute('vtx_alpha').needsUpdate = true;
+        this.line_geometries[k].getAttribute('vtx_alpha').needsUpdate = true;
 
       }
     }

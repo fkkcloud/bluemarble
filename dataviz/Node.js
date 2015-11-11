@@ -96,8 +96,6 @@ var Node = function(id,
     // buffer geo creations
     var buffered_circle_geometry = new THREE.BufferGeometry().fromGeometry(circle_geometry);
     
-    buffered_circle_geometry.computeBoundingSphere();
-
     // materials
     this.setupColor(this.node_meanAge_all);
     var circle_material        = new THREE.MeshBasicMaterial( { color: new THREE.Color('#FFFFFF') } ); 
