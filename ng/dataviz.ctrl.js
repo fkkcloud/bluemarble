@@ -34,6 +34,7 @@ CLUSTER
     // reset animation.
     $('#btn-reset').click(function() {
       FRAME = 0;
+      TWEEN.removeAll();
       EdgeManager.reset();
       NodeManager.reset();
     });

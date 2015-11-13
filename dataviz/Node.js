@@ -34,7 +34,7 @@ var Node = function(id,
 
   this.timer                    = 0;
 
-  this.trigger_delay = mapRange([35, 85], [-60, 365], this.node_meanAge_all);
+  this.trigger_delay = mapRange([35, 85], [-100, 365], this.node_meanAge_all);
 
   this.setupColor = function(mean) {
     
@@ -111,20 +111,20 @@ var Node = function(id,
     });
 
     // mesh creations
-    var circle_shaded         = new THREE.Mesh( buffered_circle_geometry, circle_material ); 
-    var circle_border_shaded  = new THREE.Mesh( buffered_circle_geometry, circle_border_material );
+    this.circle_shaded         = new THREE.Mesh( buffered_circle_geometry, circle_material ); 
+    this.circle_border_shaded  = new THREE.Mesh( buffered_circle_geometry, circle_border_material );
 
     // set border width
     var size_stroke_die = mapRange([0, 1], [1.35,  1.25],  this.originalSize);
     var size_stroke     = mapRange([0, 1], [1.275, 1.175], this.originalSize);
     if (this.node_type =='die'){
 
-      circle_border_shaded.scale.set(size_stroke_die, size_stroke_die, size_stroke_die);  
+      this.circle_border_shaded.scale.set(size_stroke_die, size_stroke_die, size_stroke_die);  
 
     }
     else {
 
-      circle_border_shaded.scale.set(size_stroke, size_stroke, size_stroke); 
+      this.circle_border_shaded.scale.set(size_stroke, size_stroke, size_stroke); 
 
     }
 
@@ -133,25 +133,30 @@ var Node = function(id,
     var z_depth         = mapRange([0, 1], [2.5, 0.65], this.originalSize);
 
     // apply z-depth
-    circle_shaded.position.z        = z_depth;
-    circle_border_shaded.position.z = z_depth + border_z_offset;
+    this.circle_shaded.position.z        = z_depth;
+    this.circle_border_shaded.position.z = z_depth + border_z_offset;
+
+    this.createNode();
+  };
+
+  this.createNode = function() {
+    SCENE.remove(this.node);
 
     // create node mesh
     var node = new THREE.Object3D();
-    this.node = node;
-
+    
     // add node meshes
-    this.node.add(circle_border_shaded);
-    this.node.add(circle_shaded);
+    node.add(this.circle_border_shaded);
+    node.add(this.circle_shaded);
 
     // set position nodes meshes
-    this.node.position = new THREE.Vector3();
-    this.node.position.x = this.pos.x;
-    this.node.position.y = this.pos.y;
-    this.node.position.z = 0.1;
+    node.position = new THREE.Vector3();
+    node.position.x = this.pos.x;
+    node.position.y = this.pos.y;
+    node.position.z = 0.1;
 
     // set scale for nodes initial
-    this.node.scale.set(0.001, 0.001, 0.001);
+    node.scale.set(0.001, 0.001, 0.001);
 
     // set tween for scale
     var target_scale    = {target_size : 1.0 };
@@ -163,12 +168,12 @@ var Node = function(id,
     });
 
     // initial rotation values
-    this.node.rotation.z += Math.PI * 0.25;
+    node.rotation.z += Math.PI * 0.25;
 
-    // finally add to SCENE
+    this.node = node;
     SCENE.add(this.node);
 
-  };
+  }
 
   this.run = function(time) {
 
@@ -221,9 +226,9 @@ var Node = function(id,
   }
 
   this.reset = function() {
+    this.timer = 0.0;
 
-    this.node.scale.set(0.001, 0.001, 0.001);
-    this.timer = 0;
+    this.createNode();
 
   }
 
