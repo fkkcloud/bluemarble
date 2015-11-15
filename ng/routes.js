@@ -2,10 +2,15 @@
 angular.module('app')
 .config(function ($routeProvider){
 	$routeProvider
-	.when('/dataviz', 
+	.when('/mergepaths', 
 		{
-			templateUrl: '/templates/dataviz.html',
-			controller: 'DataVizCtrl'
+			templateUrl: '/templates/mergepaths.html',
+			controller: 'MergePathCtrl'
+		})
+	.when('/clusters', 
+		{
+			templateUrl: '/templates/clusters.html',
+			controller: 'ClusterCtrl'
 		})
 	.when('/intro', 
 		{

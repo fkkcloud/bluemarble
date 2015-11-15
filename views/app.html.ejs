@@ -28,6 +28,9 @@
     <!-- stats -->
     <script src="stats.min.js"></script>
 
+	<!-- data gui -->
+    <script src="dat.gui.min.js"></script>
+
     <!-- meta data -->
     <script src="node_color_ref.js"></script>
 
@@ -98,9 +101,14 @@
 	                    </a>
 	                </li>
 					<li>
-	                    <a ng-href="/#/dataviz" ng-click="resetDataViz()">
-	                    	Data
+	                    <a ng-href="/#/clusters" ng-click="resetClusters()">
+	                    	Cluster
 	                    </a>
+	                </li>
+	                <li>
+	                	<a ng-href="/#/mergepaths" ng-click="resetMergePaths()">
+	                		Trajectory
+	                	</a>
 	                </li>
 	                
 				</ul>
@@ -109,9 +117,7 @@
 	</nav>
 </div>
 
-
 <div ng-view></div>
-
 <div class='data-visibility' id='canvasHolder'></div> 
 	
 </body>

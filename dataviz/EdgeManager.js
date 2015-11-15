@@ -1,4 +1,4 @@
-var EdgeManager = function(width, height) {
+var EdgeManager = function(width, height, scene) {
 
   this.width = width;
   this.height = height;
@@ -9,19 +9,21 @@ var EdgeManager = function(width, height) {
 
   this.dataManager;
 
-  this.setup = function(dataManager) {
+  this.scene = scene;
+
+  this.setup = function(data) {
     this.isDataReady = true;
 
-    this.dataManager = dataManager;
-
-    var keys = Object.keys(this.dataManager.edges);
+    var keys = Object.keys(data);
 
     var width =  this.width;
     var height = this.height;
 
+    var scene = this.scene;
+
     var buf = [];
     keys.forEach(function (key) { 
-      var edge_data = this.dataManager.edges[key]; // get data
+      var edge_data = data[key]; // get data
 
       var original_edge_start = new THREE.Vector3(parseFloat(edge_data.pos_start.x), parseFloat(edge_data.pos_start.y), 0);
       var original_edge_end   = new THREE.Vector3(parseFloat(edge_data.pos_end.x),   parseFloat(edge_data.pos_end.y)  , 0);
@@ -53,7 +55,9 @@ var EdgeManager = function(width, height) {
         edge_data.size_start,
         edge_data.size_end,
         edge_data.source_Ch,
-        edge_data.group_cluster);
+        edge_data.group_cluster,
+        scene,
+        undefined); //edge_data.custom_meanAge
 
       new_edge.setup();
       buf.push(new_edge);
@@ -66,6 +70,15 @@ var EdgeManager = function(width, height) {
     for (var i = 0; i < this.edges.length; i++) {
       this.edges[i].run();
     }
+  };
+
+  this.toggleVisibility = function(val) {
+    for (var i = 0; i < this.edges.length; i++) {
+      if (val)
+        this.edges[i].show();
+      else
+        this.edges[i].hide();
+    };
   };
 
   this.toggleShowByCluster = function(clusterID, val) {

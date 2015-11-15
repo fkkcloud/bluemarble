@@ -10,7 +10,9 @@ var Node = function(id,
     node_meanAge_mergedPath, 
     group_mergePath, 
     node_meanAge_cluster, 
-    group_cluster) 
+    group_cluster,
+    scene,
+    custom_mean) 
 {
 
   this.id                       = id;
@@ -34,7 +36,23 @@ var Node = function(id,
 
   this.timer                    = 0;
 
-  this.trigger_delay = mapRange([35, 85], [-100, 365], this.node_meanAge_all);
+  this.custom_mean              = custom_mean;
+
+  var mapValue;
+  if (this.custom_mean == undefined){
+
+    mapValue = this.node_meanAge_all;
+
+  }
+  else{
+
+    mapValue = this.custom_mean;
+
+  }
+
+  this.trigger_delay            = mapRange([35, 85], [-100, 365], mapValue);
+
+  this.scene                    = scene;
 
   this.setupColor = function(mean) {
     
@@ -140,7 +158,7 @@ var Node = function(id,
   };
 
   this.createNode = function() {
-    SCENE.remove(this.node);
+    this.scene.remove(this.node);
 
     // create node mesh
     var node = new THREE.Object3D();
@@ -171,13 +189,13 @@ var Node = function(id,
     node.rotation.z += Math.PI * 0.25;
 
     this.node = node;
-    SCENE.add(this.node);
+    this.scene.add(this.node);
 
   }
 
   this.run = function(time) {
 
-    if (FRAME < this.trigger_delay)
+    if (FRAME.value < this.trigger_delay)
       return;
 
     if (this.timer <= 1) {
@@ -229,6 +247,18 @@ var Node = function(id,
     this.timer = 0.0;
 
     this.createNode();
+
+    // reset tween color material
+    var circle_material         = new THREE.MeshBasicMaterial( { color: new THREE.Color('#FFFFFF') } ); 
+    this.circle_shaded.material = circle_material;
+
+    var target_color    = { r : this.color.r, g : this.color.g, b : this.color.b };
+    this.tween_color    = new TWEEN.Tween(circle_material.color)
+    .to(target_color, 3000)
+    .easing(TWEEN.Easing.Elastic.InOut)
+    .onUpdate(function(){
+      circle_material.color.setRGB(this.r, this.g, this.b);
+    });
 
   }
 

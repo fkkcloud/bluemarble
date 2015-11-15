@@ -13,7 +13,9 @@ var Edge = function(edgeStart,
     size_start,
     size_end,
     source_ch,
-    group_cluster) 
+    group_cluster,
+    scene,
+    custom_mean) 
 {
 
   this.original_start    = edgeStart;
@@ -48,6 +50,8 @@ var Edge = function(edgeStart,
 
   this.resetted          = false;
 
+  this.scene             = scene;
+
   if (type == '0')
     this.type = 0;
   else
@@ -61,8 +65,21 @@ var Edge = function(edgeStart,
   this.timer        = 0;
   this.currentFrame = 0; // timer per each lines
 
-  var delay_time     = mapRange( [45, 85], [60, 405], this.mean_start ); // 1000, 16000
-  this.trigger_delay = delay_time;
+  this.custom_mean       = custom_mean;
+
+  var mapValue;
+  if (this.custom_mean == undefined){
+
+    mapValue = this.mean_start;
+
+  }
+  else {
+
+    mapValue = this.custom_mean;
+
+  }
+
+  this.trigger_delay = mapRange( [45, 85], [60, 405], mapValue ); ;
 
   this.setup = function() {
 
@@ -129,7 +146,7 @@ var Edge = function(edgeStart,
 
       this.pointer_geometries.push(pointer_geo);
       this.pointer_meshes.push(pointer_mesh);
-      SCENE.add(pointer_mesh);
+      this.scene.add(pointer_mesh);
 
       var angles = [];
       var upVector = new THREE.Vector3(0.0, 1.0, 0.0);
@@ -237,7 +254,7 @@ var Edge = function(edgeStart,
       this.line_meshes.push(line_mesh);
 
       // finally add to the SCENE
-      SCENE.add(line_mesh);
+      this.scene.add(line_mesh);
 
       this.setupPointer(points);
 
@@ -262,8 +279,8 @@ var Edge = function(edgeStart,
 
     for ( var k = 0; k < this.line_geometries.length; k++ ) {
       
-      if (FRAME < this.startframes[k]  || // before the animation is started
-          FRAME > this.endframes[k])      // after the animation is done
+      if (FRAME.value < this.startframes[k]  || // before the animation is started
+          FRAME.value > this.endframes[k])      // after the animation is done
       {
         this.pointer_meshes[k].position.set(99999.0, 99999.0, 99999.0);
         this.line_geometries[k].getAttribute('vtx_alpha').needsUpdate = false; 
@@ -271,7 +288,7 @@ var Edge = function(edgeStart,
 
       }
 
-      var i = FRAME - this.startframes[k];
+      var i = FRAME.value - this.startframes[k];
       
       if ( i < this.line_geometries[k].getAttribute('vtx_alpha').count ) {
 
@@ -297,7 +314,7 @@ var Edge = function(edgeStart,
         this.pointer_meshes[k].rotation.z = this.pointer_rotation[k][index];
       }
       
-      if ( FRAME < this.endframes[k] ) {
+      if ( FRAME.value < this.endframes[k] ) {
 
         this.line_geometries[k].getAttribute('vtx_alpha').needsUpdate = true;
 
@@ -312,6 +329,7 @@ var Edge = function(edgeStart,
     for (var k = 0; k < this.line_meshes.length; k++){
 
       this.line_meshes[k].visible = true;
+      this.pointer_meshes[k].visible = true;
 
     }
 
@@ -322,6 +340,7 @@ var Edge = function(edgeStart,
     for (var k = 0; k < this.line_meshes.length; k++){
 
       this.line_meshes[k].visible = false;
+      this.pointer_meshes[k].visible = false;
 
     }
 

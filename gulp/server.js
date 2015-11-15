@@ -9,6 +9,6 @@ gulp.task('dev:server', function(){
 	nodemon({
 		script: 'server.js',
 		ext:    'js css',
-		ignore: ['ng*', 'gulp*', 'assets*']
+		ignore: ['ng*', 'dataviz*', 'gulp*', 'assets*']
 	})
 });

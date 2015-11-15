@@ -1,14 +1,24 @@
 
 angular.module('app')
-.controller('DataVizCtrl', function($rootScope, $scope, $window){
+.controller('ClusterCtrl', function($rootScope, $scope, $window){
+
+  function setPageNum(){
+    PAGE_NUM.value = 1;
+  }
+  setPageNum();
+
+  function setVisibility(){
+    $('.data-visibility').addClass('active');
+  }
+  setVisibility();
 
   $scope.meanAge = 48.0;
 
   $scope.updateMeanAge = function(){
-    if (FRAME > 400)
+    if (FRAME.value > 400 || PAGE_NUM.value != 1)
       return;
 
-    var newMeanAge = mapRange([0, 400.0], [48.0, 78.0], FRAME);
+    var newMeanAge = mapRange([0, 400.0], [48.0, 78.0], FRAME.value);
     $scope.meanAge = newMeanAge;
     $scope.$apply();
     requestAnimationFrame($scope.updateMeanAge);
@@ -17,11 +27,6 @@ angular.module('app')
   $scope.updateMeanAge();
 
   //setInterval($scope.updateMeanAge, 100);
-
-	function setVisibility(){
-		$('.data-visibility').addClass('active');
-	}
-	setVisibility();
 
 /*
 ////////////////////////////////////////////////////////////////////////////
@@ -33,10 +38,7 @@ CLUSTER
 
     // reset animation.
     $('#btn-reset').click(function() {
-      FRAME = 0;
-      TWEEN.removeAll();
-      EdgeManager.reset();
-      NodeManager.reset();
+      $scope.resetClusters();
     });
 
     //set initial state.

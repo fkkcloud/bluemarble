@@ -1,8 +1,13 @@
-var camera, SCENE, renderer, controls;
-var EdgeManager;
-var NodeManager;
-var FRAME = 0;
-var bAnimate = false;
+var camera, renderer, controls;
+var SCENE_CLUSTER, SCENE_MERGEPATH
+var EdgeManagerCluster, EdgeManagerMergePaths;
+var NodeManagerCluster, NodeManagerMergePaths;
+var SELECTED_MERGEPATHID = 0;
+
+var FRAME = { value: 0 };
+var PAGE_NUM = { value: 0 };
+
+var bCanvasLoaded = false;
 var stats;
 
 var setState = function() {
@@ -18,7 +23,6 @@ var setState = function() {
 }
 
 var init = function () {
-	$.getJSON("nodesUS.json", loadNodesUS);
 
 	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 	renderer.setSize( 1240, 820 );
@@ -27,7 +31,7 @@ var init = function () {
 	setTimeout(function(){
 		document.getElementById("canvasHolder").appendChild( renderer.domElement );
 		setState();
-		bAnimate = true;
+		bCanvasLoaded = true;
 	}, 2000);
 
 	camera = new THREE.PerspectiveCamera( 80, 1240 / 820, 10, 3510 );
@@ -35,7 +39,8 @@ var init = function () {
 	camera.position.y = 400;
 	camera.position.z = 900;
 
-	SCENE = new THREE.Scene();
+	SCENE_CLUSTER = new THREE.Scene();
+	SCENE_MERGEPATH = new THREE.Scene();
 
 	//controls = new THREE.OrbitControls( camera );
 	// normalized device coordinates
@@ -59,27 +64,83 @@ var init = function () {
 			INTERSECTED = intersects[ 0 ].object.scale.set(3, 3, 3);
 	}*/
 
-	EdgeManager = new EdgeManager(1240, 820);
-	NodeManager = new NodeManager(1240, 820);
+	dataManager.start('US');
 }
 
 var animate = function (time) {
+
+	if (!dataManager.bDataLoaded || !bCanvasLoaded){
+
+		requestAnimationFrame( animate );
+		return;
+
+	}
+
 	if (stats) // debug
 		stats.begin();
 
-	if (bAnimate){
-		FRAME++;
+	if (PAGE_NUM.value === 0){
+		if (stats) // debug
+			stats.end();
+		requestAnimationFrame( animate );
+		return;
+	}
+	else if (PAGE_NUM.value === 1){
+		EdgeManagerCluster.run();
+		NodeManagerCluster.run(time);
+		renderer.render( SCENE_CLUSTER, camera );
+	}
+	else if (PAGE_NUM.value === 2){
+
+		// turn off other edges
+		if (FRAME.value === 0){
+
+			console.log('SELECTED_MERGEPATHID', SELECTED_MERGEPATHID)
+			selectMergePath(SELECTED_MERGEPATHID);
+
+		}
+
+		// have to turn off 
+		EdgeManagerMergePaths[SELECTED_MERGEPATHID].run();
+		NodeManagerMergePaths[SELECTED_MERGEPATHID].run(time);
+		renderer.render( SCENE_MERGEPATH, camera );
 	}
 
-	EdgeManager.run();
-	NodeManager.run(time);
-	renderer.render( SCENE, camera );
+	FRAME.value += 1;
 
 	if (stats) // debug
 		stats.end();
 
 	requestAnimationFrame( animate );
 	//controls.update();
+}
+
+var selectMergePath = function (mergePathId){
+
+	// turn off edges except mergePathId
+	for (var i = 0; i < EdgeManagerMergePaths.length; i++){
+
+		if (i === mergePathId){
+			EdgeManagerMergePaths[i].toggleVisibility(true);
+			continue;
+		}
+
+		EdgeManagerMergePaths[i].toggleVisibility(false);
+
+	}
+
+	// turn off nodes except mergePathId
+	for (var i = 0; i < NodeManagerMergePaths.length; i++){
+
+		if (i === mergePathId){
+			NodeManagerMergePaths[i].toggleVisibility(true);
+			continue;
+		}
+
+		NodeManagerMergePaths[i].toggleVisibility(false);
+
+	}
+
 }
 
 init();

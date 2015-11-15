@@ -1,4 +1,4 @@
-var NodeManager = function(width, height) {
+var NodeManager = function(width, height, scene) {
   this.stepWidth = (width / 7) - 30;
   this.etages = [];
   this.size = 30;
@@ -8,11 +8,10 @@ var NodeManager = function(width, height) {
   this.height = height;
   this.nodes = [];
   this.isDataReady = false;
+  this.scene = scene;
 
-  this.setup = function(dataManager) {
+  this.setup = function(data) {
     this.isDataReady = true;
-
-    this.dataManager = dataManager;
     
     this.color[0] = new THREE.Color("rgb(81, 159, 204)");
     this.color[1] = new THREE.Color("rgb(137, 147, 153)");
@@ -23,7 +22,7 @@ var NodeManager = function(width, height) {
     this.color[6] = new THREE.Color("rgb(101, 127, 123)");
     this.color[7] = new THREE.Color("rgb(255, 232, 126)");
 
-    var keys = Object.keys(this.dataManager.nodes);
+    var keys = Object.keys(data);
     var node_count = keys.length;
 
     var array = [];
@@ -31,8 +30,10 @@ var NodeManager = function(width, height) {
     var width = this.width;
     var height = this.height;
 
+    var scene = this.scene;
+
     keys.forEach(function (key) { 
-        var node_data = this.dataManager.nodes[key];
+        var node_data = data[key];
 
         var width_scale_factor  = (width  * 0.035);
         var height_scale_factor = (height * 0.16);
@@ -87,7 +88,9 @@ var NodeManager = function(width, height) {
           node_data.node_meanAge_mergedPath,
           node_data.group_mergePath,
           node_data.node_meanAge_cluster,
-          node_data.group_cluster);
+          node_data.group_cluster,
+          scene,
+          undefined); //node_data.custom_meanAge
 
         array.push(new_node);
 
