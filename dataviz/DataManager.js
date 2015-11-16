@@ -92,6 +92,7 @@ function dataReadyAndSetupMergePathManagers(){
 			nodes[node_id] = node;
 
 		}
+
 		mergePathNodeManager.setup(nodes);
 		
 		NodeManagerMergePaths.push(mergePathNodeManager);

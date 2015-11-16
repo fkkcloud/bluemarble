@@ -57,7 +57,7 @@ var Edge = function(edgeStart,
   else
     this.type = 1;
 
-  if (group_cluster == 'undefined' || !group_cluster)
+  if (group_cluster === undefined || !group_cluster)
     this.group_cluster     = 17; // if there is no group, trimmed, it is 17;
   else
     this.group_cluster     = group_cluster;
@@ -68,7 +68,7 @@ var Edge = function(edgeStart,
   this.custom_mean       = custom_mean;
 
   var mapValue;
-  if (this.custom_mean == undefined){
+  if (true || this.custom_mean === undefined){ // debug to be true always for now - CHECK LATER
 
     mapValue = this.mean_start;
 

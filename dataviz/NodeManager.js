@@ -90,7 +90,7 @@ var NodeManager = function(width, height, scene) {
           node_data.node_meanAge_cluster,
           node_data.group_cluster,
           scene,
-          undefined); //node_data.custom_meanAge
+          node_data.custom_meanAge); //
 
         array.push(new_node);
 
@@ -106,12 +106,25 @@ var NodeManager = function(width, height, scene) {
     };
   };
 
-  this.toggleVisibility = function(val) {
+  this.toggleNodeVisibility = function(val) {
     for (var i = 0; i < this.nodes.length; i++) {
-      if (val)
-        this.nodes[i].show();
-      else
-        this.nodes[i].hide();
+      if (val) {
+        this.nodes[i].showNodes();
+      }
+      else {
+        this.nodes[i].hideNodes();
+      }
+    };
+  };
+
+  this.toggleNodeTextVisibility = function(val) {
+    for (var i = 0; i < this.nodes.length; i++) {
+      if (val) {
+        this.nodes[i].showNodeTexts();
+      }
+      else {
+        this.nodes[i].hideNodeTexts();
+      }
     };
   };
 

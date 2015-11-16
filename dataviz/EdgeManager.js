@@ -57,7 +57,7 @@ var EdgeManager = function(width, height, scene) {
         edge_data.source_Ch,
         edge_data.group_cluster,
         scene,
-        undefined); //edge_data.custom_meanAge
+        edge_data.custom_meanAge); //
 
       new_edge.setup();
       buf.push(new_edge);

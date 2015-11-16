@@ -2,10 +2,14 @@ var camera, renderer, controls;
 var SCENE_CLUSTER, SCENE_MERGEPATH
 var EdgeManagerCluster, EdgeManagerMergePaths;
 var NodeManagerCluster, NodeManagerMergePaths;
-var SELECTED_MERGEPATHID = 0;
+
+// scene options
+var SELECTED_MERGEPATHIDS = [ 0 ];
 
 var FRAME = { value: 0 };
-var PAGE_NUM = { value: 0 };
+var PAGE_NUM = { value: 0 }; // 0 - intro, 1 - clusters, 2 - mergepaths
+
+var RENDER_PARMS = { AdditiveColor : true };
 
 var bCanvasLoaded = false;
 var stats;
@@ -86,24 +90,31 @@ var animate = function (time) {
 		return;
 	}
 	else if (PAGE_NUM.value === 1){
+
 		EdgeManagerCluster.run();
 		NodeManagerCluster.run(time);
 		renderer.render( SCENE_CLUSTER, camera );
+
 	}
 	else if (PAGE_NUM.value === 2){
-
 		// turn off other edges
 		if (FRAME.value === 0){
 
-			console.log('SELECTED_MERGEPATHID', SELECTED_MERGEPATHID)
-			selectMergePath(SELECTED_MERGEPATHID);
+			console.log('SELECTED_MERGEPATHIDS', SELECTED_MERGEPATHIDS)
+			selectMergePaths(SELECTED_MERGEPATHIDS);
 
 		}
 
 		// have to turn off 
-		EdgeManagerMergePaths[SELECTED_MERGEPATHID].run();
-		NodeManagerMergePaths[SELECTED_MERGEPATHID].run(time);
+		for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+
+			var id = SELECTED_MERGEPATHIDS[j]
+			EdgeManagerMergePaths[id].run();
+			NodeManagerMergePaths[id].run(time);
+		
+		}
 		renderer.render( SCENE_MERGEPATH, camera );
+		
 	}
 
 	FRAME.value += 1;
@@ -115,33 +126,52 @@ var animate = function (time) {
 	//controls.update();
 }
 
-var selectMergePath = function (mergePathId){
+var selectMergePaths = function (mergePathIds){
 
 	// turn off edges except mergePathId
 	for (var i = 0; i < EdgeManagerMergePaths.length; i++){
 
-		if (i === mergePathId){
-			EdgeManagerMergePaths[i].toggleVisibility(true);
-			continue;
-		}
-
 		EdgeManagerMergePaths[i].toggleVisibility(false);
-
+		
 	}
 
 	// turn off nodes except mergePathId
 	for (var i = 0; i < NodeManagerMergePaths.length; i++){
 
-		if (i === mergePathId){
-			NodeManagerMergePaths[i].toggleVisibility(true);
-			continue;
-		}
+		NodeManagerMergePaths[i].toggleNodeVisibility(false);
+		NodeManagerMergePaths[i].toggleNodeTextVisibility(false);
 
-		NodeManagerMergePaths[i].toggleVisibility(false);
+	}
+
+	// turn on edges mergePathId
+	for (var i = 0; i < EdgeManagerMergePaths.length; i++){
+
+		for (var j = 0; j < mergePathIds.length; j++){
+
+			if (i === mergePathIds[j] ){
+				EdgeManagerMergePaths[i].toggleVisibility(true);
+			}
+
+		}
+		
+	}
+
+	// turn on nodes mergePathId
+	for (var i = 0; i < NodeManagerMergePaths.length; i++){
+
+		for (var j = 0; j < mergePathIds.length; j++){
+
+			if (i === mergePathIds[j]){
+				NodeManagerMergePaths[i].toggleNodeVisibility(true);
+				NodeManagerMergePaths[i].toggleNodeTextVisibility(true);
+			}
+
+		}
 
 	}
 
 }
+
 
 init();
 animate();

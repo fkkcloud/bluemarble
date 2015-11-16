@@ -22,17 +22,42 @@
 .checkbox_data{
   display:inline;
 }
-#btn-reset {
-
+#textinfo-mergepathids {
+  font-family: "lato";
+  font-size: 1.0em;
+  color: #F9F9D9;
+  text-align:left;
+  width: 300px;
+  height: 30px;
+  background-color: #494949;
+  border: 0px;
+  margin-left: 10px;
 }
-#mean-age {
+#mean-age-clusters {
   font-family: "lato";
   font-size: 1.4em;
   color: #F9F9D9;
   float:right;
   text-align:left;
-  width: 240px;
+  width: 280px;
 }
+#mean-age-mergepaths {
+  font-family: "lato";
+  font-size: 1.4em;
+  color: #F9F9D9;
+  float:right;
+  text-align:left;
+  width: 280px;
+}
+#mergepathids-display {
+  font-family: "lato";
+  font-size: 1.4em;
+  color: #F9F9D9;
+  float:right;
+  text-align:left;
+  width: 400px;
+}
+
 /* latin-ext */
 @font-face {
   font-family: 'Lato';

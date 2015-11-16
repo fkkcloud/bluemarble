@@ -1,0 +1,39 @@
+<div class="container data-page">
+	<div class="checkbox">
+    <label>
+      <input type="checkbox" value="" checked>
+      US Data
+    </label>
+  </div>
+  <div class="checkbox disabled">
+    <label>
+      <input type="checkbox" value="" disabled>
+      Korean Data
+    </label>
+  </div>
+  <div class="radio">
+    <label>
+    Mergepaths
+      <input type="text" id="textinfo-mergepathids" placeholder="place merge path ids e.g '0 29 117' or '0'">
+      <button type="button" class="btn btn-calm" id="btn-run-mergepaths">Run</button>
+    </label>
+  </div>
+
+  <button type="button" class="btn btn-info" id="btn-reset-mergepaths">Replay</button>
+  <section>
+    <input type="checkbox" id="checkbox-hide-nodes-mergepaths" class="checkbox_data" value="" checked>
+    Hide Nodes
+  </section>
+  <section>
+    <input type="checkbox" id="checkbox-hide-names-mergepaths" class="checkbox_data" value="" checked>
+    Hide Name Tags
+  </section>
+  <section id="mergepathids-display">
+    MergePath Ids = {{mergePathIds.value}}
+  </section>
+  <section id="mean-age-mergepaths">
+    Mean Age = {{meanAge.value}}
+  </section>
+  
+</div>
+
