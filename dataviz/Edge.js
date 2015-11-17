@@ -68,7 +68,7 @@ var Edge = function(edgeStart,
   this.custom_mean       = custom_mean;
 
   var mapValue;
-  if (true || this.custom_mean === undefined){ // debug to be true always for now - CHECK LATER
+  if (this.custom_mean === undefined){ // debug to be true always for now - CHECK LATER
 
     mapValue = this.mean_start;
 
