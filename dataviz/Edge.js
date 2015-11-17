@@ -67,19 +67,18 @@ var Edge = function(edgeStart,
 
   this.custom_mean       = custom_mean;
 
-  var mapValue;
   if (this.custom_mean === undefined){ // debug to be true always for now - CHECK LATER
 
-    mapValue = this.mean_start;
+    this.trigger_delay = mapRange( [45, 85], [60, 405], this.mean_start);
 
   }
   else {
 
-    mapValue = this.custom_mean;
+    this.trigger_delay = this.custom_mean;
 
   }
 
-  this.trigger_delay = mapRange( [45, 85], [60, 405], mapValue ); ;
+
 
   this.setup = function() {
 

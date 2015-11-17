@@ -38,19 +38,16 @@ var Node = function(id,
 
   this.custom_mean              = custom_mean;
 
-  var mapValue;
   if (this.custom_mean == undefined){ // debug to be true always for now - CHECK LATER
 
-    mapValue = this.node_meanAge_all;
+    this.trigger_delay          = mapRange([35, 85], [-100, 365], this.node_meanAge_all);
 
   }
   else{
 
-    mapValue = this.custom_mean;
+    this.trigger_delay          = this.custom_mean;
 
   }
-
-  this.trigger_delay            = mapRange([35, 85], [-100, 365], mapValue);
 
   this.scene                    = scene;
 
