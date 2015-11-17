@@ -104,13 +104,14 @@ var Node = function(id,
     var circle_material         = new THREE.MeshBasicMaterial( { color: new THREE.Color('#FFFFFF') } ); 
     this.circle_shaded.material = circle_material;
 
-    var target_color    = { r : this.color.r, g : this.color.g, b : this.color.b };
-    this.tween_node_color    = new TWEEN.Tween(circle_material.color)
+    var target_color     = { r : this.color.r, g : this.color.g, b : this.color.b };
+    var tween_node_color = new TWEEN.Tween(circle_material.color)
     .to(target_color, 3000)
     .easing(TWEEN.Easing.Elastic.InOut)
     .onUpdate(function(){
       circle_material.color.setRGB(this.r, this.g, this.b);
-    });
+    })
+    this.tween_node_color = tween_node_color;
 
   }
 
