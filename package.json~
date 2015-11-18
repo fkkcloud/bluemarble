@@ -2,8 +2,8 @@
   "name": "ucsfmedic",
   "version": "1.0.0",
   "author": "Jae Hyun Yoo",
-  "license": "UNLICENSED",
-  "repository": {
+  "license": "JaeYoo",
+  "repository": { 
     "type": "svn",
     "url": ""
   },
