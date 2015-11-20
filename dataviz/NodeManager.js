@@ -36,7 +36,8 @@ var NodeManager = function(width, height, scene) {
         var node_data = data[key];
 
         var width_scale_factor  = (width  * 0.035);
-        var height_scale_factor = (height * 0.16);
+        var height_scale_factor = (height * 0.24);
+        var y_pos_offset = -520;
 
         var original_post = new THREE.Vector3(
           parseFloat(node_data.pos.x),
@@ -45,7 +46,7 @@ var NodeManager = function(width, height, scene) {
 
         var scaled_pos = new THREE.Vector3(
           original_post.x * width_scale_factor, 
-          original_post.y * height_scale_factor,
+          original_post.y * height_scale_factor + y_pos_offset,
           0.0);
         
         var scale_factor = mapRange([0.05, 0.9], [32, 30], node_data.normalized_size);

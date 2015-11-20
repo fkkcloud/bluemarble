@@ -4,6 +4,19 @@ angular.module('app')
 	$scope.meanAge = { value : 0 };
 	$scope.mergePathIds = { value : [0]};
 
+	// as resize, re-init datas
+	$(window).resize(function() {
+    if(this.resizeTO) clearTimeout(this.resizeTO);
+	    this.resizeTO = setTimeout(function() {
+	        $(this).trigger('resizeEnd');
+	    }, 200);
+	});
+
+	$(window).bind('resizeEnd', function() {
+	    //do something, window hasn't changed size in 500ms
+	    location.reload();
+	});
+
 
 	$scope.resetClusters = function(){
       	FRAME.value    = 0;
@@ -39,7 +52,6 @@ angular.module('app')
 		}
 	}
 
-
 	function setDataGuiInitialize(){
 
 	    var renderOptionsUI = function() {
@@ -49,30 +61,98 @@ angular.module('app')
 	      this.Restart = function() { 
 
 	      	 // restart the page
-	      	 console.log("restart the web page");
+	      	 location.reload();
 
 	      };
 
+	      this.HideNodes = false;
+
+	      this.HideNames = false;
+
 	    };
 
-	    var renderOptions 	= new renderOptionsUI();
-	    var gui  			= new dat.GUI();
+	    RENDEROPTIONS 	= new renderOptionsUI();
+	    var gui  		= new dat.GUI();
 
-	    var gui_additiveColor = gui.add(renderOptions, 'AdditiveColor');
+	    var ClustersGrp = gui.addFolder('Clusters');
+		var ClusterHideNodes = ClustersGrp.add(RENDEROPTIONS, 'HideNodes');
+
+		var MergePathGrp = gui.addFolder('MergePaths');
+		var MergePathHideNodes = MergePathGrp.add(RENDEROPTIONS, 'HideNodes');
+		var MergePathHideNames = MergePathGrp.add(RENDEROPTIONS, 'HideNames');
+
+	    var gui_additiveColor = gui.add(RENDEROPTIONS, 'AdditiveColor');
 	    gui_additiveColor.onFinishChange(function(val) {
-	    	if (val === true)
-	    		RenderParams.AdditiveColor = true;
-	    	else
-	    		RenderParams.AdditiveColor = false;
-	    	/*
-	      	if (PAGE_NUM.value === 1)
-	        	$scope.resetClusters(); 
-	        else if (PAGE_NUM.value === 2)
-	        	$scope.resetMergePaths();
-	        */
+	    	if (val === true){
+	    		//RenderParams.AdditiveColor = true;
+	    	}
+	    	else{
+	    		//RenderParams.AdditiveColor = false;
+	    	}
 	    });
 
-	    gui.add(renderOptions, 'Restart');
+	    ClusterHideNodes.onFinishChange(function(val) {
+	    	if (val == true) {
+		        NodeManagerCluster.toggleNodeVisibility(false);
+	    	}
+	    	else {
+		        NodeManagerCluster.toggleNodeVisibility(true);
+	    	}
+	    });
+
+	   	MergePathHideNodes.onFinishChange(function(val) {
+	    	if (val == true) {
+	        	for (var i = 0; i < NodeManagerMergePaths.length; i++){
+
+		          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+
+		            if (SELECTED_MERGEPATHIDS[j] === i)
+		              NodeManagerMergePaths[i].toggleNodeVisibility(false);
+
+		          }
+		          
+		        }
+	    	}
+	    	else {
+	        	for (var i = 0; i < NodeManagerMergePaths.length; i++){
+
+		          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+
+		            if (SELECTED_MERGEPATHIDS[j] === i)
+		              NodeManagerMergePaths[i].toggleNodeVisibility(true);
+
+		          }
+
+		        }
+		    }
+	    });
+
+	    MergePathHideNames.onFinishChange(function(val) {
+	    	if (val == true) {
+	    		for (var i = 0; i < NodeManagerMergePaths.length; i++){
+
+		          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+
+		            if (SELECTED_MERGEPATHIDS[j] === i)
+		              NodeManagerMergePaths[i].toggleNodeTextVisibility(false);
+
+		          }
+		        }
+	    	}
+	    	else {
+	    		for (var i = 0; i < NodeManagerMergePaths.length; i++){
+
+		          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+
+		            if (SELECTED_MERGEPATHIDS[j] === i)
+		              NodeManagerMergePaths[i].toggleNodeTextVisibility(true);
+
+		          }
+		        }
+	    	}
+	    });
+
+	    gui.add(RENDEROPTIONS, 'Restart');
 
 	}
   	setDataGuiInitialize();

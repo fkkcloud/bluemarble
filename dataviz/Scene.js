@@ -2,6 +2,7 @@ var camera, renderer, controls;
 var SCENE_CLUSTER, SCENE_MERGEPATH
 var EdgeManagerCluster, EdgeManagerMergePaths;
 var NodeManagerCluster, NodeManagerMergePaths;
+var RENDEROPTIONS;
 
 // scene options
 var SELECTED_MERGEPATHIDS = [ 0 ];
@@ -13,6 +14,9 @@ var RENDER_PARMS = { AdditiveColor : true };
 
 var bCanvasLoaded = false;
 var stats;
+
+var WIDTH;
+var HEIGHT;
 
 var setState = function() {
 	stats = new Stats();
@@ -28,19 +32,24 @@ var setState = function() {
 
 var init = function () {
 
-	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
-	renderer.setSize( 1240, 820 );
+	WIDTH = window.innerWidth;
+	HEIGHT = window.innerHeight; // reduce the amount of top info bar
+
+	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true, devicePixelRatio: window.devicePixelRatio || 1});
+	renderer.setSize( WIDTH, HEIGHT );
 	renderer.setClearColor( 0x000000, 0 );
-	
+	var DPR = (window.devicePixelRatio) ? window.devicePixelRatio : 1;
+	renderer.setViewport( 0, 0, WIDTH, HEIGHT );
+
 	setTimeout(function(){
 		document.getElementById("canvasHolder").appendChild( renderer.domElement );
 		setState();
 		bCanvasLoaded = true;
 	}, 2000);
 
-	camera = new THREE.PerspectiveCamera( 80, 1240 / 820, 10, 3510 );
-	camera.position.x = 2760;
-	camera.position.y = 400;
+	camera = new THREE.PerspectiveCamera( 80, WIDTH / HEIGHT, 10, 3510 );
+	camera.position.x = WIDTH  * 2.2;
+	camera.position.y = HEIGHT * 0.5;
 	camera.position.z = 900;
 
 	SCENE_CLUSTER = new THREE.Scene();

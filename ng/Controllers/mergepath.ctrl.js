@@ -62,6 +62,7 @@ angular.module('app')
   })
 
   //set initial state.
+  /*
   $('#checkbox-hide-nodes-mergepaths').change(function() {
       if($(this).is(":checked")) {
 
@@ -74,7 +75,6 @@ angular.module('app')
 
           }
           
-
          }
         
       }
@@ -94,6 +94,7 @@ angular.module('app')
 
       }
   });
+*/
 
   //set initial state.
   $('#checkbox-hide-names-mergepaths').change(function() {

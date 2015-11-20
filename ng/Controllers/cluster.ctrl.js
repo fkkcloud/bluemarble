@@ -33,7 +33,7 @@ angular.module('app')
 
   });
 
-
+  /*
   //set initial state.
   $('#checkbox-hide-nodes-clusters').change(function() {
       if($(this).is(":checked")) {
@@ -44,7 +44,7 @@ angular.module('app')
         NodeManagerCluster.toggleNodeVisibility(false);
       }
   });
-
+  */
 
  	//set initial state.
   $('#checkbox_c_all').change(function() {
@@ -94,12 +94,12 @@ angular.module('app')
   $('#checkbox_c0').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(0, true);
+        EdgeManagerCluster.toggleShowByCluster(0, true);
         //etageManager.toggleShowByCluster(0, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(0, false);
+        EdgeManagerCluster.toggleShowByCluster(0, false);
         //etageManager.toggleShowByCluster(0, false);
       }
   });
@@ -108,12 +108,12 @@ angular.module('app')
   $('#checkbox_c1').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(1, true);
+        EdgeManagerCluster.toggleShowByCluster(1, true);
         //etageManager.toggleShowByCluster(1, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(1, false);
+        EdgeManagerCluster.toggleShowByCluster(1, false);
         //etageManager.toggleShowByCluster(1, false);
       }
   });
@@ -121,12 +121,12 @@ angular.module('app')
   $('#checkbox_c2').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(2, true);
+        EdgeManagerCluster.toggleShowByCluster(2, true);
         //etageManager.toggleShowByCluster(2, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(2, false);
+        EdgeManagerCluster.toggleShowByCluster(2, false);
         //etageManager.toggleShowByCluster(2, false);
       }
   });
@@ -134,12 +134,12 @@ angular.module('app')
   $('#checkbox_c3').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(3, true);
+        EdgeManagerCluster.toggleShowByCluster(3, true);
         //etageManager.toggleShowByCluster(3, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(3, false);
+        EdgeManagerCluster.toggleShowByCluster(3, false);
         //etageManager.toggleShowByCluster(3, false);
       }
   });
@@ -147,12 +147,12 @@ angular.module('app')
   $('#checkbox_c4').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(4, true);
+        EdgeManagerCluster.toggleShowByCluster(4, true);
         //etageManager.toggleShowByCluster(4, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(4, false);
+        EdgeManagerCluster.toggleShowByCluster(4, false);
         //etageManager.toggleShowByCluster(4, false);
       }
   });
@@ -161,12 +161,12 @@ angular.module('app')
   $('#checkbox_c5').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(5, true);
+        EdgeManagerCluster.toggleShowByCluster(5, true);
         //etageManager.toggleShowByCluster(5, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(5, false);
+        EdgeManagerCluster.toggleShowByCluster(5, false);
         //etageManager.toggleShowByCluster(5, false);
       }
   });
@@ -175,12 +175,12 @@ angular.module('app')
   $('#checkbox_c6').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(6, true);
+        EdgeManagerCluster.toggleShowByCluster(6, true);
         //etageManager.toggleShowByCluster(6, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(6, false);
+        EdgeManagerCluster.toggleShowByCluster(6, false);
         //etageManager.toggleShowByCluster(6, false);
       }
   });
@@ -189,12 +189,12 @@ angular.module('app')
   $('#checkbox_c7').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(7, true);
+        EdgeManagerCluster.toggleShowByCluster(7, true);
         //etageManager.toggleShowByCluster(7, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(7, false);
+        EdgeManagerCluster.toggleShowByCluster(7, false);
         //etageManager.toggleShowByCluster(7, false);
       }
   });
@@ -203,12 +203,12 @@ angular.module('app')
   $('#checkbox_c8').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(8, true);
+        EdgeManagerCluster.toggleShowByCluster(8, true);
         //etageManager.toggleShowByCluster(8, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(8, false);
+        EdgeManagerCluster.toggleShowByCluster(8, false);
         //etageManager.toggleShowByCluster(8, false);
       }
   });
@@ -217,12 +217,12 @@ angular.module('app')
   $('#checkbox_c9').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(9, true);
+        EdgeManagerCluster.toggleShowByCluster(9, true);
         //etageManager.toggleShowByCluster(9, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(9, false);
+        EdgeManagerCluster.toggleShowByCluster(9, false);
         //etageManager.toggleShowByCluster(9, false);
       }
   });
@@ -231,12 +231,12 @@ angular.module('app')
   $('#checkbox_c10').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(10, true);
+        EdgeManagerCluster.toggleShowByCluster(10, true);
         //etageManager.toggleShowByCluster(10, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(10, false);
+        EdgeManagerCluster.toggleShowByCluster(10, false);
         //etageManager.toggleShowByCluster(10, false);
       }
   });
@@ -245,12 +245,12 @@ angular.module('app')
   $('#checkbox_c11').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(11, true);
+        EdgeManagerCluster.toggleShowByCluster(11, true);
         //etageManager.toggleShowByCluster(11, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(11, false);
+        EdgeManagerCluster.toggleShowByCluster(11, false);
         //etageManager.toggleShowByCluster(11, false);
       }
   });
@@ -259,12 +259,12 @@ angular.module('app')
   $('#checkbox_c12').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(12, true);
+        EdgeManagerCluster.toggleShowByCluster(12, true);
         //etageManager.toggleShowByCluster(12, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(12, false);
+        EdgeManagerCluster.toggleShowByCluster(12, false);
         //etageManager.toggleShowByCluster(12, false);
       }
   });
@@ -273,12 +273,12 @@ angular.module('app')
   $('#checkbox_c13').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(13, true);
+        EdgeManagerCluster.toggleShowByCluster(13, true);
         //etageManager.toggleShowByCluster(13, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(13, false);
+        EdgeManagerCluster.toggleShowByCluster(13, false);
         //etageManager.toggleShowByCluster(13, false);
       }
   });
@@ -287,12 +287,12 @@ angular.module('app')
   $('#checkbox_c14').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(14, true);
+        EdgeManagerCluster.toggleShowByCluster(14, true);
         //etageManager.toggleShowByCluster(14, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(14, false);
+        EdgeManagerCluster.toggleShowByCluster(14, false);
         //etageManager.toggleShowByCluster(14, false);
       }
   });
@@ -300,12 +300,12 @@ angular.module('app')
   $('#checkbox_c15').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(15, true);
+        EdgeManagerCluster.toggleShowByCluster(15, true);
         //etageManager.toggleShowByCluster(15, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(15, false);
+        EdgeManagerCluster.toggleShowByCluster(15, false);
         //etageManager.toggleShowByCluster(15, false);
       }
   });
@@ -313,12 +313,12 @@ angular.module('app')
   $('#checkbox_c16').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(16, true);
+        EdgeManagerCluster.toggleShowByCluster(16, true);
         //etageManager.toggleShowByCluster(16, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(16, false);
+        EdgeManagerCluster.toggleShowByCluster(16, false);
         //etageManager.toggleShowByCluster(16, false);
       }
   });
@@ -327,12 +327,12 @@ angular.module('app')
   $('#checkbox_c17').change(function() {
     console.log("checkbox!");
       if($(this).is(":checked")) {
-        EdgeManager.toggleShowByCluster(17, true);
+        EdgeManagerCluster.toggleShowByCluster(17, true);
         //etageManager.toggleShowByCluster(17, true);
       }
       else
       {
-        EdgeManager.toggleShowByCluster(17, false);
+        EdgeManagerCluster.toggleShowByCluster(17, false);
         //etageManager.toggleShowByCluster(17, false);
       }
   });

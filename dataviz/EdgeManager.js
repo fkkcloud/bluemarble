@@ -29,16 +29,17 @@ var EdgeManager = function(width, height, scene) {
       var original_edge_end   = new THREE.Vector3(parseFloat(edge_data.pos_end.x),   parseFloat(edge_data.pos_end.y)  , 0);
 
       var width_scale_factor  = (width  * 0.035);
-      var height_scale_factor = (height * 0.16);
+      var height_scale_factor = (height * 0.24);
+      var y_pos_offset = -520;
 
       var scaled_edge_start = new THREE.Vector3(
         original_edge_start.x * width_scale_factor, 
-        original_edge_start.y * height_scale_factor,
+        original_edge_start.y * height_scale_factor + y_pos_offset,
         0);
 
       var scaled_edge_end = new THREE.Vector3(
         original_edge_end.x * width_scale_factor, 
-        original_edge_end.y * height_scale_factor,
+        original_edge_end.y * height_scale_factor + y_pos_offset,
         0);
 
       var new_edge = new Edge(

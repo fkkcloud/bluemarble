@@ -48,8 +48,8 @@ function loadClusterEdgesUS(json){
 
 // as data gets ready, create manager for Cluster node and edge
 function dataReadyAndSetupClusterManagers(){
-	EdgeManagerCluster = new EdgeManager(1240, 820, SCENE_CLUSTER);
-	NodeManagerCluster = new NodeManager(1240, 820, SCENE_CLUSTER);
+	EdgeManagerCluster = new EdgeManager(WIDTH, HEIGHT, SCENE_CLUSTER);
+	NodeManagerCluster = new NodeManager(WIDTH, HEIGHT, SCENE_CLUSTER);
 
     EdgeManagerCluster.setup(dataManager.edgesUSCluster);
     NodeManagerCluster.setup(dataManager.nodesUSCluster);
@@ -82,7 +82,7 @@ function dataReadyAndSetupMergePathManagers(){
 
 		var nodesUSMergePath = dataManager.nodesUSMergePaths[mergePathId];
 
-		var mergePathNodeManager = new NodeManager(1240, 820, SCENE_MERGEPATH); 
+		var mergePathNodeManager = new NodeManager(WIDTH, HEIGHT, SCENE_MERGEPATH); 
 		
 		var nodes = {};
 		for (var key in nodesUSMergePath){
@@ -103,7 +103,7 @@ function dataReadyAndSetupMergePathManagers(){
 
 		var edgesUSMergePath = dataManager.edgesUSMergePaths[mergePathId];
 
-		var mergePathEdgeManager = new EdgeManager(1240, 820, SCENE_MERGEPATH); 
+		var mergePathEdgeManager = new EdgeManager(WIDTH, HEIGHT, SCENE_MERGEPATH); 
 
 		var edges = {};
 		for (var key in edgesUSMergePath){
