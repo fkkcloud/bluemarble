@@ -31,7 +31,7 @@ var init = function () {
 	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 	renderer.setSize( 1240, 820 );
 	renderer.setClearColor( 0x000000, 0 );
-
+	
 	setTimeout(function(){
 		document.getElementById("canvasHolder").appendChild( renderer.domElement );
 		setState();

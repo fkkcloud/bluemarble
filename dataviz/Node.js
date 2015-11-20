@@ -209,12 +209,18 @@ var Node = function(id,
 
     this.scene.remove(this.nodeText);
 
+    var maxAnisotropy = renderer.getMaxAnisotropy();
+
     // generate text
     // create a canvas element
+    var desiredWidthInCSSPixels  = 512;
+    var desiredHeightInCSSPixels = 32;
+    
     var canvasText = document.createElement('canvas');
-    canvasText.width = 512;
-    canvasText.height = 32;
 
+    canvasText.width  = desiredWidthInCSSPixels;
+    canvasText.height = desiredHeightInCSSPixels;
+     
     // context text upper bar
     var ctxTextUpperBar = canvasText.getContext("2d");
     ctxTextUpperBar.rect(0, 10, this.name.length * 12, 4);
@@ -236,7 +242,9 @@ var Node = function(id,
       
     // canvas contents will be used for a texture
     var texture1 = new THREE.Texture(canvasText) 
+    var maxAnisotropy = renderer.getMaxAnisotropy();
     texture1.needsUpdate = true;
+    texture1.anisotropy = maxAnisotropy;
 
     var basicMaterial = new THREE.MeshBasicMaterial( {map: texture1 } );
     basicMaterial.transparent = true;
