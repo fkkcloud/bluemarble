@@ -286,6 +286,7 @@ TWEEN.Tween = function (object) {
 
 		}
 
+
 		elapsed = (time - _startTime) / _duration;
 		elapsed = elapsed > 1 ? 1 : elapsed;
 
@@ -320,8 +321,7 @@ TWEEN.Tween = function (object) {
 			_onUpdateCallback.call(_object, value);
 		}
 
-		if (elapsed === 1) {
-
+		if (elapsed === 1) {			
 			if (_repeat > 0) {
 
 				if (isFinite(_repeat)) {

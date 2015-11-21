@@ -16,16 +16,7 @@ angular.module('app')
   }
   setVisibility();
 
-  $scope.updateMeanAge = function(){
-    if (FRAME.value > 400 || PAGE_NUM.value != 1)
-      return;
 
-    var newMeanAge = mapRange([0, 400.0], [48.0, 78.0], FRAME.value);
-    $scope.meanAge.value = newMeanAge;
-    $scope.$apply();
-    requestAnimationFrame($scope.updateMeanAge);
-  }
-  $scope.updateMeanAge();
 
   // reset animation.
   $('#btn-reset-mergepaths').click(function() {
@@ -33,6 +24,8 @@ angular.module('app')
     $scope.resetMergePaths(); 
 
   });
+
+
 
   $('#btn-run-mergepaths').click(function() {
 
@@ -55,6 +48,7 @@ angular.module('app')
       }
     }
     console.log('Show mergepathids : ', array);
+    $scope.cleanMergePaths();
     SELECTED_MERGEPATHIDS = array;
     $scope.mergePathIds.value = array;
     $scope.$apply();

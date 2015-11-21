@@ -30,6 +30,21 @@ angular.module('app')
       	NodeManagerCluster.reset();
 	}
 
+	$scope.cleanMergePaths = function(){
+
+		// turn off nodes and edges except mergePathId
+		for (var i = 0; i < NodeManagerMergePaths.length; i++){
+
+			for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+
+				if (SELECTED_MERGEPATHIDS[j] == i){
+					NodeManagerMergePaths[i].clean();
+				}
+
+			}
+
+		}
+	}
 
 	$scope.resetMergePaths = function(){
 		FRAME.value    = 0;
@@ -80,16 +95,6 @@ angular.module('app')
 		var MergePathGrp = gui.addFolder('MergePaths');
 		var MergePathHideNodes = MergePathGrp.add(RENDEROPTIONS, 'HideNodes');
 		var MergePathHideNames = MergePathGrp.add(RENDEROPTIONS, 'HideNames');
-
-	    var gui_additiveColor = gui.add(RENDEROPTIONS, 'AdditiveColor');
-	    gui_additiveColor.onFinishChange(function(val) {
-	    	if (val === true){
-	    		//RenderParams.AdditiveColor = true;
-	    	}
-	    	else{
-	    		//RenderParams.AdditiveColor = false;
-	    	}
-	    });
 
 	    ClusterHideNodes.onFinishChange(function(val) {
 	    	if (val == true) {

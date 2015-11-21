@@ -15,11 +15,11 @@ angular.module('app')
 
 
   $scope.updateMeanAge = function(){
-    if (FRAME.value > 400 || PAGE_NUM.value != 1)
+    if (FRAME.value > 420 || PAGE_NUM.value != 1)
       return;
 
-    var newMeanAge = mapRange([0, 400.0], [48.0, 78.0], FRAME.value);
-    $scope.meanAge.value = newMeanAge;
+  var newMeanAge = mapRange([0, 400.0], [38.2, 81.3], FRAME.value);
+    $scope.meanAge.value = Math.ceil(newMeanAge);
     $scope.$apply();
     requestAnimationFrame($scope.updateMeanAge);
   }

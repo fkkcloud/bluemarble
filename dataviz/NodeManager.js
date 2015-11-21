@@ -37,7 +37,7 @@ var NodeManager = function(width, height, scene) {
 
         var width_scale_factor  = (width  * 0.035);
         var height_scale_factor = (height * 0.24);
-        var y_pos_offset = -520;
+        var y_pos_offset = -400;
 
         var original_post = new THREE.Vector3(
           parseFloat(node_data.pos.x),
@@ -91,7 +91,8 @@ var NodeManager = function(width, height, scene) {
           node_data.node_meanAge_cluster,
           node_data.group_cluster,
           scene,
-          node_data.custom_meanAge); //
+          node_data.custom_meanAge,
+          node_data.initial); //
 
         array.push(new_node);
 
@@ -106,6 +107,12 @@ var NodeManager = function(width, height, scene) {
       this.nodes[i].run(time);
     };
   };
+
+  this.clean = function() {
+    for (var i = 0; i < this.nodes.length; i++) {
+      this.nodes[i].clean();
+    };
+  }
 
   this.toggleNodeVisibility = function(val) {
     for (var i = 0; i < this.nodes.length; i++) {

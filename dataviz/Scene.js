@@ -38,8 +38,8 @@ var init = function () {
 	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true, devicePixelRatio: window.devicePixelRatio || 1});
 	renderer.setSize( WIDTH, HEIGHT );
 	renderer.setClearColor( 0x000000, 0 );
-	var DPR = (window.devicePixelRatio) ? window.devicePixelRatio : 1;
-	renderer.setViewport( 0, 0, WIDTH, HEIGHT );
+	//var DPR = (window.devicePixelRatio) ? window.devicePixelRatio : 1;
+	//renderer.setViewport( 0, 0, WIDTH, HEIGHT );
 
 	setTimeout(function(){
 		document.getElementById("canvasHolder").appendChild( renderer.domElement );

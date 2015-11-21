@@ -12,7 +12,8 @@ var Node = function(id,
     node_meanAge_cluster, 
     group_cluster,
     scene,
-    custom_mean) 
+    custom_mean,
+    initial) 
 {
 
   this.id                       = id;
@@ -37,6 +38,8 @@ var Node = function(id,
   this.timer                    = 0;
 
   this.custom_mean              = custom_mean;
+
+  this.initial                  = initial;
 
   if (this.custom_mean == undefined){ // debug to be true always for now - CHECK LATER
 
@@ -130,12 +133,14 @@ var Node = function(id,
     
     // materials
     this.setupColor(this.node_meanAge_all);
-    var circle_material        = new THREE.MeshBasicMaterial( { color: new THREE.Color('#FFFFFF') } ); 
-    var circle_border_material = new THREE.MeshBasicMaterial( { color: this.stroke_color } );
+    var circle_material         = new THREE.MeshBasicMaterial( { color: new THREE.Color('#FFFFFF') } ); 
+    var circle_border_material  = new THREE.MeshBasicMaterial( { color: this.stroke_color } );
+    var circle_effects_material = new THREE.MeshBasicMaterial( { color: new THREE.Color('#fdda85'), transparent: true } ); 
 
     // mesh creations
     this.circle_shaded         = new THREE.Mesh( buffered_circle_geometry, circle_material ); 
     this.circle_border_shaded  = new THREE.Mesh( buffered_circle_geometry, circle_border_material );
+    this.circle_effects_shaded = new THREE.Mesh( buffered_circle_geometry, circle_effects_material );
 
     this.setupNodeMaterial();
 
@@ -158,14 +163,15 @@ var Node = function(id,
     var z_depth         = mapRange([0, 1], [2.5, 0.65], this.originalSize);
 
     // apply z-depth
-    this.circle_shaded.position.z        = z_depth;
-    this.circle_border_shaded.position.z = z_depth + border_z_offset;
+    this.circle_shaded.position.z         = z_depth;
+    this.circle_border_shaded.position.z  = z_depth + border_z_offset;
+    this.circle_effects_shaded.position.z = z_depth + 0.1;
 
     this.createNode();
+    this.createNodeEffects();
 
     if (this.custom_mean > 0)
       this.createNodeText();
-
   };
 
   this.createNode = function() {
@@ -205,11 +211,60 @@ var Node = function(id,
 
   }
 
+  this.createNodeEffects = function() {
+
+    this.scene.remove(this.node_effects);
+
+    // create node mesh
+    var node_effects = new THREE.Object3D();
+
+    node_effects.add(this.circle_effects_shaded);
+
+    // set position nodes meshes
+    node_effects.position   = new THREE.Vector3();
+    node_effects.position.x = this.pos.x;
+    node_effects.position.y = this.pos.y;
+    node_effects.position.z = -0.2;
+
+    // set scale for nodes initial
+    node_effects.scale.set(0.001, 0.001, 0.001);
+
+    // set repeat source
+    var repeat_count = 0;
+    if (this.custom_mean !== undefined && this.initial > 0)
+      repeat_count = Infinity;
+
+    // set tween for scale
+    var fx_scale    = { size : 4.0 };
+    this.tween_node_fx_scale    = new TWEEN.Tween(node_effects.scale)
+    .to(fx_scale, 1500)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .onUpdate(function(){
+      node_effects.scale.set(this.size, this.size, this.size);
+    })
+    .repeat(repeat_count);
+
+    var circle_effects_material = new THREE.MeshBasicMaterial( { color: this.color } ); 
+    circle_effects_material.transparent = true;
+    circle_effects_material.opacity = 1.0;
+
+    this.circle_effects_shaded.material = circle_effects_material;
+
+    // set tween alpha material
+    var fx_opacity = { 'opacity' : 0.0 };
+    this.tween_node_fx_opacity    = new TWEEN.Tween(circle_effects_material)
+    .to(fx_opacity, 1500)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .repeat(repeat_count);
+
+    this.node_effects = node_effects;
+    this.scene.add(this.node_effects);
+
+  }
+
   this.createNodeText = function() {
 
     this.scene.remove(this.nodeText);
-
-    var maxAnisotropy = renderer.getMaxAnisotropy();
 
     // generate text
     // create a canvas element
@@ -218,33 +273,45 @@ var Node = function(id,
     
     var canvasText = document.createElement('canvas');
 
-    canvasText.width  = desiredWidthInCSSPixels;
-    canvasText.height = desiredHeightInCSSPixels;
+    //canvasText.width  = desiredWidthInCSSPixels;
+    //canvasText.height = desiredHeightInCSSPixels;
+ 
+    // set the display size of the canvas.
+    canvasText.style.width = desiredWidthInCSSPixels + "px";
+    canvasText.style.height = desiredHeightInCSSPixels + "px";
      
+    // set the size of the drawingBuffer
+    var devicePixelRatio = window.devicePixelRatio || 1;
+    var width_scale = Math.max(Math.min(mapRange([6, 30], [22, 14], this.name.length), 22), 14);
+
+    canvasText.width = desiredWidthInCSSPixels * devicePixelRatio;
+    canvasText.height = desiredHeightInCSSPixels * devicePixelRatio;
+      
     // context text upper bar
     var ctxTextUpperBar = canvasText.getContext("2d");
-    ctxTextUpperBar.rect(0, 10, this.name.length * 12, 4);
-    var colorString = 'rgba(' + Math.floor(this.color.r * 255) + ',' + Math.floor(this.color.g * 255) + ',' + Math.floor(this.color.b * 255) + ',' + 0.6 + ')';
+    ctxTextUpperBar.rect(0, 40, this.name.length * width_scale, 8);
+    var colorString = 'rgba(' + Math.floor(this.color.r * 255) + ',' + Math.floor(this.color.g * 255) + ',' + Math.floor(this.color.b * 255) + ',' + 0.8 + ')';
     ctxTextUpperBar.fillStyle = colorString;
     ctxTextUpperBar.fill();
 
     // context text box
     var ctxTextBox = canvasText.getContext("2d");
-    ctxTextBox.rect(0, 16, this.name.length * 12, 16);
-    ctxTextBox.fillStyle="rgba(10,1,10,0.3)";
+    ctxTextBox.rect(0, 46, this.name.length * width_scale, 26);
+    ctxTextBox.fillStyle="rgba(40,30,40,0.7)";
     ctxTextBox.fill();
 
     // context text
     var ctxText2d = canvasText.getContext('2d');
-    ctxText2d.font = "20px Lato";
-    ctxText2d.fillStyle = "rgba(190,190,200,0.95)";
-    ctxText2d.fillText(this.name, 0, canvasText.height);
+    ctxText2d.font = "24px Lato";
+    ctxText2d.fillStyle = "rgba(190,190,200,0.9)";
+    ctxText2d.fillText(this.name + ' : ' + Math.ceil(this.node_meanAge_mergedPath), 0, canvasText.height);
       
     // canvas contents will be used for a texture
-    var texture1 = new THREE.Texture(canvasText) 
+    var texture1 = new THREE.Texture(canvasText);
     var maxAnisotropy = renderer.getMaxAnisotropy();
     texture1.needsUpdate = true;
     texture1.anisotropy = maxAnisotropy;
+    texture1.magfilter = THREE.LinearFilter;
 
     var basicMaterial = new THREE.MeshBasicMaterial( {map: texture1 } );
     basicMaterial.transparent = true;
@@ -258,18 +325,15 @@ var Node = function(id,
     var x_offset = canvasText.width * 0.5 - this.size;
     textMesh.position.x = this.pos.x + x_offset;
 
-    var y_offset = Math.max(24, this.size * 2);
+    var y_offset = Math.max(24 * devicePixelRatio, this.size * devicePixelRatio * 1.8);
     textMesh.position.y = this.pos.y + y_offset;
     textMesh.position.z = 10.0;
 
     // set tween alpha material
-    var target_opacity = { 'alpha' : 1.0 };
+    var target_opacity = { 'opacity' : 1.0 };
     this.tween_text_opacity    = new TWEEN.Tween(basicMaterial)
     .to(target_opacity, 3000)
     .easing(TWEEN.Easing.Elastic.InOut)
-    .onUpdate(function(){
-      basicMaterial.opacity = this.alpha;
-    });
 
     this.nodeText  = textMesh;
     this.scene.add(this.nodeText);
@@ -281,7 +345,10 @@ var Node = function(id,
     if (FRAME.value < this.trigger_delay)
       return;
 
-    if (this.timer <= 1) {
+    var update_disable_time = 1.0; // this value is for perfomance - not to run this function after certain time - WIP
+    var node_initial_in_mergepath = (this.custom_mean !== undefined && this.initial > 0);
+
+    if (this.timer <= update_disable_time || node_initial_in_mergepath ) {
 
       this.timer += 0.01;
 
@@ -289,15 +356,31 @@ var Node = function(id,
 
         this.tween_node_scale.start();
         this.tween_node_color.start();
+
+        this.tween_node_fx_scale.start();
+        this.tween_node_fx_opacity.start();
+
         if (this.custom_mean > 0)
           this.tween_text_opacity.start();
+        if (this.custom_mean > 0 && this.initial > 0){
+          //this.tween_indiactor_scale.start();
+          //this.tween_indiactor_rot.start();
+        }
 
       }
 
       this.tween_node_scale.update(time);
       this.tween_node_color.update(time);
+
+      this.tween_node_fx_scale.update(time);
+      this.tween_node_fx_opacity.update(time);
+
       if (this.custom_mean > 0)
         this.tween_text_opacity.update(time);
+      if (this.custom_mean > 0 && this.initial > 0){
+        //this.tween_indiactor_scale.update(time);
+        //this.tween_indiactor_rot.update(time);
+      }
 
     }
 
@@ -337,6 +420,10 @@ var Node = function(id,
     
   }
 
+  this.clean = function() {
+      this.scene.remove(this.node_effects);
+  }
+
   this.reset = function() {
 
     // reset timer
@@ -344,6 +431,7 @@ var Node = function(id,
 
     // createNode() will remove the previous mesh and create new one with new tween animation
     this.createNode();
+    this.createNodeEffects();
 
     // createNodeText() will remove the previous mesh and create new one with new tween animation
     if (this.custom_mean > 0)

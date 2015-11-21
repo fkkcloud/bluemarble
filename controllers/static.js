@@ -6,6 +6,7 @@ router.use(express.static(__dirname + '/../scripts'));
 router.use(express.static(__dirname + '/../resources'));
 router.use(express.static(__dirname + '/../dataviz'));
 router.use(express.static(__dirname + '/../node_modules/sweetalert/dist'));
+router.use(express.static(__dirname + '/../bower_components/tween.js/src'));
 
 router.use('/templates', express.static(__dirname + '/../templates'));
 
