@@ -43,7 +43,8 @@ var Node = function(id,
 
   if (this.custom_mean == undefined){ // debug to be true always for now - CHECK LATER
 
-    this.trigger_delay          = mapRange([35, 85], [-100, 365], this.node_meanAge_all);
+    var global_delay            = 120;
+    this.trigger_delay          = mapRange([35, 85], [-100, 365], this.node_meanAge_all) + global_delay;
 
   }
   else{
@@ -118,29 +119,36 @@ var Node = function(id,
   this.setup = function() {
 
     // settings for node mesh
-    var radius = this.size;
+    var radius_mult = 1.0;
+    if (this.custom_mean !== undefined) // bigger node size for mergepath
+      radius_mult = 1.25;
+    var radius = this.size * radius_mult;
+
     var segments;
-    if (this.node_type == 'die')
+    if (this.node_type == 'die'){
       segments = 4;
-    else
+    }
+    else{
       segments = Math.ceil(this.size);
+      if (this.custom_mean !== undefined) // if its for mergepath, need more resolution
+        segments *= 3;
+    }
 
     // geo creations
     var circle_geometry = new THREE.CircleGeometry( radius, segments );
 
     // buffer geo creations
-    var buffered_circle_geometry = new THREE.BufferGeometry().fromGeometry(circle_geometry);
+    this.buffered_circle_geometry = new THREE.BufferGeometry().fromGeometry(circle_geometry);
     
     // materials
     this.setupColor(this.node_meanAge_all);
+
     var circle_material         = new THREE.MeshBasicMaterial( { color: new THREE.Color('#FFFFFF') } ); 
     var circle_border_material  = new THREE.MeshBasicMaterial( { color: this.stroke_color } );
-    var circle_effects_material = new THREE.MeshBasicMaterial( { color: new THREE.Color('#fdda85'), transparent: true } ); 
 
     // mesh creations
-    this.circle_shaded         = new THREE.Mesh( buffered_circle_geometry, circle_material ); 
-    this.circle_border_shaded  = new THREE.Mesh( buffered_circle_geometry, circle_border_material );
-    this.circle_effects_shaded = new THREE.Mesh( buffered_circle_geometry, circle_effects_material );
+    this.circle_shaded          = new THREE.Mesh( this.buffered_circle_geometry, circle_material ); 
+    this.circle_border_shaded   = new THREE.Mesh( this.buffered_circle_geometry, circle_border_material );
 
     this.setupNodeMaterial();
 
@@ -165,7 +173,6 @@ var Node = function(id,
     // apply z-depth
     this.circle_shaded.position.z         = z_depth;
     this.circle_border_shaded.position.z  = z_depth + border_z_offset;
-    this.circle_effects_shaded.position.z = z_depth + 0.1;
 
     this.createNode();
     this.createNodeEffects();
@@ -207,58 +214,75 @@ var Node = function(id,
     node.rotation.z += Math.PI * 0.25;
 
     this.node = node;
+    this.node.node_color = this.color;
     this.scene.add(this.node);
 
   }
 
   this.createNodeEffects = function() {
 
-    this.scene.remove(this.node_effects);
-
+    // remove the old node_effect meshes
+    if (this.node_effects !== undefined){
+      for (var m = 0; m < this.node_effects.length; m++)
+        this.scene.remove(this.node_effects[m]);  
+    }
+    
     // create node mesh
-    var node_effects = new THREE.Object3D();
+    var node_effect1 = new THREE.Object3D();
+    //var node_effect2 = new THREE.Object3D();
+    //var node_effect3 = new THREE.Object3D();
 
-    node_effects.add(this.circle_effects_shaded);
+    this.node_effects = [node_effect1] //, node_effect2, node_effect3]; // for performance using only 1 circle
 
-    // set position nodes meshes
-    node_effects.position   = new THREE.Vector3();
-    node_effects.position.x = this.pos.x;
-    node_effects.position.y = this.pos.y;
-    node_effects.position.z = -0.2;
+    this.tween_node_effects = [];
 
-    // set scale for nodes initial
-    node_effects.scale.set(0.001, 0.001, 0.001);
+    for (var m = 0; m < this.node_effects.length; m++){
+      
+      var node_effect = this.node_effects[m];
 
-    // set repeat source
-    var repeat_count = 0;
-    if (this.custom_mean !== undefined && this.initial > 0)
-      repeat_count = Infinity;
+      var circle_effects_material = new THREE.MeshBasicMaterial( { color: this.color, transparent: true, opacity: 1.0 } );
 
-    // set tween for scale
-    var fx_scale    = { size : 4.0 };
-    this.tween_node_fx_scale    = new TWEEN.Tween(node_effects.scale)
-    .to(fx_scale, 1500)
-    .easing(TWEEN.Easing.Quadratic.Out)
-    .onUpdate(function(){
-      node_effects.scale.set(this.size, this.size, this.size);
-    })
-    .repeat(repeat_count);
+      this.circle_effects_shaded = new THREE.Mesh( this.buffered_circle_geometry, circle_effects_material );
 
-    var circle_effects_material = new THREE.MeshBasicMaterial( { color: this.color } ); 
-    circle_effects_material.transparent = true;
-    circle_effects_material.opacity = 1.0;
+      node_effect.add(this.circle_effects_shaded);
 
-    this.circle_effects_shaded.material = circle_effects_material;
+      // set position nodes meshes
+      node_effect.position   = new THREE.Vector3();
+      node_effect.position.x = this.pos.x;
+      node_effect.position.y = this.pos.y;
+      node_effect.position.z = -0.1 * m -0.2;
 
-    // set tween alpha material
-    var fx_opacity = { 'opacity' : 0.0 };
-    this.tween_node_fx_opacity    = new TWEEN.Tween(circle_effects_material)
-    .to(fx_opacity, 1500)
-    .easing(TWEEN.Easing.Quadratic.Out)
-    .repeat(repeat_count);
+      // set scale for nodes initial
+      node_effect.scale.set(0.001, 0.001, 0.001);
 
-    this.node_effects = node_effects;
-    this.scene.add(this.node_effects);
+      // set repeat source
+      var repeat_count = 0;
+      if (this.custom_mean !== undefined && this.initial > 0)
+        repeat_count = Infinity;
+
+      // set tween for scale
+      var fx_scale    = { size : 8.0 };
+      var tween_node_fx_scale    = new TWEEN.Tween(node_effect.scale)
+      .to(fx_scale, 2500)
+      .easing(TWEEN.Easing.Circular.Out)
+      .onUpdate(function(){
+        node_effect.scale.set(this.size, this.size, this.size);
+      })
+      .repeat(repeat_count)
+      .delay(m * 300);
+      this.tween_node_effects.push(tween_node_fx_scale);
+
+      // set tween alpha material
+      var fx_opacity = { 'opacity' : 0.0 };
+      var tween_node_fx_opacity    = new TWEEN.Tween(circle_effects_material)
+      .to(fx_opacity, 2500)
+      .easing(TWEEN.Easing.Circular.Out)
+      .repeat(repeat_count)
+      .delay(m * 300);
+      this.tween_node_effects.push(tween_node_fx_opacity);
+
+      this.scene.add(node_effect);
+    }
 
   }
 
@@ -269,7 +293,7 @@ var Node = function(id,
     // generate text
     // create a canvas element
     var desiredWidthInCSSPixels  = 512;
-    var desiredHeightInCSSPixels = 32;
+    var desiredHeightInCSSPixels = 64;
     
     var canvasText = document.createElement('canvas');
 
@@ -282,29 +306,31 @@ var Node = function(id,
      
     // set the size of the drawingBuffer
     var devicePixelRatio = window.devicePixelRatio || 1;
-    var width_scale = Math.max(Math.min(mapRange([6, 30], [22, 14], this.name.length), 22), 14);
+    var width_scale = Math.max(Math.min(mapRange([6, 34], [24, 12], this.name.length), 24), 12);
 
     canvasText.width = desiredWidthInCSSPixels * devicePixelRatio;
     canvasText.height = desiredHeightInCSSPixels * devicePixelRatio;
-      
+
+    /*
     // context text upper bar
     var ctxTextUpperBar = canvasText.getContext("2d");
-    ctxTextUpperBar.rect(0, 40, this.name.length * width_scale, 8);
-    var colorString = 'rgba(' + Math.floor(this.color.r * 255) + ',' + Math.floor(this.color.g * 255) + ',' + Math.floor(this.color.b * 255) + ',' + 0.8 + ')';
+    ctxTextUpperBar.rect(0, 40, 10, 8);
+    var colorString = 'rgba(' + Math.floor(this.color.r * 255) + ',' + Math.floor(this.color.g * 255) + ',' + Math.floor(this.color.b * 255) + ',' + 1.0 + ')';
     ctxTextUpperBar.fillStyle = colorString;
     ctxTextUpperBar.fill();
+    */
 
     // context text box
     var ctxTextBox = canvasText.getContext("2d");
-    ctxTextBox.rect(0, 46, this.name.length * width_scale, 26);
-    ctxTextBox.fillStyle="rgba(40,30,40,0.7)";
+    ctxTextBox.rect(0, canvasText.height * 0.625, this.name.length * width_scale, canvasText.height * 0.2);
+    ctxTextBox.fillStyle="rgba(40,30,40,1.0)";
     ctxTextBox.fill();
 
     // context text
     var ctxText2d = canvasText.getContext('2d');
     ctxText2d.font = "24px Lato";
-    ctxText2d.fillStyle = "rgba(190,190,200,0.9)";
-    ctxText2d.fillText(this.name + ' : ' + Math.ceil(this.node_meanAge_mergedPath), 0, canvasText.height);
+    ctxText2d.fillStyle = "rgba(190,190,200,1.0)";
+    ctxText2d.fillText(this.name + ' : ' + Math.ceil(this.node_meanAge_mergedPath), 0, canvasText.height * 0.8);
       
     // canvas contents will be used for a texture
     var texture1 = new THREE.Texture(canvasText);
@@ -327,15 +353,16 @@ var Node = function(id,
 
     var y_offset = Math.max(24 * devicePixelRatio, this.size * devicePixelRatio * 1.8);
     textMesh.position.y = this.pos.y + y_offset;
-    textMesh.position.z = 10.0;
+    textMesh.position.z = -20.0;
 
     // set tween alpha material
-    var target_opacity = { 'opacity' : 1.0 };
+    var target_opacity = { 'opacity' : 0.25 };
     this.tween_text_opacity    = new TWEEN.Tween(basicMaterial)
     .to(target_opacity, 3000)
     .easing(TWEEN.Easing.Elastic.InOut)
 
     this.nodeText  = textMesh;
+    this.node.text = this.nodeText;
     this.scene.add(this.nodeText);
 
   }
@@ -345,7 +372,7 @@ var Node = function(id,
     if (FRAME.value < this.trigger_delay)
       return;
 
-    var update_disable_time = 1.0; // this value is for perfomance - not to run this function after certain time - WIP
+    var update_disable_time = 1.5; // this value is for perfomance - not to run this function after certain time - WIP
     var node_initial_in_mergepath = (this.custom_mean !== undefined && this.initial > 0);
 
     if (this.timer <= update_disable_time || node_initial_in_mergepath ) {
@@ -357,30 +384,24 @@ var Node = function(id,
         this.tween_node_scale.start();
         this.tween_node_color.start();
 
-        this.tween_node_fx_scale.start();
-        this.tween_node_fx_opacity.start();
+        for (var k = 0; k < this.tween_node_effects.length; k++){
+          this.tween_node_effects[k].start();
+        }
 
         if (this.custom_mean > 0)
           this.tween_text_opacity.start();
-        if (this.custom_mean > 0 && this.initial > 0){
-          //this.tween_indiactor_scale.start();
-          //this.tween_indiactor_rot.start();
-        }
 
       }
 
       this.tween_node_scale.update(time);
       this.tween_node_color.update(time);
 
-      this.tween_node_fx_scale.update(time);
-      this.tween_node_fx_opacity.update(time);
+      for (var k = 0; k < this.tween_node_effects.length; k++){
+        this.tween_node_effects[k].update(time);
+      }
 
       if (this.custom_mean > 0)
         this.tween_text_opacity.update(time);
-      if (this.custom_mean > 0 && this.initial > 0){
-        //this.tween_indiactor_scale.update(time);
-        //this.tween_indiactor_rot.update(time);
-      }
 
     }
 
@@ -421,7 +442,13 @@ var Node = function(id,
   }
 
   this.clean = function() {
-      this.scene.remove(this.node_effects);
+
+    // remove the old node_effect meshes
+    if (this.node_effects !== undefined){
+      for (var m = 0; m < this.node_effects.length; m++)
+        this.scene.remove(this.node_effects[m]);  
+    }
+    
   }
 
   this.reset = function() {

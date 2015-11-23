@@ -37,7 +37,7 @@ var NodeManager = function(width, height, scene) {
 
         var width_scale_factor  = (width  * 0.035);
         var height_scale_factor = (height * 0.24);
-        var y_pos_offset = -400;
+        var y_pos_offset = -430;
 
         var original_post = new THREE.Vector3(
           parseFloat(node_data.pos.x),
@@ -49,11 +49,11 @@ var NodeManager = function(width, height, scene) {
           original_post.y * height_scale_factor + y_pos_offset,
           0.0);
         
-        var scale_factor = mapRange([0.05, 0.9], [32, 30], node_data.normalized_size);
+        var scale_factor = mapRange([0.05, 0.9], [33, 30], node_data.normalized_size);
         var scaled_size = node_data.normalized_size * scale_factor;
 
         if (scaled_size <= 5.0){
-          var fix_min_scale_factor = mapRange([0.2, 5.0], [4.5, 1.0], scaled_size);
+          var fix_min_scale_factor = mapRange([0.2, 5.0], [5.0, 1.0], scaled_size);
           scaled_size *= fix_min_scale_factor;
         }
 

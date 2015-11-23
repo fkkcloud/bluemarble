@@ -69,7 +69,8 @@ var Edge = function(edgeStart,
 
   if (this.custom_mean === undefined){ // debug to be true always for now - CHECK LATER
 
-    this.trigger_delay = mapRange( [45, 85], [60, 405], this.mean_start);
+    var global_delay   = 120;
+    this.trigger_delay = mapRange( [45, 85], [60, 405], this.mean_start) + global_delay;
 
   }
   else {

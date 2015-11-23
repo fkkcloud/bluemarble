@@ -1,8 +1,13 @@
 
 angular.module('app')
 .controller('ApplicationCtrl', function($rootScope, $scope, $window){
+
 	$scope.meanAge = { value : 0 };
 	$scope.mergePathIds = { value : [0]};
+
+	$scope.getMenuShow = function(){
+		return $scope.show_menu;
+	}
 
 	// as resize, re-init datas
 	$(window).resize(function() {
