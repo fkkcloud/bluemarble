@@ -235,12 +235,13 @@ var animate_interaction = function () {
 			INTERSECTED = intersects[ 0 ].object;
 
 			INTERSECTED.material.color.setRGB(INTERSECTED.parent.node_color.r * 1.5, INTERSECTED.parent.node_color.g * 1.5, INTERSECTED.parent.node_color.b * 1.5);
-			INTERSECTED.parent.scale.set(1.1, 1.1, 1.1);
+			INTERSECTED.parent.scale.set(INTERSECTED.parent.node_size, INTERSECTED.parent.node_size, INTERSECTED.parent.node_size);
 
 			// text
 			INTERSECTED.parent.text.scale.set(1.05, 1.05, 1.05);
 			orig_z_depth = INTERSECTED.parent.text.position.z;
 			INTERSECTED.parent.text.position.z = 20.0;
+			INTERSECTED.parent.text.position.x = 20.0;
 			INTERSECTED.parent.text.material.opacity = 1.0;
 
 
@@ -251,7 +252,7 @@ var animate_interaction = function () {
 		else {
 
 			INTERSECTED.material.color.setRGB(INTERSECTED.parent.node_color.r * 1.5, INTERSECTED.parent.node_color.g * 1.5, INTERSECTED.parent.node_color.b * 1.5);
-			INTERSECTED.parent.scale.set(1.1, 1.1, 1.1);
+			INTERSECTED.parent.scale.set(INTERSECTED.parent.node_size, INTERSECTED.parent.node_size, INTERSECTED.parent.node_size);
 
 			//text
 			INTERSECTED.parent.text.scale.set(1.05, 1.05, 1.05);

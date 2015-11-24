@@ -97,23 +97,36 @@ var Edge = function(edgeStart,
   this.setupColor = function(mean) {
 
     var r, g, b;
-    if (mean >= 55 && mean < 68){
-
-      r = mapRange([58, 68], [30, 255], mean);
-      g = mapRange([58, 68], [186, 255], mean);
-      b = mapRange([58, 68], [255, 153], mean);
-
-    } else if (mean >= 68) {
-
-      r = mapRange([67, 75], [255, 255], mean);
-      g = mapRange([67, 75], [255, 80], mean);
-      b = mapRange([67, 75], [153, 80], mean);
-
-    } else if (mean < 55) {
+    
+    if (mean < 26) {
 
       r = 30;
       g = 186;
       b = 255;
+
+    } else if (mean >= 26 && mean < 50){
+
+      r = mapRange([26, 50], [30, 100], mean);
+      g = mapRange([26, 50], [186, 100], mean);
+      b = mapRange([26, 50], [255, 100], mean);
+
+    } else if (mean >= 50 && mean < 61) {
+
+      r = mapRange([50, 61], [100, 255], mean);
+      g = mapRange([50, 61], [100, 255], mean);
+      b = mapRange([50, 61], [100, 153], mean);
+
+    } else if (mean >= 61 && mean < 73) {
+
+      r = mapRange([61, 73], [255, 255], mean);
+      g = mapRange([61, 73], [255, 80], mean);
+      b = mapRange([61, 73], [153, 80], mean);
+
+    } else {
+      
+      r = 255;
+      g = 80;
+      b = 80;
 
     }
 
@@ -198,13 +211,13 @@ var Edge = function(edgeStart,
       this.endframes.push( varied_startframe + points.length );
       
       // color
-      var r = this.color.r + mapRange([0.0, 1.0], [-0.15, 0.15], Math.random());
-      var g = this.color.g + mapRange([0.0, 1.0], [-0.15, 0.15], Math.random());
-      var b = this.color.b + mapRange([0.0, 1.0], [-0.15, 0.15], Math.random());
+      var r = this.color.r + mapRange([0.0, 1.0], [-0.07, 0.07], Math.random());
+      var g = this.color.g + mapRange([0.0, 1.0], [-0.07, 0.07], Math.random());
+      var b = this.color.b + mapRange([0.0, 1.0], [-0.07, 0.07], Math.random());
       var color = new THREE.Color();
       color.setRGB(r, g, b);
       var HSL = color.getHSL();
-      color.setHSL(HSL.h, 1.0, 0.42);
+      color.setHSL(HSL.h, 1.4, 0.45);
       var uniforms = {
         color:     { type: "c", value: color}
       };
@@ -239,13 +252,16 @@ var Edge = function(edgeStart,
         uniforms:       uniforms,
         vertexShader:   document.getElementById( 'line_vertexshader' ).textContent,
         fragmentShader: document.getElementById( 'line_fragmentshader' ).textContent,
-        blending:       THREE.AdditiveBlending,
+        //blending:       THREE.AdditiveBlending,
         //depthTest:      false
         transparent:    true
 
       } );
 
       shaderMaterial.linewidth = 1.2;
+      if (this.custom_mean !== undefined)
+        shaderMaterial.linewidth *= 1.35;
+      
       
       //Create the final Object3d to add to the scene
       var line_mesh = new THREE.Line( line_geometry, shaderMaterial );

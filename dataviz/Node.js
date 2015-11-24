@@ -71,25 +71,46 @@ var Node = function(id,
 
     }
     
+    /*
+     0~25세정도(?) 파랑
+     26~49세      파랑~회색의 중간색상
+     50~60세      노랑
+     61~72세      주황(오렌지)
+     73~ 이상      빨강
+    */
     // node border color by mean
+
     var r, g, b;
-    if (mean >= 55 && mean < 68){
 
-      r = mapRange([58, 68], [30, 255], mean);
-      g = mapRange([58, 68], [186, 255], mean);
-      b = mapRange([58, 68], [255, 153], mean);
-
-    } else if (mean >= 68) {
-
-      r = mapRange([67, 75], [255, 255], mean);
-      g = mapRange([67, 75], [255, 80], mean);
-      b = mapRange([67, 75], [153, 80], mean);
-
-    } else if (mean < 55) {
+    if (mean < 26) {
 
       r = 30;
       g = 186;
       b = 255;
+
+    } else if (mean >= 26 && mean < 50){
+
+      r = mapRange([26, 50], [30, 100], mean);
+      g = mapRange([26, 50], [186, 100], mean);
+      b = mapRange([26, 50], [255, 100], mean);
+
+    } else if (mean >= 50 && mean < 61) {
+
+      r = mapRange([50, 61], [100, 255], mean);
+      g = mapRange([50, 61], [100, 255], mean);
+      b = mapRange([50, 61], [100, 153], mean);
+
+    } else if (mean >= 61 && mean < 73) {
+
+      r = mapRange([61, 73], [255, 255], mean);
+      g = mapRange([61, 73], [255, 80], mean);
+      b = mapRange([61, 73], [153, 80], mean);
+
+    } else {
+
+      r = 255;
+      g = 80;
+      b = 80;
 
     }
 
@@ -120,8 +141,10 @@ var Node = function(id,
 
     // settings for node mesh
     var radius_mult = 1.0;
+
     if (this.custom_mean !== undefined) // bigger node size for mergepath
       radius_mult = 1.25;
+
     var radius = this.size * radius_mult;
 
     var segments;
@@ -153,8 +176,8 @@ var Node = function(id,
     this.setupNodeMaterial();
 
     // set border width
-    var size_stroke_die = mapRange([0, 1], [1.35,  1.25],  this.originalSize);
-    var size_stroke     = mapRange([0, 1], [1.275, 1.175], this.originalSize);
+    var size_stroke_die = mapRange([0, 1], [1.65,  1.25],  this.originalSize);
+    var size_stroke     = mapRange([0, 1], [1.575, 1.175], this.originalSize);
     if (this.node_type =='die'){
 
       this.circle_border_shaded.scale.set(size_stroke_die, size_stroke_die, size_stroke_die);  
@@ -215,6 +238,7 @@ var Node = function(id,
 
     this.node = node;
     this.node.node_color = this.color;
+    this.node.node_size  = mapRange([0, 1], [2.0, 1.05], this.originalSize);
     this.scene.add(this.node);
 
   }
@@ -376,8 +400,10 @@ var Node = function(id,
       return;
 
     var update_disable_time = 1.2; // this value is for perfomance - not to run this function after certain time - WIP
-    if (this.custom_mean > 0)
-      update_disable_time += 0.75;
+
+    if (this.custom_mean !== undefined)
+      update_disable_time += 1.75;
+
     var node_initial_in_mergepath = (this.custom_mean !== undefined && this.initial > 0);
 
     if (this.timer <= update_disable_time || node_initial_in_mergepath ) {

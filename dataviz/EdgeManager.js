@@ -30,7 +30,7 @@ var EdgeManager = function(width, height, scene) {
 
       var width_scale_factor  = (width  * 0.035);
       var height_scale_factor = (height * 0.24);
-      var y_pos_offset = -430;
+      var y_pos_offset = -470;
 
       var scaled_edge_start = new THREE.Vector3(
         original_edge_start.x * width_scale_factor, 
