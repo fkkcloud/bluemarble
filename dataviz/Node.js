@@ -353,13 +353,16 @@ var Node = function(id,
 
     var y_offset = Math.max(24 * devicePixelRatio, this.size * devicePixelRatio * 1.8);
     textMesh.position.y = this.pos.y + y_offset;
-    textMesh.position.z = -20.0;
+    textMesh.position.z = 5.0;
 
     // set tween alpha material
-    var target_opacity = { 'opacity' : 0.25 };
-    this.tween_text_opacity    = new TWEEN.Tween(basicMaterial)
-    .to(target_opacity, 3000)
-    .easing(TWEEN.Easing.Elastic.InOut)
+    var target_opacity1 = { 'opacity' : 0.6 };
+    this.tween_text_opacity_to1   = new TWEEN.Tween(basicMaterial)
+    .to(target_opacity1, 3500)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .onComplete(function(){
+      basicMaterial.opacity = 0.0;
+    })
 
     this.nodeText  = textMesh;
     this.node.text = this.nodeText;
@@ -372,7 +375,9 @@ var Node = function(id,
     if (FRAME.value < this.trigger_delay)
       return;
 
-    var update_disable_time = 1.5; // this value is for perfomance - not to run this function after certain time - WIP
+    var update_disable_time = 1.2; // this value is for perfomance - not to run this function after certain time - WIP
+    if (this.custom_mean > 0)
+      update_disable_time += 0.75;
     var node_initial_in_mergepath = (this.custom_mean !== undefined && this.initial > 0);
 
     if (this.timer <= update_disable_time || node_initial_in_mergepath ) {
@@ -388,8 +393,9 @@ var Node = function(id,
           this.tween_node_effects[k].start();
         }
 
-        if (this.custom_mean > 0)
-          this.tween_text_opacity.start();
+        if (this.custom_mean > 0){
+          this.tween_text_opacity_to1.start(); 
+        }
 
       }
 
@@ -400,8 +406,9 @@ var Node = function(id,
         this.tween_node_effects[k].update(time);
       }
 
-      if (this.custom_mean > 0)
-        this.tween_text_opacity.update(time);
+      if (this.custom_mean > 0){
+        this.tween_text_opacity_to1.update(time);
+      }
 
     }
 

@@ -97,8 +97,6 @@ var animate = function (time) {
 	if (stats) // debug
 		stats.begin();
 
-	requestAnimationFrame( animate );
-
 	if (PAGE_NUM.value === 0){
 		if (stats) // debug
 			stats.end();
@@ -147,6 +145,7 @@ var animate = function (time) {
 	if (stats) // debug
 		stats.end();
 
+	requestAnimationFrame( animate );
 	//controls.update();
 }
 
@@ -236,7 +235,7 @@ var animate_interaction = function () {
 			INTERSECTED = intersects[ 0 ].object;
 
 			INTERSECTED.material.color.setRGB(INTERSECTED.parent.node_color.r * 1.5, INTERSECTED.parent.node_color.g * 1.5, INTERSECTED.parent.node_color.b * 1.5);
-			INTERSECTED.parent.scale.set(2.0, 2.0, 2.0);
+			INTERSECTED.parent.scale.set(1.1, 1.1, 1.1);
 
 			// text
 			INTERSECTED.parent.text.scale.set(1.05, 1.05, 1.05);
@@ -252,7 +251,7 @@ var animate_interaction = function () {
 		else {
 
 			INTERSECTED.material.color.setRGB(INTERSECTED.parent.node_color.r * 1.5, INTERSECTED.parent.node_color.g * 1.5, INTERSECTED.parent.node_color.b * 1.5);
-			INTERSECTED.parent.scale.set(2.0, 2.0, 2.0);
+			INTERSECTED.parent.scale.set(1.1, 1.1, 1.1);
 
 			//text
 			INTERSECTED.parent.text.scale.set(1.05, 1.05, 1.05);
@@ -273,7 +272,7 @@ var animate_interaction = function () {
 			//text
 			INTERSECTED.parent.text.scale.set(1.0, 1.0, 1.0);
 			INTERSECTED.parent.text.position.z = -20.0;
-			INTERSECTED.parent.text.material.opacity = 0.25;
+			INTERSECTED.parent.text.material.opacity = 0.0;
 		}
 
 		INTERSECTED = null;
