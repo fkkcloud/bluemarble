@@ -7,7 +7,7 @@ var RENDEROPTIONS;
 // scene options
 var SELECTED_MERGEPATHIDS = [ 0 ];
 
-var FRAME = { value: 0 };
+var FRAME    = { value: 0 };
 var PAGE_NUM = { value: 0 }; // 0 - intro, 1 - clusters, 2 - mergepaths
 
 var RENDER_PARMS = { AdditiveColor : true };
@@ -40,7 +40,7 @@ var setState = function() {
 	// align top-left
 	stats.domElement.style.position = 'absolute';
 	stats.domElement.style.left = '0px';
-	stats.domElement.style.top = '0px';
+	stats.domElement.style.top  = '0px';
 
 	document.body.appendChild( stats.domElement );
 }
@@ -107,6 +107,16 @@ var animate = function (time) {
 
 		EdgeManagerCluster.run();
 		NodeManagerCluster.run(time);
+
+		interactable_meshes = [];
+
+		// get interactable objects
+		for (var a = 0; a < NodeManagerCluster.nodes.length; a++){
+			interactable_meshes.push(NodeManagerCluster.nodes[a].circle_shaded);
+		}
+
+		animate_interaction();
+
 		renderer.render( SCENE_CLUSTER, camera );
 
 	}
@@ -200,17 +210,6 @@ var init_interaction = function () {
 	raycaster = new THREE.Raycaster();
 	MOUSE     = new THREE.Vector2();
 
-    // geo creations
-    var circle_geometry = new THREE.CircleGeometry( 15, 12 );
-
-    // buffer geo creations
-    highlighter_geo = new THREE.BufferGeometry().fromGeometry(circle_geometry);
-
-	var highlight_material = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0.8 } );
-
-	highlighter = new THREE.Mesh( highlighter_geo, highlight_material );
-	SCENE_MERGEPATH.add( highlighter );
-
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
 	if (debug) debug_init_ray_interact(SCENE_MERGEPATH); // ray debug
@@ -230,24 +229,22 @@ var animate_interaction = function () {
 
 	if ( intersects.length > 0 ) {
 
+		if ( INTERSECTED ) {
+
+			INTERSECTED.material.color.setRGB(INTERSECTED.parent.node_color.r, INTERSECTED.parent.node_color.g, INTERSECTED.parent.node_color.b);
+			INTERSECTED.parent.scale.set(1.0, 1.0, 1.0);
+
+			//text
+			INTERSECTED.parent.text.scale.set(1.0, 1.0, 1.0);
+			INTERSECTED.parent.text.position.z = -20.0;
+			INTERSECTED.parent.text.material.opacity = 0.0;
+
+			INTERSECTED = null;
+		}
+
 		if (INTERSECTED != intersects[ 0 ].object){
 
 			INTERSECTED = intersects[ 0 ].object;
-
-			INTERSECTED.material.color.setRGB(INTERSECTED.parent.node_color.r * 1.5, INTERSECTED.parent.node_color.g * 1.5, INTERSECTED.parent.node_color.b * 1.5);
-			INTERSECTED.parent.scale.set(INTERSECTED.parent.node_size, INTERSECTED.parent.node_size, INTERSECTED.parent.node_size);
-
-			// text
-			INTERSECTED.parent.text.scale.set(1.05, 1.05, 1.05);
-			orig_z_depth = INTERSECTED.parent.text.position.z;
-			INTERSECTED.parent.text.position.z = 20.0;
-			INTERSECTED.parent.text.position.x = 20.0;
-			INTERSECTED.parent.text.material.opacity = 1.0;
-
-
-			highlighter.position = INTERSECTED.parent.position;
-			highlighter.visible  = true;
-
 		}
 		else {
 

@@ -15,7 +15,8 @@ var Edge = function(edgeStart,
     source_ch,
     group_cluster,
     scene,
-    custom_mean) 
+    custom_mean,
+    visualize_type) 
 {
 
   this.original_start    = edgeStart;
@@ -67,19 +68,17 @@ var Edge = function(edgeStart,
 
   this.custom_mean       = custom_mean;
 
-  if (this.custom_mean === undefined){ // debug to be true always for now - CHECK LATER
-
-    var global_delay   = 120;
-    this.trigger_delay = mapRange( [45, 85], [60, 405], this.mean_start) + global_delay;
-
-  }
-  else {
+  if (visualize_type == 0){ // debug to be true always for now - CHECK LATER
 
     this.trigger_delay = this.custom_mean;
 
   }
+  else {
 
-
+    var global_delay   = 120;
+    this.trigger_delay = mapRange( [45, 85], [60, 405], this.mean_start) + global_delay;
+    
+  }
 
   this.setup = function() {
 
@@ -259,7 +258,7 @@ var Edge = function(edgeStart,
       } );
 
       shaderMaterial.linewidth = 1.2;
-      if (this.custom_mean !== undefined)
+      if (visualize_type == 0)
         shaderMaterial.linewidth *= 1.35;
       
       

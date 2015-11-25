@@ -13,7 +13,8 @@ var Node = function(id,
     group_cluster,
     scene,
     custom_mean,
-    initial) 
+    initial,
+    visualize_type) 
 {
 
   this.id                       = id;
@@ -41,15 +42,15 @@ var Node = function(id,
 
   this.initial                  = initial;
 
-  if (this.custom_mean == undefined){ // debug to be true always for now - CHECK LATER
+  if (visualize_type == 0){ // debug to be true always for now - CHECK LATER
 
-    var global_delay            = 120;
-    this.trigger_delay          = mapRange([35, 85], [-100, 365], this.node_meanAge_all) + global_delay;
+    this.trigger_delay          = this.custom_mean;
 
   }
   else{
 
-    this.trigger_delay          = this.custom_mean;
+    var global_delay            = 120;
+    this.trigger_delay          = mapRange( [35, 85], [-100, 365], this.node_meanAge_all ) + global_delay;
 
   }
 
@@ -142,7 +143,7 @@ var Node = function(id,
     // settings for node mesh
     var radius_mult = 1.0;
 
-    if (this.custom_mean !== undefined) // bigger node size for mergepath
+    if (visualize_type == 0) // bigger node size for mergepath
       radius_mult = 1.25;
 
     var radius = this.size * radius_mult;
@@ -153,7 +154,8 @@ var Node = function(id,
     }
     else{
       segments = Math.ceil(this.size);
-      if (this.custom_mean !== undefined) // if its for mergepath, need more resolution
+
+      if (visualize_type == 0) // if its for mergepath, need more resolution
         segments *= 3;
     }
 
@@ -200,8 +202,7 @@ var Node = function(id,
     this.createNode();
     this.createNodeEffects();
 
-    if (this.custom_mean > 0)
-      this.createNodeText();
+    this.createNodeText();
   };
 
   this.createNode = function() {
@@ -281,7 +282,7 @@ var Node = function(id,
 
       // set repeat source
       var repeat_count = 0;
-      if (this.custom_mean !== undefined && this.initial > 0)
+      if (visualize_type == 0 && this.initial > 0)
         repeat_count = Infinity;
 
       // set tween for scale
@@ -399,12 +400,9 @@ var Node = function(id,
     if (FRAME.value < this.trigger_delay)
       return;
 
-    var update_disable_time = 1.2; // this value is for perfomance - not to run this function after certain time - WIP
+    var update_disable_time = 2.2; // this value is for perfomance - not to run this function after certain time - WIP
 
-    if (this.custom_mean !== undefined)
-      update_disable_time += 1.75;
-
-    var node_initial_in_mergepath = (this.custom_mean !== undefined && this.initial > 0);
+    var node_initial_in_mergepath = (visualize_type == 0 && this.initial > 0);
 
     if (this.timer <= update_disable_time || node_initial_in_mergepath ) {
 
@@ -419,9 +417,7 @@ var Node = function(id,
           this.tween_node_effects[k].start();
         }
 
-        if (this.custom_mean > 0){
-          this.tween_text_opacity_to1.start(); 
-        }
+        this.tween_text_opacity_to1.start(); 
 
       }
 
@@ -432,9 +428,7 @@ var Node = function(id,
         this.tween_node_effects[k].update(time);
       }
 
-      if (this.custom_mean > 0){
-        this.tween_text_opacity_to1.update(time);
-      }
+      this.tween_text_opacity_to1.update(time);
 
     }
 
@@ -494,8 +488,7 @@ var Node = function(id,
     this.createNodeEffects();
 
     // createNodeText() will remove the previous mesh and create new one with new tween animation
-    if (this.custom_mean > 0)
-      this.createNodeText();
+    this.createNodeText();
 
     this.setupNodeMaterial(); // reset tween material animation
   }
