@@ -52,7 +52,7 @@ function onDocumentMouseMove( event ) {
     //console.log(event.clientX, event.clientY);
 
     MOUSE.x =   ( (event.clientX) / window.innerWidth  ) * 2 - 1;
-    MOUSE.y = - ( (event.clientY - navbar_height) / window.innerHeight ) * 2 + 1;
+    MOUSE.y = - ( (event.clientY - navbar_height + window.pageYOffset) / window.innerHeight ) * 2 + 1;
 }
 
 var init = function () {
