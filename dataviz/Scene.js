@@ -229,20 +229,20 @@ var animate_interaction = function () {
 
 	if ( intersects.length > 0 ) {
 
-		if ( INTERSECTED ) {
-
-			INTERSECTED.material.color.setRGB(INTERSECTED.parent.node_color.r, INTERSECTED.parent.node_color.g, INTERSECTED.parent.node_color.b);
-			INTERSECTED.parent.scale.set(1.0, 1.0, 1.0);
-
-			//text
-			INTERSECTED.parent.text.scale.set(1.0, 1.0, 1.0);
-			INTERSECTED.parent.text.position.z = -20.0;
-			INTERSECTED.parent.text.material.opacity = 0.0;
-
-			INTERSECTED = null;
-		}
-
 		if (INTERSECTED != intersects[ 0 ].object){
+
+			if ( INTERSECTED ) {
+
+				INTERSECTED.material.color.setRGB(INTERSECTED.parent.node_color.r, INTERSECTED.parent.node_color.g, INTERSECTED.parent.node_color.b);
+				INTERSECTED.parent.scale.set(1.0, 1.0, 1.0);
+
+				//text
+				INTERSECTED.parent.text.scale.set(1.0, 1.0, 1.0);
+				INTERSECTED.parent.text.position.z = -20.0;
+				INTERSECTED.parent.text.material.opacity = 0.0;
+
+				INTERSECTED = null;
+			}
 
 			INTERSECTED = intersects[ 0 ].object;
 		}
