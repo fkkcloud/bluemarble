@@ -32,7 +32,8 @@ var NodeManager = function(width, height, scene) {
 
     var scene = this.scene;
 
-    keys.forEach(function (key) { 
+    keys.forEach(function (key) {
+
         var node_data = data[key];
 
         var width_scale_factor  = (width  * 0.035);
@@ -59,6 +60,12 @@ var NodeManager = function(width, height, scene) {
 
         // clamp min and max
         scaled_size = Math.min(Math.max(3.5, scaled_size), 20.0);
+
+        // for search merge paths. - MERGEPATH_INITNODE_REF
+        if (node_data.initial !== undefined){
+          if (node_data.initial === 1)
+            MERGEPATH_INITNODE_REF.push(node_data.name.toLowerCase());
+        }
 
         /* 
         id, 

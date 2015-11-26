@@ -119,5 +119,6 @@ function dataReadyAndSetupMergePathManagers(){
 
 	}
 
+	console.log('ha', MERGEPATH_INITNODE_REF);
   	dataManager.bDataLoaded = true;
 }

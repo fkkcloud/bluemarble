@@ -30,6 +30,9 @@ angular.module('app')
   $('#btn-run-mergepaths').click(function() {
 
     var input = document.getElementById("textinfo-mergepathids").value;
+
+    // deal with input to find mergepath!
+
     var array = input.split(' ');
 
     for (var i = 0; i < array.length; i++){
@@ -47,7 +50,7 @@ angular.module('app')
         return;
       }
     }
-    console.log('Show mergepathids : ', array);
+
     $scope.cleanMergePaths();
     SELECTED_MERGEPATHIDS = array;
     $scope.mergePathIds.value = array;

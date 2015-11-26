@@ -49,3 +49,6 @@ var node_color = [
 	'#98AFC7', //13
 	'#FF0000', //14
 ];
+
+var MERGEPATH_INITNODE_REF = [];
+
