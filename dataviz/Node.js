@@ -35,8 +35,8 @@ var Node = function(id,
 
   this.group_mergePath          = group_mergePath;
 
-  if (group_cluster_list === undefined || !group_cluster_list)
-    this.group_cluster_list     = [ 17 ]; // if there is no group, trimmed, it is 17;
+  if (group_cluster_list === undefined)
+    this.group_cluster_list     = ['17'];
   else
     this.group_cluster_list     = group_cluster_list;
 

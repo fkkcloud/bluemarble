@@ -83,6 +83,7 @@ var NodeManager = function(width, height, scene) {
         group_cluster, 
         floor 
         */
+
         var visualize_type = (node_data.custom_meanAge !== undefined) ? 0 : 1; // if custom_meanAge is not defined its 1
 
         var new_node = new Node(

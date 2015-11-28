@@ -58,8 +58,8 @@ var Edge = function(edgeStart,
   else
     this.type = 1;
 
-  if (group_cluster === undefined || !group_cluster)
-    this.group_cluster_list     = [ 17 ]; // if there is no group, trimmed, it is 17;
+  if (group_cluster === undefined)
+    this.group_cluster_list     = ['17'];
   else
     this.group_cluster_list     = group_cluster;
 

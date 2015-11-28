@@ -1,4 +1,3 @@
-
 angular.module('app')
 .controller('ApplicationCtrl', function($rootScope, $scope, $window){
 
@@ -23,6 +22,23 @@ angular.module('app')
 	});
 
 
+	$scope.cleanMergePaths = function(){
+
+		NodeManagerMergePaths[SELECTED_MERGEPATHID].clean();
+
+	}
+
+	$scope.resetMergePaths = function(){
+		FRAME.value    = 0;
+		PAGE_NUM.value = 2;
+
+		TWEEN.removeAll(); // reset tween animations
+
+		NodeManagerMergePaths[SELECTED_MERGEPATHID].reset();
+		EdgeManagerMergePaths[SELECTED_MERGEPATHID].reset();
+
+	}
+
 	$scope.resetClusters = function(){
 
       	FRAME.value    = 0;
@@ -41,23 +57,6 @@ angular.module('app')
 	
 	}
 
-	$scope.cleanMergePaths = function(){
-
-		NodeManagerMergePaths[SELECTED_MERGEPATHID].clean();
-
-	}
-
-	$scope.resetMergePaths = function(){
-		FRAME.value    = 0;
-		PAGE_NUM.value = 2;
-
-		TWEEN.removeAll(); // reset tween animations
-
-		NodeManagerMergePaths[SELECTED_MERGEPATHID].reset();
-		EdgeManagerMergePaths[SELECTED_MERGEPATHID].reset();
-
-	}
-
 	$scope.setClusterID = function(clusterid){
 
 	    SELECTED_CLUSTER = clusterid;
@@ -65,46 +64,46 @@ angular.module('app')
 	    if (isNaN(clusterid)){
 
 	      if (clusterid == 'Not Clustered'){
+
 	        SELECTED_CLUSTER = 17;
+	        
 	        clearAllClusters();
 	        EdgeManagerCluster.toggleShowByCluster(17);
 	        NodeManagerCluster.toggleShowByCluster(17);
+
 	      } else {
+
 	        viewAllClusters();  
+
 	      }
 	      
 	      return;
 	    }
 
+	    clearAllClusters();
+	    EdgeManagerCluster.toggleShowByCluster(SELECTED_CLUSTER);
+	    NodeManagerCluster.toggleShowByCluster(SELECTED_CLUSTER);
+	}
+
+	// clear all clusters
+  	function clearAllClusters(){ // 지금 이게 global로 정의된 것인데, 아마도 클로쥬어 안에 넣어서, 이 파일 안에서만 가능한 local space로 옮겨야 할듯싶다.
 	    for (var i = 0; i < 18; i++){
 
 	      EdgeManagerCluster.hideAll();
 	      NodeManagerCluster.hideAll();
 
 	    }
-	    EdgeManagerCluster.toggleShowByCluster(SELECTED_CLUSTER);
-	    NodeManagerCluster.toggleShowByCluster(SELECTED_CLUSTER);
 	}
 
-	// clear all clusters
-  function clearAllClusters(){ // 지금 이게 global로 정의된 것인데, 아마도 클로쥬어 안에 넣어서, 이 파일 안에서만 가능한 local space로 옮겨야 할듯싶다.
-    for (var i = 0; i < 18; i++){
+	  // clear all clusters
+	  function viewAllClusters(){
+	    for (var i = 0; i < 18; i++){
 
-      EdgeManagerCluster.hideAll();
-      NodeManagerCluster.hideAll();
+	      EdgeManagerCluster.showAll();
+	      NodeManagerCluster.showAll();
 
-    }
-  }
-
-  // clear all clusters
-  function viewAllClusters(){
-    for (var i = 0; i < 18; i++){
-
-      EdgeManagerCluster.showAll();
-      NodeManagerCluster.showAll();
-
-    }
-  }
+	    }
+	}
 
 	$scope.updateMeanAge = function(){
 	    if (FRAME.value > 620 || PAGE_NUM.value != 1)
