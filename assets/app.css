@@ -18,6 +18,15 @@
 #options-clusters{
   visibility:hidden;
 }
+#clusterid {
+  width: 400px;
+}
+#btn-reset-clusters {
+  margin-top: 10px;
+}
+.guide-img {
+  margin-bottom: 100px;
+}
 #canvasHolder {
     width: 100%;
     height: 100%;

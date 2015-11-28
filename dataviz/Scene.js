@@ -52,14 +52,14 @@ function onDocumentMouseMove( event ) {
 
     //console.log(event.clientX, event.clientY);
 
-    MOUSE.x =   ( (event.clientX) / window.innerWidth  ) * 2 - 1;
-    MOUSE.y = - ( (event.clientY - navbar_height + window.pageYOffset) / window.innerHeight ) * 2 + 1;
+    MOUSE.x =   ( (event.clientX) / WIDTH  ) * 2 - 1;
+    MOUSE.y = - ( (event.clientY - navbar_height + window.pageYOffset) / HEIGHT ) * 2 + 1;
 }
 
 var init = function () {
 
 	WIDTH = window.innerWidth;
-	HEIGHT = window.innerHeight; // reduce the amount of top info bar
+	HEIGHT = window.innerHeight * 0.8; // reduce the amount of top info bar
 
 	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true, devicePixelRatio: window.devicePixelRatio || 1});
 	renderer.setSize( WIDTH, HEIGHT );
@@ -77,7 +77,7 @@ var init = function () {
 	camera = new THREE.PerspectiveCamera( 80, WIDTH / HEIGHT, 10, 10000 );
 	camera.position.x = WIDTH  * 2.2;
 	camera.position.y = HEIGHT * 0.5;
-	camera.position.z = 900;
+	camera.position.z = 800;
 
 	SCENE_CLUSTER = new THREE.Scene();
 	SCENE_MERGEPATH = new THREE.Scene();

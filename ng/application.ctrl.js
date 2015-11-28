@@ -3,7 +3,7 @@ angular.module('app')
 .controller('ApplicationCtrl', function($rootScope, $scope, $window){
 
 	$scope.meanAge = { value : 0 };
-	$scope.mergePathIds = { value : ""};
+	$scope.mergePathIds = { value : "acute myocardial infarction"};
 
 	$scope.getMenuShow = function(){
 		return $scope.show_menu;
@@ -35,7 +35,7 @@ angular.module('app')
       	EdgeManagerCluster.reset();
       	NodeManagerCluster.reset();
 
-      	$scope.setClusterId(SELECTED_CLUSTER);
+      	$scope.setClusterID(SELECTED_CLUSTER);
 
       	$scope.updateMeanAge();
 	
@@ -58,7 +58,7 @@ angular.module('app')
 
 	}
 
-	$scope.setClusterId = function(clusterid){
+	$scope.setClusterID = function(clusterid){
 
 	    SELECTED_CLUSTER = clusterid;
 
@@ -85,6 +85,26 @@ angular.module('app')
 	    EdgeManagerCluster.toggleShowByCluster(SELECTED_CLUSTER);
 	    NodeManagerCluster.toggleShowByCluster(SELECTED_CLUSTER);
 	}
+
+	// clear all clusters
+  function clearAllClusters(){ // 지금 이게 global로 정의된 것인데, 아마도 클로쥬어 안에 넣어서, 이 파일 안에서만 가능한 local space로 옮겨야 할듯싶다.
+    for (var i = 0; i < 18; i++){
+
+      EdgeManagerCluster.hideAll();
+      NodeManagerCluster.hideAll();
+
+    }
+  }
+
+  // clear all clusters
+  function viewAllClusters(){
+    for (var i = 0; i < 18; i++){
+
+      EdgeManagerCluster.showAll();
+      NodeManagerCluster.showAll();
+
+    }
+  }
 
 	$scope.updateMeanAge = function(){
 	    if (FRAME.value > 620 || PAGE_NUM.value != 1)
