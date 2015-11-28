@@ -4,26 +4,20 @@ angular.module('app')
 
   function setPageNum(){
     PAGE_NUM.value = 1; // 1 - cluster
+
+    if (bCanvasLoaded)
+      $('#options-clusters').css('visibility', 'visible');
   }
   setPageNum();
+
+
+  $('#clusterid').val(SELECTED_CLUSTER);
 
 
   function setVisibility(){
     $('.data-visibility').addClass('active');
   }
   setVisibility();
-
-
-  $scope.updateMeanAge = function(){
-    if (FRAME.value > 420 || PAGE_NUM.value != 1)
-      return;
-
-  var newMeanAge = mapRange([0, 400.0], [38.2, 81.3], FRAME.value);
-    $scope.meanAge.value = Math.ceil(newMeanAge);
-    $scope.$apply();
-    requestAnimationFrame($scope.updateMeanAge);
-  }
-  $scope.updateMeanAge();
 
 
   // reset animation.
@@ -33,8 +27,11 @@ angular.module('app')
 
   });
 
+
+  $scope.updateMeanAge();
+  
   /*
-  //set initial state.
+  //set initial state.  example of check box event
   $('#checkbox-hide-nodes-clusters').change(function() {
       if($(this).is(":checked")) {
         NodeManagerCluster.toggleNodeVisibility(true);
@@ -50,22 +47,7 @@ angular.module('app')
 
     var clusterid = $('#clusterid').val();
 
-    if (isNaN(clusterid)){
-
-      if (clusterid == 'Not Clustered'){
-        console.log(clusterid);
-        EdgeManagerCluster.toggleShowByCluster(17, true); 
-      } else {
-        console.log(clusterid);
-        viewAllClusters();  
-      }
-      
-      return;
-    }
-
-    console.log(clusterid);
-    clearAllClusters();
-    EdgeManagerCluster.toggleShowByCluster(clusterid, true);
+    $scope.setClusterID(clusterid);
 
   })
 
@@ -73,7 +55,8 @@ angular.module('app')
   function clearAllClusters(){ // 지금 이게 global로 정의된 것인데, 아마도 클로쥬어 안에 넣어서, 이 파일 안에서만 가능한 local space로 옮겨야 할듯싶다.
     for (var i = 0; i < 18; i++){
 
-      EdgeManagerCluster.toggleShowByCluster(i, false);
+      EdgeManagerCluster.hideAll();
+      NodeManagerCluster.hideAll();
 
     }
   }
@@ -82,7 +65,8 @@ angular.module('app')
   function viewAllClusters(){
     for (var i = 0; i < 18; i++){
 
-      EdgeManagerCluster.toggleShowByCluster(i, true);
+      EdgeManagerCluster.showAll();
+      NodeManagerCluster.showAll();
 
     }
   }

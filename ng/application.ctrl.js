@@ -3,7 +3,7 @@ angular.module('app')
 .controller('ApplicationCtrl', function($rootScope, $scope, $window){
 
 	$scope.meanAge = { value : 0 };
-	$scope.mergePathIds = { value : [0]};
+	$scope.mergePathIds = { value : ""};
 
 	$scope.getMenuShow = function(){
 		return $scope.show_menu;
@@ -24,31 +24,27 @@ angular.module('app')
 
 
 	$scope.resetClusters = function(){
+
       	FRAME.value    = 0;
       	PAGE_NUM.value = 1;
 
-      	$scope.meanAge = 48.0;
+      	$scope.meanAge.value = 0;
 
       	TWEEN.removeAll(); // reset tween animations
 
       	EdgeManagerCluster.reset();
       	NodeManagerCluster.reset();
+
+      	$scope.setClusterId(SELECTED_CLUSTER);
+
+      	$scope.updateMeanAge();
+	
 	}
 
 	$scope.cleanMergePaths = function(){
 
-		// turn off nodes and edges except mergePathId
-		for (var i = 0; i < NodeManagerMergePaths.length; i++){
+		NodeManagerMergePaths[SELECTED_MERGEPATHID].clean();
 
-			for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
-
-				if (SELECTED_MERGEPATHIDS[j] == i){
-					NodeManagerMergePaths[i].clean();
-				}
-
-			}
-
-		}
 	}
 
 	$scope.resetMergePaths = function(){
@@ -57,19 +53,47 @@ angular.module('app')
 
 		TWEEN.removeAll(); // reset tween animations
 
-		// turn off nodes and edges except mergePathId
-		for (var i = 0; i < NodeManagerMergePaths.length; i++){
+		NodeManagerMergePaths[SELECTED_MERGEPATHID].reset();
+		EdgeManagerMergePaths[SELECTED_MERGEPATHID].reset();
 
-			for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+	}
 
-				if (SELECTED_MERGEPATHIDS[j] == i){
-					NodeManagerMergePaths[i].reset();
-					EdgeManagerMergePaths[i].reset();
-				}
+	$scope.setClusterId = function(clusterid){
 
-			}
+	    SELECTED_CLUSTER = clusterid;
 
-		}
+	    if (isNaN(clusterid)){
+
+	      if (clusterid == 'Not Clustered'){
+	        SELECTED_CLUSTER = 17;
+	        clearAllClusters();
+	        EdgeManagerCluster.toggleShowByCluster(17);
+	        NodeManagerCluster.toggleShowByCluster(17);
+	      } else {
+	        viewAllClusters();  
+	      }
+	      
+	      return;
+	    }
+
+	    for (var i = 0; i < 18; i++){
+
+	      EdgeManagerCluster.hideAll();
+	      NodeManagerCluster.hideAll();
+
+	    }
+	    EdgeManagerCluster.toggleShowByCluster(SELECTED_CLUSTER);
+	    NodeManagerCluster.toggleShowByCluster(SELECTED_CLUSTER);
+	}
+
+	$scope.updateMeanAge = function(){
+	    if (FRAME.value > 620 || PAGE_NUM.value != 1)
+	      return;
+
+	    var newMeanAge = mapRange([0, 620.0], [35.4, 90.5], FRAME.value);
+	    $scope.meanAge.value = Math.ceil(newMeanAge);
+	    $scope.$apply();
+	    requestAnimationFrame($scope.updateMeanAge);
 	}
 
 	function setDataGuiInitialize(){

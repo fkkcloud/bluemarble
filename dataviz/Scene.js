@@ -5,7 +5,8 @@ var NodeManagerCluster, NodeManagerMergePaths;
 var RENDEROPTIONS;
 
 // scene options
-var SELECTED_MERGEPATHIDS = [ 0 ];
+var SELECTED_MERGEPATHID = 4;
+var SELECTED_CLUSTER = 12;
 
 var FRAME    = { value: 0 };
 var PAGE_NUM = { value: 0 }; // 0 - intro, 1 - clusters, 2 - mergepaths
@@ -69,6 +70,8 @@ var init = function () {
 		document.getElementById("canvasHolder").appendChild( renderer.domElement );
 		setState();
 		bCanvasLoaded = true;
+		$('#options-clusters').css('visibility', 'visible');
+		$('#options-mergepaths').css('visibility', 'visible');
 	}, 2000);
 
 	camera = new THREE.PerspectiveCamera( 80, WIDTH / HEIGHT, 10, 10000 );
@@ -125,25 +128,21 @@ var animate = function (time) {
 		// turn off other edges
 		if (FRAME.value === 0){
 
-			console.log('SELECTED_MERGEPATHIDS', SELECTED_MERGEPATHIDS)
-			selectMergePaths(SELECTED_MERGEPATHIDS);
+			console.log('SELECTED_MERGEPATHID - ', SELECTED_MERGEPATHID)
+			selectMergePaths(SELECTED_MERGEPATHID);
 
 		}
 
 		interactable_meshes = [];
 
-		// have to turn off 
-		for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+		EdgeManagerMergePaths[SELECTED_MERGEPATHID].run();
+		NodeManagerMergePaths[SELECTED_MERGEPATHID].run(time);
 
-			var id = SELECTED_MERGEPATHIDS[j]
-			EdgeManagerMergePaths[id].run();
-			NodeManagerMergePaths[id].run(time);
-
-			// get interactable objects
-			for (var a = 0; a < NodeManagerMergePaths[id].nodes.length; a++){
-				interactable_meshes.push(NodeManagerMergePaths[id].nodes[a].circle_shaded);
-			}
+		// set/get interactable objects
+		for (var a = 0; a < NodeManagerMergePaths[SELECTED_MERGEPATHID].nodes.length; a++){
+			interactable_meshes.push(NodeManagerMergePaths[SELECTED_MERGEPATHID].nodes[a].circle_shaded);
 		}
+		
 		animate_interaction();
 
 		renderer.render( SCENE_MERGEPATH, camera );
@@ -159,7 +158,7 @@ var animate = function (time) {
 	//controls.update();
 }
 
-var selectMergePaths = function (mergePathIds){
+var selectMergePaths = function (mergePathId){
 
 	// turn off edges except mergePathId
 	for (var i = 0; i < EdgeManagerMergePaths.length; i++){
@@ -177,31 +176,11 @@ var selectMergePaths = function (mergePathIds){
 	}
 
 	// turn on edges mergePathId
-	for (var i = 0; i < EdgeManagerMergePaths.length; i++){
-
-		for (var j = 0; j < mergePathIds.length; j++){
-
-			if (i === mergePathIds[j] ){
-				EdgeManagerMergePaths[i].toggleVisibility(true);
-			}
-
-		}
-		
-	}
+	EdgeManagerMergePaths[mergePathId].toggleVisibility(true);
 
 	// turn on nodes mergePathId
-	for (var i = 0; i < NodeManagerMergePaths.length; i++){
-
-		for (var j = 0; j < mergePathIds.length; j++){
-
-			if (i === mergePathIds[j]){
-				NodeManagerMergePaths[i].toggleNodeVisibility(true);
-				NodeManagerMergePaths[i].toggleNodeTextVisibility(true);
-			}
-
-		}
-
-	}
+	NodeManagerMergePaths[mergePathId].toggleNodeVisibility(true);
+	NodeManagerMergePaths[mergePathId].toggleNodeTextVisibility(true);
 
 }
 

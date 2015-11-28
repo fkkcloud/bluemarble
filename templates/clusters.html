@@ -1,4 +1,4 @@
-<div class="container data-page">
+<div class="container data-page" id='options-clusters'>
 	<div class="checkbox">
     <label>
       <input type="checkbox" value="" checked>
@@ -9,12 +9,6 @@
     <label>
       <input type="checkbox" value="" disabled>
       Korean Data
-    </label>
-  </div>
-  <div class="radio">
-    <label>
-      <input type="checkbox" id="checkbox_c_all" class="checkbox_data" value="" checked>
-      All Clusters
     </label>
   </div>
 
@@ -37,10 +31,13 @@
     <option>16</option>
     <option>Not Clustered</option>
     <option>All</option>
-
   </select>
 
-  <button type="button" class="btn btn-info" id="btn-reset">Replay</button>
+  <button type="button" class="btn btn-info" id="btn-reset-clusters">Replay</button>
+
+  <div>
+    <img class="guide-img" ng-src="guide.png" width="614" height="219">
+  </div>
   <!--
   <section>
     <input type="checkbox" id="checkbox-hide-nodes-clusters" class="checkbox_data" value="" checked>

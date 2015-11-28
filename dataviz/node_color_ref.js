@@ -29,12 +29,14 @@
 
 "Newborn (Perinatal) Guidelines"="#000000"
 
-"DEAD"="#FFFFFF", 9
+"DEAD"="#FFFFFF", 99
 */
 
+
+
 var node_color = [
-	'#344a58', //0
-	'#df7adf', //1
+	'#FF00FF', //0
+	'#736F6E', //1
 	'#151B8D', //2
 	'#F87217', //3
 	'#C11B17', //4

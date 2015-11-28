@@ -10,7 +10,7 @@ var Node = function(id,
     node_meanAge_mergedPath, 
     group_mergePath, 
     node_meanAge_cluster, 
-    group_cluster,
+    group_cluster_list,
     scene,
     custom_mean,
     initial,
@@ -34,7 +34,11 @@ var Node = function(id,
   this.node_meanAge_cluster     = node_meanAge_cluster;
 
   this.group_mergePath          = group_mergePath;
-  this.group_cluster            = group_cluster;
+
+  if (group_cluster_list === undefined || !group_cluster_list)
+    this.group_cluster_list     = [ 17 ]; // if there is no group, trimmed, it is 17;
+  else
+    this.group_cluster_list     = group_cluster_list;
 
   this.timer                    = 0;
 
@@ -437,23 +441,39 @@ var Node = function(id,
   this.showNodes = function(){
 
     this.node.visible = true;
+    this.nodeText.visible = true;
 
     for(var i = 0,il = this.node.children.length;i<il;i++){
 
       this.node.children[i].visible = true;
 
     }
+
+    for (var i = 0; i < this.node_effects.length; i++){
+
+      this.node_effects[i].visible = true;
+
+    }
+
   }
 
   this.hideNodes = function(){
 
     this.node.visible = false;
+    this.nodeText.visible = false;
 
     for(var i = 0,il = this.node.children.length;i<il;i++){
 
       this.node.children[i].visible = false;
 
     }
+
+    for (var i = 0; i < this.node_effects.length; i++){
+
+      this.node_effects[i].visible = false;
+
+    }
+
   }
 
   this.hideNodeTexts = function(){

@@ -68,6 +68,12 @@ var EdgeManager = function(width, height, scene) {
     });
 
     this.edges = buf;
+
+    if (PAGE_NUM.value === 1){
+      this.toggleVisibility(false);
+      this.toggleShowByCluster(SELECTED_CLUSTER, true);
+    }
+
   };
 
   this.run = function() {
@@ -85,18 +91,56 @@ var EdgeManager = function(width, height, scene) {
     };
   };
 
-  this.toggleShowByCluster = function(clusterID, val) {
-    for (var i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].group_cluster == clusterID){
+  this.toggleShowByCluster = function(clusterID) {
 
-        if (val)
-          this.edges[i].show();
-        else
-          this.edges[i].hide();
+    this.hideAll();
+
+    for (var i = 0; i < this.edges.length; i++) {
+
+      var edge = this.edges[i];
+
+      var bEdgeShow = false;
+
+      for (var j = 0; j < edge.group_cluster_list.length; j++){
+
+        var edge_cluster_id = edge.group_cluster_list[j];
+
+        if (edge_cluster_id == clusterID){
+          bEdgeShow = true;
+          break;
+        }  
 
       }
+
+      if (bEdgeShow)
+        edge.show();
+      else
+        edge.hide();
+      
     }
   };
+
+  this.hideAll = function(){
+
+    for (var i = 0; i < this.edges.length; i++) {
+
+      var edge = this.edges[i];
+      edge.hide();
+
+    }
+
+  }
+
+  this.showAll = function(){
+
+    for (var i = 0; i < this.edges.length; i++) {
+
+      var edge = this.edges[i];
+      edge.show();
+
+    }
+
+  }
 
   this.reset = function() {
     for (var i = 0; i < this.edges.length; i++) {
