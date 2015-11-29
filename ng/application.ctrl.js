@@ -207,6 +207,8 @@ angular.module('app')
 
 	    gui.add(RENDEROPTIONS, 'Restart');
 
+	    $(gui.domElement).find(">ul").toggleClass("closed"); // dat.gui default to be closed
+
 	}
   	setDataGuiInitialize();
 });

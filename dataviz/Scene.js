@@ -42,6 +42,7 @@ var setState = function() {
 	stats.domElement.style.position = 'absolute';
 	stats.domElement.style.left = '0px';
 	stats.domElement.style.top  = '0px';
+	if (!debug) stats.domElement.style.display  = 'none';
 
 	document.body.appendChild( stats.domElement );
 }
