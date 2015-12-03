@@ -36,7 +36,7 @@ var Node = function(id,
   this.group_mergePath          = group_mergePath;
 
   if (group_cluster_list === undefined)
-    this.group_cluster_list     = ['17'];
+    this.group_cluster_list     = [ NOT_CLUSTER_ID ];
   else
     this.group_cluster_list     = group_cluster_list;
 
@@ -53,7 +53,12 @@ var Node = function(id,
   }
   else{
 
-    var global_delay            = 120;
+    var global_delay;
+    if (DATATYPE.value == 'US')
+      global_delay = 120;
+    else 
+      global_delay = 160;
+
     this.trigger_delay          = mapRange( [35, 85], [-100, 365], this.node_meanAge_all ) + global_delay;
 
   }

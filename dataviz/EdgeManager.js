@@ -28,8 +28,18 @@ var EdgeManager = function(width, height, scene) {
       var original_edge_start = new THREE.Vector3(parseFloat(edge_data.pos_start.x), parseFloat(edge_data.pos_start.y), 0);
       var original_edge_end   = new THREE.Vector3(parseFloat(edge_data.pos_end.x),   parseFloat(edge_data.pos_end.y)  , 0);
 
-      var width_scale_factor  = (width  * 0.035);
-      var height_scale_factor = (height * 0.24);
+      var width_datatype_scale_factor;
+      var height_datatype_scale_factor;
+      if (DATATYPE.value == 'US') {
+        width_datatype_scale_factor  = 1.0;
+        height_datatype_scale_factor = 1.0;
+      } else if(DATATYPE.value == 'KOR') {
+        width_datatype_scale_factor  = 0.84;
+        height_datatype_scale_factor = 0.9;
+      }
+
+      var width_scale_factor  = (width  * 0.035) * width_datatype_scale_factor;
+      var height_scale_factor = (height * 0.24)  * height_datatype_scale_factor;
       var y_pos_offset = -470;
 
       var scaled_edge_start = new THREE.Vector3(

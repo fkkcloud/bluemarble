@@ -59,7 +59,7 @@ var Edge = function(edgeStart,
     this.type = 1;
 
   if (group_cluster === undefined)
-    this.group_cluster_list     = ['17'];
+    this.group_cluster_list     = [ NOT_CLUSTER_ID ];
   else
     this.group_cluster_list     = group_cluster;
 
@@ -75,7 +75,12 @@ var Edge = function(edgeStart,
   }
   else {
 
-    var global_delay   = 120;
+    var global_delay;
+    if (DATATYPE.value == 'US')
+      global_delay = 120;
+    else 
+      global_delay = 280;
+
     this.trigger_delay = mapRange( [45, 85], [60, 405], this.mean_start) + global_delay;
     
   }

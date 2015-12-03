@@ -21,6 +21,28 @@ angular.module('app')
 	    location.reload();
 	});
 
+	$scope.clusterids = [
+      {value: 1, displayName: '1'},
+      {value: 2, displayName: '2'},
+      {value: 3, displayName: '3'},
+      {value: 4, displayName: '4'},
+      {value: 5, displayName: '5'},
+      {value: 6, displayName: '6'},
+      {value: 7, displayName: '7'},
+      {value: 8, displayName: '8'},
+      {value: 9, displayName: '9'},
+      {value: 10, displayName: '10'},
+      {value: 11, displayName: '11'},
+      {value: 12, displayName: '12'},
+      {value: 13, displayName: '13'},
+      {value: 14, displayName: '14'},
+      {value: 15, displayName: '15'},
+      {value: 16, displayName: '16'},
+      {value: 17, displayName: 'Not Clustered'},
+      {value: 18, displayName: 'All'}
+  	];
+
+
 
 	$scope.cleanMergePaths = function(){
 
@@ -61,23 +83,24 @@ angular.module('app')
 
 	    SELECTED_CLUSTER = clusterid;
 
-	    if (isNaN(clusterid)){
+	    if (clusterid == NOT_CLUSTER_ID){
 
-	      if (clusterid == 'Not Clustered'){
-
-	        SELECTED_CLUSTER = 17;
+	        SELECTED_CLUSTER = NOT_CLUSTER_ID;
 	        
 	        clearAllClusters();
-	        EdgeManagerCluster.toggleShowByCluster(17);
-	        NodeManagerCluster.toggleShowByCluster(17);
+	        EdgeManagerCluster.toggleShowByCluster(NOT_CLUSTER_ID);
+	        NodeManagerCluster.toggleShowByCluster(NOT_CLUSTER_ID);
 
-	      } else {
+	        return;
 
-	        viewAllClusters();  
+	    }
 
-	      }
-	      
-	      return;
+	    if (clusterid == ALL_CLUSTER_ID){
+
+	        viewAllClusters(); 
+
+	        return; 
+
 	    }
 
 	    clearAllClusters();
@@ -95,8 +118,8 @@ angular.module('app')
 	    }
 	}
 
-	  // clear all clusters
-	  function viewAllClusters(){
+	// clear all clusters
+	function viewAllClusters(){
 	    for (var i = 0; i < 18; i++){
 
 	      EdgeManagerCluster.showAll();
@@ -132,17 +155,64 @@ angular.module('app')
 
 	      this.HideNames = false;
 
+	      this.Data      = 'US';
 	    };
 
 	    RENDEROPTIONS 	= new renderOptionsUI();
 	    var gui  		= new dat.GUI();
 
-	    var ClustersGrp = gui.addFolder('Clusters');
+	    var DataType         = gui.add(RENDEROPTIONS, 'Data', [ 'US', 'KOR' ] );
+
+	    var ClustersGrp      = gui.addFolder('Clusters');
 		var ClusterHideNodes = ClustersGrp.add(RENDEROPTIONS, 'HideNodes');
 
-		var MergePathGrp = gui.addFolder('MergePaths');
+		var MergePathGrp       = gui.addFolder('MergePaths');
 		var MergePathHideNodes = MergePathGrp.add(RENDEROPTIONS, 'HideNodes');
 		var MergePathHideNames = MergePathGrp.add(RENDEROPTIONS, 'HideNames');
+
+		DataType.onFinishChange(function(val) {
+			if (val == 'US'){
+				dataManager.start('US');
+				$scope.clusterids = [
+			      {value: 1, displayName: '1'},
+			      {value: 2, displayName: '2'},
+			      {value: 3, displayName: '3'},
+			      {value: 4, displayName: '4'},
+			      {value: 5, displayName: '5'},
+			      {value: 6, displayName: '6'},
+			      {value: 7, displayName: '7'},
+			      {value: 8, displayName: '8'},
+			      {value: 9, displayName: '9'},
+			      {value: 10, displayName: '10'},
+			      {value: 11, displayName: '11'},
+			      {value: 12, displayName: '12'},
+			      {value: 13, displayName: '13'},
+			      {value: 14, displayName: '14'},
+			      {value: 15, displayName: '15'},
+			      {value: 16, displayName: '16'},
+			      {value: 17, displayName: 'Not Clustered'},
+			      {value: 18, displayName: 'All'}
+			  	];
+			  	if (PAGE_NUM.value == 1) 
+			  		$scope.resetClusters();
+			  	else if (PAGE_NUM.value == 2)
+			  		$scope.resetMergePaths(); 
+			}
+			else if (val == 'KOR'){
+				dataManager.start('KOR');
+				$scope.clusterids = [
+			      {value: 0, displayName: '0'},
+			      {value: 1, displayName: '1'},
+			      {value: 2, displayName: '2'},
+			      {value: 3, displayName: 'Not Clustered'},
+			      {value: 4, displayName: 'All'}
+			  	];
+			  	if (PAGE_NUM.value == 1) 
+			  		$scope.resetClusters();
+			  	else if (PAGE_NUM.value == 2)
+			  		$scope.resetMergePaths();  
+			}
+		})
 
 	    ClusterHideNodes.onFinishChange(function(val) {
 	    	if (val == true) {

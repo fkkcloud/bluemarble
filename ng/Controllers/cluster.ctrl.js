@@ -10,8 +10,7 @@ angular.module('app')
   }
   setPageNum();
 
-
-  $('#clusterid').val(SELECTED_CLUSTER);
+  $scope.selectedid = { value : SELECTED_CLUSTER };
 
 
   function setVisibility(){

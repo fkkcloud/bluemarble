@@ -1,12 +1,16 @@
 var camera, renderer, controls;
-var SCENE_CLUSTER, SCENE_MERGEPATH
+var SCENE_CLUSTER, SCENE_MERGEPATH;
 var EdgeManagerCluster, EdgeManagerMergePaths;
 var NodeManagerCluster, NodeManagerMergePaths;
 var RENDEROPTIONS;
 
 // scene options
-var SELECTED_MERGEPATHID = 4;
-var SELECTED_CLUSTER = 12;
+var SELECTED_MERGEPATHID;
+var SELECTED_CLUSTER;
+var NOT_CLUSTER_ID;
+var ALL_CLUSTER_ID;
+
+var DATATYPE = { value: 'US' };
 
 var FRAME    = { value: 0 };
 var PAGE_NUM = { value: 0 }; // 0 - intro, 1 - clusters, 2 - mergepaths
@@ -67,6 +71,11 @@ var init = function () {
 	renderer.setClearColor( 0x000000, 0 );
 	renderer.setViewport( 0, 0, WIDTH, HEIGHT );
 
+	camera = new THREE.PerspectiveCamera( 80, WIDTH / HEIGHT, 10, 10000 );
+			camera.position.x = WIDTH  * 2.2;
+			camera.position.y = HEIGHT * 0.5;
+			camera.position.z = 800;
+
 	setTimeout(function(){
 		document.getElementById("canvasHolder").appendChild( renderer.domElement );
 		setState();
@@ -74,14 +83,6 @@ var init = function () {
 		$('#options-clusters').css('visibility', 'visible');
 		$('#options-mergepaths').css('visibility', 'visible');
 	}, 2000);
-
-	camera = new THREE.PerspectiveCamera( 80, WIDTH / HEIGHT, 10, 10000 );
-	camera.position.x = WIDTH  * 2.2;
-	camera.position.y = HEIGHT * 0.5;
-	camera.position.z = 800;
-
-	SCENE_CLUSTER = new THREE.Scene();
-	SCENE_MERGEPATH = new THREE.Scene();
 
 	dataManager.start('US');
 

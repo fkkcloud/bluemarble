@@ -36,8 +36,18 @@ var NodeManager = function(width, height, scene) {
 
         var node_data = data[key];
 
-        var width_scale_factor  = (width  * 0.035);
-        var height_scale_factor = (height * 0.24);
+        var width_datatype_scale_factor;
+        var height_datatype_scale_factor;
+        if (DATATYPE.value == 'US') {
+          width_datatype_scale_factor  = 1.0;
+          height_datatype_scale_factor = 1.0;
+        } else if (DATATYPE.value == 'KOR') {
+          width_datatype_scale_factor  = 0.84;
+          height_datatype_scale_factor = 0.9;
+        }
+
+        var width_scale_factor  = (width  * 0.035) * width_datatype_scale_factor;
+        var height_scale_factor = (height * 0.24)  * height_datatype_scale_factor;
         var y_pos_offset = -470;
 
         var original_post = new THREE.Vector3(

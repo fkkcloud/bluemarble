@@ -125,17 +125,23 @@
     border-radius: 0px;
 }
 .logo {
-    margin-top: 4px;
+    margin-top: 0px;
     display:block;
-    width: 120px;
-    height: 40px;
-    background-image: url("logo.png");
-    background-size: 120px 88px;
-    background-position: 0px 40px;
-    transition: background-position 0.5s;
+    width: 240px;
+    height: 50px;
+    background-image: url("logo2.png");
+    background-size: 240px 50px;
+    background-position: 0px 0px;
 }
-.logo:hover{
-    background-position: 0 0px;
+@media screen and (max-width: 600px) { // hide logo for mobile
+  .logo {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none;
+  }
 }
 
 /* -----------------------------------------------
