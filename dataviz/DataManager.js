@@ -4,6 +4,8 @@ var dataManager = {
 		DATATYPE.value = name;
 
 		if (name == 'US'){
+			MERGEPATH_INITNODE_REF = [];
+
 			dataManager.bDataLoaded = false;
 
 			camera.position.x = WIDTH  * 2.2;
@@ -20,6 +22,8 @@ var dataManager = {
 			ALL_CLUSTER_ID       = 18;
 		}
 		else if (name == 'KOR'){
+			MERGEPATH_INITNODE_REF = [];
+			
 			dataManager.bDataLoaded = false;
 
 			camera.position.x = WIDTH  * 1.4;
@@ -51,9 +55,9 @@ var dataManager = {
 
   	'edgesKORCluster': null,
 
-  	'nodesKORMergePath' : null,
+  	'nodesKORMergePaths' : null,
 
-  	'edgesKORMergePath' : null,
+  	'edgesKORMergePaths' : null,
 
   	bDataLoaded : false
 
@@ -92,39 +96,6 @@ function loadMergePathEdgesUS(json){
   dataManager.bDataLoaded = true;
 }
 
-// --------------------------- --------------------------- // --------------------------- --------------------------- 
-// --------------------------- CLUSTER KOR
-// --------------------------- --------------------------- // --------------------------- --------------------------- 
-function loadClusterNodesKOR(json){
-  dataManager.nodesKORCluster = json;
-
-  $.getJSON("edgesKOR.json", loadClusterEdgesKOR);
-}
-
-function loadClusterEdgesKOR(json){
-  dataManager.edgesKORCluster = json;
-
-  dataReadyAndSetupClusterManagersKOR();
-
-}
-
-// --------------------------- --------------------------- // --------------------------- --------------------------- 
-// --------------------------- MERGEPATH KOR
-// --------------------------- --------------------------- // --------------------------- --------------------------- 
-function loadMergePathNodesKOR(json){
-  dataManager.nodesKORMergePaths = json;
-
-  $.getJSON("mergePathEdgeKOR.json", loadMergePathEdgesKOR);
-}
-
-function loadMergePathEdgesKOR(json){
-
-  dataManager.edgesKORMergePaths = json;
-
-  dataReadyAndSetupMergePathManagersKOR();
-
-  dataManager.bDataLoaded = true;
-}
 
 // --------------------------- --------------------------- // --------------------------- --------------------------- 
 // --------------------------- SETUP US
@@ -190,6 +161,40 @@ function dataReadyAndSetupMergePathManagersUS(){
 
 }
 
+// --------------------------- --------------------------- // --------------------------- --------------------------- 
+// --------------------------- CLUSTER KOR
+// --------------------------- --------------------------- // --------------------------- --------------------------- 
+function loadClusterNodesKOR(json){
+  dataManager.nodesKORCluster = json;
+
+  $.getJSON("edgesKOR.json", loadClusterEdgesKOR);
+}
+
+function loadClusterEdgesKOR(json){
+  dataManager.edgesKORCluster = json;
+
+  dataReadyAndSetupClusterManagersKOR();
+
+}
+
+// --------------------------- --------------------------- // --------------------------- --------------------------- 
+// --------------------------- MERGEPATH KOR
+// --------------------------- --------------------------- // --------------------------- --------------------------- 
+function loadMergePathNodesKOR(json){
+  dataManager.nodesKORMergePaths = json;
+
+  $.getJSON("mergePathEdgeKOR.json", loadMergePathEdgesKOR);
+}
+
+function loadMergePathEdgesKOR(json){
+
+  dataManager.edgesKORMergePaths = json;
+
+  dataReadyAndSetupMergePathManagersKOR();
+
+  dataManager.bDataLoaded = true;
+}
+
 
 // --------------------------- --------------------------- // --------------------------- --------------------------- 
 // --------------------------- SETUP KOR
@@ -203,7 +208,7 @@ function dataReadyAndSetupClusterManagersKOR(){
     EdgeManagerCluster.setup(dataManager.edgesKORCluster);
     NodeManagerCluster.setup(dataManager.nodesKORCluster);
 
-    $.getJSON("mergePathNodeUS.json", loadMergePathNodesKOR);
+    $.getJSON("mergePathNodeKOR.json", loadMergePathNodesKOR);
 }
 
 

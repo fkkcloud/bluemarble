@@ -184,6 +184,9 @@ var selectMergePaths = function (mergePathId){
 	NodeManagerMergePaths[mergePathId].toggleNodeVisibility(true);
 	NodeManagerMergePaths[mergePathId].toggleNodeTextVisibility(true);
 
+	console.log(EdgeManagerMergePaths.length);
+	console.log(NodeManagerMergePaths.length);
+
 }
 
 var init_interaction = function () {

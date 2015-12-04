@@ -193,10 +193,14 @@ angular.module('app')
 			      {value: 17, displayName: 'Not Clustered'},
 			      {value: 18, displayName: 'All'}
 			  	];
-			  	if (PAGE_NUM.value == 1) 
+			  	if (PAGE_NUM.value == 1) {
 			  		$scope.resetClusters();
-			  	else if (PAGE_NUM.value == 2)
-			  		$scope.resetMergePaths(); 
+			  	}
+			  	else if (PAGE_NUM.value == 2){
+			  		$scope.resetMergePaths();
+			  	}
+			  	$scope.mergePathIds.value  = "acute myocardial infarction";
+			  	$scope.$apply();
 			}
 			else if (val == 'KOR'){
 				dataManager.start('KOR');
@@ -207,10 +211,14 @@ angular.module('app')
 			      {value: 3, displayName: 'Not Clustered'},
 			      {value: 4, displayName: 'All'}
 			  	];
-			  	if (PAGE_NUM.value == 1) 
+			  	if (PAGE_NUM.value == 1){
 			  		$scope.resetClusters();
-			  	else if (PAGE_NUM.value == 2)
+			  	}
+			  	else if (PAGE_NUM.value == 2){
 			  		$scope.resetMergePaths();  
+			  	}
+			  	$scope.mergePathIds.value  = "chronic viral hepatitis";
+			  	$scope.$apply();
 			}
 		})
 

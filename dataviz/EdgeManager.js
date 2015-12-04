@@ -52,7 +52,7 @@ var EdgeManager = function(width, height, scene) {
         original_edge_end.y * height_scale_factor + y_pos_offset,
         0);
 
-      var visualize_type = edge_data.custom_meanAge !== undefined ? 0 : 1;
+      var visualize_type = (edge_data.custom_meanAge !== undefined /*&& edge_data.custom_meanAge !== null*/) ? 0 : 1;
 
       var new_edge = new Edge(
         original_edge_start,

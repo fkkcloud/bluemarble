@@ -65,6 +65,8 @@ angular.module('app')
     $scope.cleanMergePaths();
 
     SELECTED_MERGEPATHID = input;
+    
+    console.log(input);
 
     $scope.mergePathIds.value = MERGEPATH_INITNODE_REF[input];
     $scope.$apply();
