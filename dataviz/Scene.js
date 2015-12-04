@@ -5,10 +5,10 @@ var NodeManagerCluster, NodeManagerMergePaths;
 var RENDEROPTIONS;
 
 // scene options
-var SELECTED_MERGEPATHID;
-var SELECTED_CLUSTER;
-var NOT_CLUSTER_ID;
-var ALL_CLUSTER_ID;
+var NOT_CLUSTER_ID       = 17;
+var SELECTED_MERGEPATHID = 4;
+var SELECTED_CLUSTER     = 12;
+var ALL_CLUSTER_ID       = 18;
 
 var DATATYPE = { value: 'US' };
 

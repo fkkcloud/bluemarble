@@ -164,7 +164,8 @@ angular.module('app')
 	    var DataType         = gui.add(RENDEROPTIONS, 'Data', [ 'US', 'KOR' ] );
 
 	    var ClustersGrp      = gui.addFolder('Clusters');
-		var ClusterHideNodes = ClustersGrp.add(RENDEROPTIONS, 'HideNodes');
+		var ClusterHideNodes   = ClustersGrp.add(RENDEROPTIONS, 'HideNodes');
+		var ClusterHideNames   = ClustersGrp.add(RENDEROPTIONS, 'HideNames');
 
 		var MergePathGrp       = gui.addFolder('MergePaths');
 		var MergePathHideNodes = MergePathGrp.add(RENDEROPTIONS, 'HideNodes');
@@ -172,6 +173,7 @@ angular.module('app')
 
 		DataType.onFinishChange(function(val) {
 			if (val == 'US'){
+
 				dataManager.start('US');
 				$scope.clusterids = [
 			      {value: 1, displayName: '1'},
@@ -224,68 +226,51 @@ angular.module('app')
 
 	    ClusterHideNodes.onFinishChange(function(val) {
 	    	if (val == true) {
-		        NodeManagerCluster.toggleNodeVisibility(false);
+		        NodeManagerCluster.toggleNodeVisibilityByCluster(false);
 	    	}
 	    	else {
-		        NodeManagerCluster.toggleNodeVisibility(true);
+		        NodeManagerCluster.toggleNodeVisibilityByCluster(true);
+	    	}
+	    });
+
+	    ClusterHideNames.onFinishChange(function(val) {
+	    	if (val == true) {
+		        NodeManagerCluster.toggleNodeTextVisibilityByCluster(false);
+	    	}
+	    	else {
+		        NodeManagerCluster.toggleNodeTextVisibilityByCluster(true);
 	    	}
 	    });
 
 	   	MergePathHideNodes.onFinishChange(function(val) {
 	    	if (val == true) {
-	        	for (var i = 0; i < NodeManagerMergePaths.length; i++){
 
-		          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+		        NodeManagerMergePaths[SELECTED_MERGEPATHID].toggleNodeVisibility(false);
 
-		            if (SELECTED_MERGEPATHIDS[j] === i)
-		              NodeManagerMergePaths[i].toggleNodeVisibility(false);
-
-		          }
-		          
-		        }
 	    	}
 	    	else {
-	        	for (var i = 0; i < NodeManagerMergePaths.length; i++){
 
-		          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+		        NodeManagerMergePaths[SELECTED_MERGEPATHID].toggleNodeVisibility(true);
 
-		            if (SELECTED_MERGEPATHIDS[j] === i)
-		              NodeManagerMergePaths[i].toggleNodeVisibility(true);
-
-		          }
-
-		        }
 		    }
 	    });
 
 	    MergePathHideNames.onFinishChange(function(val) {
 	    	if (val == true) {
-	    		for (var i = 0; i < NodeManagerMergePaths.length; i++){
 
-		          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+		        NodeManagerMergePaths[SELECTED_MERGEPATHID].toggleNodeTextVisibility(false);
 
-		            if (SELECTED_MERGEPATHIDS[j] === i)
-		              NodeManagerMergePaths[i].toggleNodeTextVisibility(false);
-
-		          }
-		        }
 	    	}
 	    	else {
-	    		for (var i = 0; i < NodeManagerMergePaths.length; i++){
 
-		          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
+		        NodeManagerMergePaths[SELECTED_MERGEPATHID].toggleNodeTextVisibility(true);
 
-		            if (SELECTED_MERGEPATHIDS[j] === i)
-		              NodeManagerMergePaths[i].toggleNodeTextVisibility(true);
-
-		          }
-		        }
 	    	}
 	    });
 
 	    gui.add(RENDEROPTIONS, 'Restart');
 
-	    $(gui.domElement).find(">ul").toggleClass("closed"); // dat.gui default to be closed
+	    //$(gui.domElement).find(">ul").toggleClass("closed"); // dat.gui default to be closed
 
 	}
   	setDataGuiInitialize();

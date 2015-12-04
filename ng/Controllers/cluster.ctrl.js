@@ -45,6 +45,8 @@ angular.module('app')
 
     var clusterid = $('#clusterid').val();
 
+    SELECTED_CLUSTER = clusterid;
+
     $scope.setClusterID(clusterid);
 
   })

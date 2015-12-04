@@ -160,6 +160,58 @@ var NodeManager = function(width, height, scene) {
     };
   };
 
+  this.toggleNodeVisibilityByCluster = function(val) {
+    for (var i = 0; i < this.nodes.length; i++) {
+
+      var node = this.nodes[i];
+
+      var bNodeShow = false;
+
+      for (var j = 0; j < node.group_cluster_list.length; j++){
+
+        var node_cluster_id = node.group_cluster_list[j];
+
+        if (node_cluster_id == SELECTED_CLUSTER){
+          bNodeShow = val;
+          break;
+        }  
+
+      }
+
+      if (bNodeShow)
+        node.showNodes();
+      else
+        node.hideNodes();
+      
+    }
+  }
+
+  this.toggleNodeTextVisibilityByCluster = function(val) {
+    for (var i = 0; i < this.nodes.length; i++) {
+
+      var node = this.nodes[i];
+
+      var bNodeShow = false;
+
+      for (var j = 0; j < node.group_cluster_list.length; j++){
+
+        var node_cluster_id = node.group_cluster_list[j];
+
+        if (node_cluster_id == SELECTED_CLUSTER){
+          bNodeShow = val;
+          break;
+        }  
+
+      }
+
+      if (bNodeShow)
+        node.showNodeTexts();
+      else
+        node.hideNodeTexts();
+      
+    }
+  }
+
   this.toggleShowByCluster = function(clusterID) {
 
     this.hideAll();
