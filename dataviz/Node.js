@@ -66,16 +66,22 @@ var Node = function(id,
   this.scene                    = scene;
 
   this.setupColor = function(mean) {
+
+    var color_array;
+    if (DATATYPE.value == 'US')
+      color_array = node_color;
+    else if (DATATYPE.value == 'KOR')
+      color_array = node_color_KOR;
     
     // node color by chapter
     if (this.ch == '99'){
 
-      this.color = new THREE.Color(node_color[0]);
+      this.color = new THREE.Color(color_array[0]);
 
     }
     else{
 
-      this.color = new THREE.Color(node_color[this.ch]);
+      this.color = new THREE.Color(color_array[this.ch]);
       var HSL = this.color.getHSL();
       this.color.setHSL(HSL.h, 1.0, 0.42);
 

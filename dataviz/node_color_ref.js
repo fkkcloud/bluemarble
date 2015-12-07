@@ -109,5 +109,67 @@ var node_color = [
 	'#800080', //14
 ];
 
+/*
+"Diseases	of	the	musculoskeletal	system	and	connec&ve	&ssue"="#98AFC7",		
+
+"Diseases	of	the	circulatory	system"="#FF0000”,		
+
+"Diseases	of	the	respiratory	system"="#FDD017”,	
+
+"Mental	and	behavioural	disorders"=	"#00FFFF",		
+
+"Diseases	of	the	ear	and	mastoid	process"="#CCFFFF",	
+
+"Endocrine,	nutri&onal	and	metabolic	diseases"="#F87217”,	
+
+"Certain	infec&ous	and	parasi&c	diseases"="#FF00FF",		
+
+"Diseases	of	the	eye	and	adnexa"="#00FF00",	
+
+"Neoplasms"="#151B8D",		
+
+"Diseases	of	the	genitourinary	system"="#FFFFFF",	
+
+"Diseases	of	the	skin	and	subcutaneous	&ssue"="#F9B7FF”,	
+
+"Diseases	of	the	nervous	system"="#D4A017”,	
+
+"Diseases	of	the	blood	and	blood-forming	organs	and	certain	disorders	involving	the	immune	mechanism"="#C11B17",	
+
+"Diseases	of	the	diges&ve	system"="#736F6E",	
+
+"Congenital	malforma&ons,	deforma&ons	and	chromosomal	abnormali&es"="#800080",		
+
+"Pregnancy,	childbirth	and	the	puerperium"="#4AA02C"
+*/
+
+
+var node_color_KOR = [
+	'#303060', // 0 DIE
+	'#FF00FF', // 1 Certain infectious and parasitic diseases
+	'#151B8D', // 2 Neoplasms
+	'#C11B17', // 3 Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
+	'#F87217', // 4 Endocrine, nutritional and metabolic diseases
+	'#00FFFF', // 5 Mental and behavioural disorders
+	'#D4A017', // 6 Diseases of the nervous system
+	'#00FF00', // 7 Diseases of the eye and adnexa
+	'#CCFFFF', // 8 Diseases of the ear and mastoid process
+	'#FF0000', // 9 Diseases of the circulatory system
+	'#FDD017', // 10 Diseases of the respiratory system
+	'#736F6E', // 11 Diseases of the digestive system
+	'#F9B7FF', // 12 Diseases of the skin and subcutaneous tissue
+	'#98AFC7', // 13 Diseases of the musculoskeletal system and connective tissue
+	'#FFFFFF', // 14 Diseases of the genitourinary system
+	'#4AA02C' // 15 Pregnancy, childbirth and the puerperium
+	/*
+	, // 16 Certain conditions originating in the perinatal period
+	, // 17 Congenital malformations, deformations and chromosomal abnormalities
+	, // 18 Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
+	, // 19 Injury, poisoning and certain other consequences of external causes
+	, // 20 External causes of morbidity and mortality
+	, // 21 Factors influencing health status and contact with health services
+	*/
+];
+
 var MERGEPATH_INITNODE_REF = [];
 
