@@ -221,7 +221,7 @@ var Edge = function(edgeStart,
       var color = new THREE.Color();
       color.setRGB(r, g, b);
       var HSL = color.getHSL();
-      color.setHSL(HSL.h, 1.4, 0.45);
+      color.setHSL(HSL.h, 1.4, 0.42);
       var uniforms = {
         color:     { type: "c", value: color}
       };
@@ -319,11 +319,11 @@ var Edge = function(edgeStart,
           if (index % 4 === 0)
             this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.0);
           else
-            this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.15);
+            this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.4);
 
         } else {
 
-          this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.15);
+          this.line_geometries[k].getAttribute('vtx_alpha').setX(index, 0.35);
 
         }
         
