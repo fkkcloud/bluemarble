@@ -77,9 +77,9 @@ var Edge = function(edgeStart,
 
     var global_delay;
     if (DATATYPE.value == 'US')
-      global_delay = 120;
+      global_delay = 200;
     else 
-      global_delay = 280;
+      global_delay = 440;
 
     this.trigger_delay = mapRange( [45, 85], [60, 405], this.mean_start) + global_delay;
     

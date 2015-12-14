@@ -251,6 +251,9 @@ var NodeManager = function(width, height, scene) {
   }
 
   this.showAll = function(){
+    
+    //this.hideAll();
+
     for (var i = 0; i < this.nodes.length; i++) {
 
       var node = this.nodes[i];
@@ -266,9 +269,13 @@ var NodeManager = function(width, height, scene) {
 
         var node = this.nodes[i];
 
-        if (SELECTED_CLUSTER == 'All'){
-          node.reset();
+        console.log(SELECTED_CLUSTER, ALL_CLUSTER_ID_US, ALL_CLUSTER_ID_KOR);
+
+        if (SELECTED_CLUSTER == ALL_CLUSTER_ID_US || SELECTED_CLUSTER == ALL_CLUSTER_ID_KOR){
+          
           node.showNodes();
+          node.reset();
+
           continue;
         }
 
@@ -286,11 +293,15 @@ var NodeManager = function(width, height, scene) {
         }
 
         if (bNodeShow){
+
           node.showNodes();
           node.reset();
+
         }
         else{
+
           node.hideNodes();
+
         }
 
       }

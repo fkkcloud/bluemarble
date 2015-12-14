@@ -55,9 +55,9 @@ var Node = function(id,
 
     var global_delay;
     if (DATATYPE.value == 'US')
-      global_delay = 120;
+      global_delay = 200;
     else 
-      global_delay = 160;
+      global_delay = 440;
 
     this.trigger_delay          = mapRange( [35, 85], [-100, 365], this.node_meanAge_all ) + global_delay;
 

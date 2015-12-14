@@ -97,6 +97,9 @@ angular.module('app')
 
 	    if (clusterid == ALL_CLUSTER_ID){
 
+	    	SELECTED_CLUSTER = ALL_CLUSTER_ID;
+
+	    	clearAllClusters();
 	        viewAllClusters(); 
 
 	        return; 
@@ -110,22 +113,18 @@ angular.module('app')
 
 	// clear all clusters
   	function clearAllClusters(){ // 지금 이게 global로 정의된 것인데, 아마도 클로쥬어 안에 넣어서, 이 파일 안에서만 가능한 local space로 옮겨야 할듯싶다.
-	    for (var i = 0; i < 18; i++){
 
-	      EdgeManagerCluster.hideAll();
-	      NodeManagerCluster.hideAll();
+      	EdgeManagerCluster.hideAll();
+      	NodeManagerCluster.hideAll();
 
-	    }
 	}
 
 	// clear all clusters
 	function viewAllClusters(){
-	    for (var i = 0; i < 18; i++){
 
-	      EdgeManagerCluster.showAll();
-	      NodeManagerCluster.showAll();
+	    EdgeManagerCluster.showAll();
+	    NodeManagerCluster.showAll();
 
-	    }
 	}
 
 	$scope.updateMeanAge = function(){

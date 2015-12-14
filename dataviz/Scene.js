@@ -10,6 +10,10 @@ var SELECTED_MERGEPATHID = 4;
 var SELECTED_CLUSTER     = 12;
 var ALL_CLUSTER_ID       = 18;
 
+var ALL_CLUSTER_ID_US    = 18;
+var ALL_CLUSTER_ID_KOR   = 4;
+
+
 var DATATYPE = { value: 'US' };
 
 var FRAME    = { value: 0 };
