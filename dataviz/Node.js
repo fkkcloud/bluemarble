@@ -68,10 +68,18 @@ var Node = function(id,
   this.setupColor = function(mean) {
 
     var color_array;
-    if (DATATYPE.value == 'US')
+
+    var intValue = parseInt(this.ch);
+
+    if (DATATYPE.value == 'US'){
       color_array = node_color;
-    else if (DATATYPE.value == 'KOR')
+    }
+    else if (DATATYPE.value == 'KOR'){
       color_array = node_color_KOR;
+    }
+
+    if (group_mergePath == 97)
+      console.log(this.ch, intValue, color_array[intValue]);
     
     // node color by chapter
     if (this.ch == '99'){
@@ -81,9 +89,9 @@ var Node = function(id,
     }
     else{
 
-      this.color = new THREE.Color(color_array[this.ch]);
-      var HSL = this.color.getHSL();
-      this.color.setHSL(HSL.h, 1.0, 0.42);
+      this.color = new THREE.Color(color_array[intValue]);
+      //var HSL = this.color.getHSL();
+      //this.color.setHSL(HSL.h, 1.0, 0.42);
 
     }
     
