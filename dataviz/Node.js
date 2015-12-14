@@ -77,9 +77,6 @@ var Node = function(id,
     else if (DATATYPE.value == 'KOR'){
       color_array = node_color_KOR;
     }
-
-    if (group_mergePath == 97)
-      console.log(this.ch, intValue, color_array[intValue]);
     
     // node color by chapter
     if (this.ch == '99'){
