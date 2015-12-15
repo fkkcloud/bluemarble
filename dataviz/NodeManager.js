@@ -38,17 +38,31 @@ var NodeManager = function(width, height, scene) {
 
         var width_datatype_scale_factor;
         var height_datatype_scale_factor;
+
+        var width_scale_factor; 
+        var height_scale_factor;
+
+        var x_pos_offset;
+        var y_pos_offset;
+
         if (DATATYPE.value == 'US') {
-          width_datatype_scale_factor  = 1.0;
+
+          width_datatype_scale_factor  = 0.9;
           height_datatype_scale_factor = 1.0;
+          x_pos_offset                 = 400;
+          y_pos_offset                 = -470;
+
         } else if (DATATYPE.value == 'KOR') {
+
           width_datatype_scale_factor  = 0.84;
           height_datatype_scale_factor = 0.9;
+          x_pos_offset                 = 0;
+          y_pos_offset                 = -470;
+
         }
 
         var width_scale_factor  = (width  * 0.035) * width_datatype_scale_factor;
         var height_scale_factor = (height * 0.24)  * height_datatype_scale_factor;
-        var y_pos_offset = -470;
 
         var original_post = new THREE.Vector3(
           parseFloat(node_data.pos.x),
@@ -56,12 +70,12 @@ var NodeManager = function(width, height, scene) {
           0.0);
 
         var scaled_pos = new THREE.Vector3(
-          original_post.x * width_scale_factor, 
+          original_post.x * width_scale_factor  + x_pos_offset, 
           original_post.y * height_scale_factor + y_pos_offset,
           0.0);
         
         var scale_factor = mapRange([0.05, 0.9], [33, 30], node_data.normalized_size);
-        var scaled_size = node_data.normalized_size * scale_factor;
+        var scaled_size  = node_data.normalized_size * scale_factor;
 
         if (scaled_size <= 5.0){
           var fix_min_scale_factor = mapRange([0.2, 5.0], [7.0, 1.0], scaled_size);

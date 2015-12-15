@@ -30,25 +30,36 @@ var EdgeManager = function(width, height, scene) {
 
       var width_datatype_scale_factor;
       var height_datatype_scale_factor;
+
+      var x_pos_offset;
+      var y_pos_offset;
+
       if (DATATYPE.value == 'US') {
-        width_datatype_scale_factor  = 1.0;
+
+        width_datatype_scale_factor  = 0.9;
         height_datatype_scale_factor = 1.0;
+        x_pos_offset                 = 400;
+        y_pos_offset                 = -470;
+
       } else if(DATATYPE.value == 'KOR') {
+
         width_datatype_scale_factor  = 0.84;
         height_datatype_scale_factor = 0.9;
+        x_pos_offset                 = 0;
+        y_pos_offset                 = -470;
+
       }
 
       var width_scale_factor  = (width  * 0.035) * width_datatype_scale_factor;
       var height_scale_factor = (height * 0.24)  * height_datatype_scale_factor;
-      var y_pos_offset = -470;
 
       var scaled_edge_start = new THREE.Vector3(
-        original_edge_start.x * width_scale_factor, 
+        original_edge_start.x * width_scale_factor  + x_pos_offset, 
         original_edge_start.y * height_scale_factor + y_pos_offset,
         0);
 
       var scaled_edge_end = new THREE.Vector3(
-        original_edge_end.x * width_scale_factor, 
+        original_edge_end.x * width_scale_factor  + x_pos_offset, 
         original_edge_end.y * height_scale_factor + y_pos_offset,
         0);
 
