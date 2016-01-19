@@ -1,4 +1,3 @@
-
 angular.module('app')
 .controller('ClusterCtrl', function($rootScope, $scope, $window){
 
@@ -18,7 +17,6 @@ angular.module('app')
   }
   setVisibility();
 
-
   // reset animation.
   $('#btn-reset-clusters').click(function() {
 
@@ -26,20 +24,7 @@ angular.module('app')
 
   });
 
-
   $scope.updateMeanAge();
-  /*
-  //set initial state.  example of check box event
-  $('#checkbox-hide-nodes-clusters').change(function() {
-      if($(this).is(":checked")) {
-        NodeManagerCluster.toggleNodeVisibility(true);
-      }
-      else
-      {
-        NodeManagerCluster.toggleNodeVisibility(false);
-      }
-  });
-  */
 
   $('#clusterid').change(function(){
 

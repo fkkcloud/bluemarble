@@ -42,8 +42,6 @@ angular.module('app')
       {value: 18, displayName: 'All'}
   	];
 
-
-
 	$scope.cleanMergePaths = function(){
 
 		NodeManagerMergePaths[SELECTED_MERGEPATHID].clean();

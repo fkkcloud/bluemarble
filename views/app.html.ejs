@@ -1,68 +1,53 @@
-<!-- 이 파일은 .ejs 를 쓰고 있다. views folder안에 들어가 있어야 하는듯. -->
-
+<!-- 
+___________________________________________________
+___________________________________________________
+app.html.ejs
+main web page
+___________________________________________________
+-->
 <!DOCTYPE html>
-
 <meta charset=utf8>
 <meta name=viewport content=width=device-width,user-scalable=no,initial-scale=1>
-
 <html>
 <head>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
 	<link rel="stylesheet" href="/app.css">
 	<link rel="stylesheet" type="text/css" href="./sweetalert.css">
-	
-	 	<!-- jquery -->
+	<!-- jquery -->
     <script src="jquery-2.1.4.min.js"></script>
-
 	<!-- angular -->
 	<script src="angular.min.js"></script>
-
 	<!-- angular-route -->
     <script src="angular-route.min.js"></script>
-
     <!-- tweenjs -->
     <script src="Tween.js"></script>
-
     <!-- stats -->
     <script src="stats.min.js"></script>
-
 	<!-- data gui -->
     <script src="dat.gui.min.js"></script>
-
     <!-- meta data -->
     <script src="node_color_ref.js"></script>
-
+    <!-- three js data load -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.js"></script>
-
     <script src="https://dl.dropboxusercontent.com/u/3587259/Code/Threejs/OrbitControls.js"></script>
-
 	<!-- Shaders -->
 	<script type="x-shader/x-vertex" id="line_vertexshader">
-
 		attribute float vtx_alpha; // get vertex attributes
-
 		varying float curr_alpha; // send alpha to fragment shader
-
 		void main() {
 			curr_alpha = vtx_alpha;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 		}
-
 	</script>
 	<script type="x-shader/x-fragment" id="line_fragmentshader">
-
 		uniform vec3 color; // get unifrom value from outside
-
 		varying float curr_alpha; // get alpah from vertex shader
-
 		void main() {
 			gl_FragColor = vec4( color, curr_alpha );
 		}
 	</script>
 	<!-- End Shaders -->
-
 	<script src="MathUtils.js"></script>
 	<script src="DataManager.js"></script>
 	<script src="Node.js"></script> 
@@ -70,13 +55,10 @@
 	<script src="Edge.js"></script> 
 	<script src="EdgeManager.js"></script> 
 	<script src="Scene.js"></script> 
-
    <!-- sweet alert -->
 	<script src="./sweetalert.min.js"></script> 
-
     <!-- express static use -->
     <script src='/app.js'></script> 
-
 </head>
 <body ng-app='app' ng-controller='ApplicationCtrl' class='web-bg'>
 	<!-- navigation bar -->
@@ -89,12 +71,8 @@
 	   				<span class='icon-bar'></span>
 	   				<span class='icon-bar'></span>
 	   			</button>
-	            <!--<a class="navbar-brand option-menu"href="/#/">Institute for Computational Health Sciences</a>-->
-	            	
 	            <a ng-href="http://bioinformatics.ucsf.edu/" class="logo"></a>
-	            
 			</div>
-			
 			<div ng-class="{'in':!navCollapsed}" class="navbar-collapse collapse" collapse="navCollapsed">
 				<ul class='nav navbar-nav'>
 	                <li>
@@ -118,10 +96,7 @@
 		</haeder>
 	</nav>
 </div>
-
 <div class='data-visibility' id='canvasHolder'></div> 
 <div ng-view></div>
-	
 </body>
 </html>
-

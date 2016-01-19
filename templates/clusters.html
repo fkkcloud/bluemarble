@@ -1,27 +1,17 @@
 <div class="container data-page" id='options-clusters'>
-
   <select id="clusterid" class="form-control">
     <option ng-selected="{{clusterid.value == selectedid.value}}" ng-repeat="clusterid in clusterids" value="{{clusterid.value}}" >
       {{clusterid.displayName}}
     </option>
   </select>
-
   <div>
     <button type="button" class="btn btn-info" id="btn-reset-clusters">Replay</button>
   </div>
-
   <div>
     <img class="guide-img" ng-src="guide.png" width="595" height="216">
   </div>
-  <!--
-  <section>
-    <input type="checkbox" id="checkbox-hide-nodes-clusters" class="checkbox_data" value="" checked>
-    Hide Nodes
-  </section>
-  -->
   <section id="mean-age-clusters">
     Mean Age = {{meanAge.value}}
   </section>
-  
 </div>
 

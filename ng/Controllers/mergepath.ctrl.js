@@ -1,11 +1,9 @@
-
 angular.module('app')
 .controller('MergePathCtrl', function($rootScope, $scope, $window){
 
   function setPageNum(){
 
     PAGE_NUM.value = 2;
-    //$scope.resetMergePaths();
     
     if (bCanvasLoaded)
       $('#options-mergepaths').css('visibility', 'visible');
@@ -75,58 +73,4 @@ angular.module('app')
 
   })
 
-  //set initial state.
-  /*
-  $('#checkbox-hide-nodes-mergepaths').change(function() {
-      if($(this).is(":checked")) {
-
-         for (var i = 0; i < NodeManagerMergePaths.length; i++){
-
-          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
-
-            if (SELECTED_MERGEPATHIDS[j] === i)
-              NodeManagerMergePaths[i].toggleNodeVisibility(true);
-
-          }
-          
-         }
-        
-      }
-      else
-      {
-
-        for (var i = 0; i < NodeManagerMergePaths.length; i++){
-
-          for (var j = 0; j < SELECTED_MERGEPATHIDS.length; j++){
-
-            if (SELECTED_MERGEPATHIDS[j] === i)
-              NodeManagerMergePaths[i].toggleNodeVisibility(false);
-
-          }
-
-         }
-
-      }
-  });
-
-  //set initial state.
-  $('#checkbox-hide-names-mergepaths').change(function() {
-      if($(this).is(":checked")) {
-
-        NodeManagerMergePaths[SELECTED_MERGEPATHID].toggleNodeTextVisibility(true);
-        
-      }
-      else
-      {
-
-        NodeManagerMergePaths[SELECTED_MERGEPATHID].toggleNodeTextVisibility(false);
-
-          }
-
-         }
-
-      }
-  });
-*/
-  
 });

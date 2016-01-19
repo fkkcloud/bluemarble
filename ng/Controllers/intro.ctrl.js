@@ -1,4 +1,3 @@
-
 angular.module('app')
 .controller('IntroCtrl', function($rootScope, $scope, $window){
 
