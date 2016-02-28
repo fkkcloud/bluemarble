@@ -373,7 +373,7 @@ var Node = function(id,
 
     // context text
     var ctxText2d = canvasText.getContext('2d');
-    ctxText2d.font = "24px Lato";
+    ctxText2d.font = "36px Lato";
     ctxText2d.fillStyle = "rgba(190,190,200,1.0)";
     ctxText2d.fillText(this.name + ' : ' + Math.ceil(this.node_meanAge_mergedPath), 0, canvasText.height * 0.8);
       
@@ -383,6 +383,7 @@ var Node = function(id,
     texture1.needsUpdate = true;
     texture1.anisotropy = maxAnisotropy;
     texture1.magfilter = THREE.LinearFilter;
+    texture1.minfilter = THREE.LinearFilter;
 
     var basicMaterial = new THREE.MeshBasicMaterial( {map: texture1 } );
     basicMaterial.transparent = true;
@@ -393,12 +394,14 @@ var Node = function(id,
         basicMaterial
       );
     
-    var x_offset = canvasText.width * 0.5 - this.size;
+    var x_offset = canvasText.width * 0.43 - this.size;
     textMesh.position.x = this.pos.x + x_offset;
 
     var y_offset = Math.max(24 * devicePixelRatio, this.size * devicePixelRatio * 1.8);
     textMesh.position.y = this.pos.y + y_offset;
     textMesh.position.z = 5.0;
+
+    textMesh.scale.set(0.94, 0.94, 0.94);
 
     // set tween alpha material
     var target_opacity1 = { 'opacity' : 0.6 };

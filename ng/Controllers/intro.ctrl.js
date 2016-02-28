@@ -6,7 +6,6 @@ angular.module('app')
   	}
   	setPageNum();
 
-
 	function setVisibility(){
 		$('.data-visibility').removeClass('active');
 	}
