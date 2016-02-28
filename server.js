@@ -1,12 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
-var favicon = require('serve-favicon');
-
 
 var app = express();
-app.use(favicon(__dirname + '/resources/favicon.ico'));
-app.use(bodyParser.json());
+sapp.use(bodyParser.json());
 app.use(logger('dev'));
 
 app.use('/', require('./controllers')); // get router from controller's index.js
