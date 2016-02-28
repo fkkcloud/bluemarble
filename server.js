@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 
 var app = express();
-sapp.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(logger('dev'));
 
 app.use('/', require('./controllers')); // get router from controller's index.js
