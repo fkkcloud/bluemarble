@@ -8,7 +8,7 @@
 
       <section id="search-context">
           <span ng-repeat="disease in diseases | filter:filterBySearch">
-            <button type="button" ng-click="runName(disease)"> {{ disease }} </button>
+            <button class="search-name" type="button" ng-click="runName(disease)"> {{ disease }} </button>
           </span>
       </section>
       
