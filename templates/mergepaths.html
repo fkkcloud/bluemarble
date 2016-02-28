@@ -1,22 +1,28 @@
 <div class="container data-page" id='options-mergepaths'>
+
   <div class="radio">
     <label>
     Initial Disease Name / Number
       <input type="search" ng-model="search" id="textinfo-mergepathids" placeholder="Initial disease name / number here.">
       <button type="button" class="btn btn-calm" id="btn-run-mergepaths">Run</button>
+
       <section id="search-context">
           <span ng-repeat="disease in diseases | filter:filterBySearch">
             <button type="button" ng-click="runName(disease)"> {{ disease }} </button>
           </span>
       </section>
+      
     </label>
   </div>
+
   <div>
     <img class="guide-img" ng-src="guide.png" width="595" height="216">
   </div>
+
   <section id="mergepathids-display">
     {{mergePathIds.value}}
   </section>
+
   <div>
     <button type="button" class="btn btn-info" id="btn-reset-mergepaths">Replay</button>
   </div>
