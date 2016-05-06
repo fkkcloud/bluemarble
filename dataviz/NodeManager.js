@@ -87,8 +87,9 @@ var NodeManager = function(width, height, scene) {
 
         // for search merge paths. - MERGEPATH_INITNODE_REF
         if (node_data.initial !== undefined){
-          if (node_data.initial === 1)
+          if (node_data.initial === 1) {// if its initial
             MERGEPATH_INITNODE_REF.push(node_data.name.toLowerCase());
+          }
         }
 
         /* 
@@ -133,7 +134,6 @@ var NodeManager = function(width, height, scene) {
 
         new_node.setup();
     })
-
     this.nodes = array; 
 
     if (PAGE_NUM.value === 1)

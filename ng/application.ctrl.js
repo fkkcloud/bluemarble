@@ -1,6 +1,11 @@
 angular.module('app')
 .controller('ApplicationCtrl', function($rootScope, $scope, $window){
 
+	$scope.diseases = undefined; // used for search keywords
+	setInterval(function(){
+	    $scope.diseases = MERGEPATH_INITNODE_REF;
+	  }, 500);
+
 	$scope.meanAge = { value : 0 };
 	$scope.mergePathIds = { value : "acute myocardial infarction"};
 
@@ -44,7 +49,8 @@ angular.module('app')
 
 	$scope.cleanMergePaths = function(){
 
-		NodeManagerMergePaths[SELECTED_MERGEPATHID].clean();
+		if (NodeManagerMergePaths[SELECTED_MERGEPATHID])
+			NodeManagerMergePaths[SELECTED_MERGEPATHID].clean();
 
 	}
 
@@ -54,8 +60,10 @@ angular.module('app')
 
 		TWEEN.removeAll(); // reset tween animations
 
-		NodeManagerMergePaths[SELECTED_MERGEPATHID].reset();
-		EdgeManagerMergePaths[SELECTED_MERGEPATHID].reset();
+		if (NodeManagerMergePaths[SELECTED_MERGEPATHID])
+			NodeManagerMergePaths[SELECTED_MERGEPATHID].reset();
+		if (EdgeManagerMergePaths[SELECTED_MERGEPATHID])
+			EdgeManagerMergePaths[SELECTED_MERGEPATHID].reset();
 
 	}
 
@@ -160,6 +168,7 @@ angular.module('app')
 
 	    var DataType         = gui.add(RENDEROPTIONS, 'Data', [ 'US', 'KOR' ] );
 
+	    /*
 	    var ClustersGrp      = gui.addFolder('Clusters');
 		var ClusterHideNodes   = ClustersGrp.add(RENDEROPTIONS, 'HideNodes');
 		var ClusterHideNames   = ClustersGrp.add(RENDEROPTIONS, 'HideNames');
@@ -167,6 +176,7 @@ angular.module('app')
 		var MergePathGrp       = gui.addFolder('MergePaths');
 		var MergePathHideNodes = MergePathGrp.add(RENDEROPTIONS, 'HideNodes');
 		var MergePathHideNames = MergePathGrp.add(RENDEROPTIONS, 'HideNames');
+		*/
 
 		DataType.onFinishChange(function(val) {
 			if (val == 'US'){
@@ -219,8 +229,12 @@ angular.module('app')
 			  	$scope.mergePathIds.value  = "chronic viral hepatitis";
 			  	$scope.$apply();
 			}
+
+			// search keyword help words setup
+			
 		})
 
+		/*
 	    ClusterHideNodes.onFinishChange(function(val) {
 	    	if (val == true) {
 		        NodeManagerCluster.toggleNodeVisibilityByCluster(false);
@@ -264,6 +278,7 @@ angular.module('app')
 
 	    	}
 	    });
+	    */
 
 	    gui.add(RENDEROPTIONS, 'Restart');
 

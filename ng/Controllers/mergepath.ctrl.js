@@ -8,7 +8,7 @@ angular.module('app')
   }
 
   //console.log(MERGEPATH_INITNODE_REF);
-  $scope.diseases = MERGEPATH_INITNODE_REF;
+
 
   $scope.search = '';
   
@@ -16,6 +16,8 @@ angular.module('app')
 
   $scope.$watch('search', function (value) {
     regex = new RegExp('\\b' + escapeRegExp(value), 'i');
+
+    setTimeout(function(){$scope.search = '';}, 1000);
   });
     
   $scope.filterBySearch = function(name) {
@@ -59,6 +61,8 @@ angular.module('app')
 
     var input = document.getElementById("textinfo-mergepathids").value;
 
+    var id;
+
     // deal with input to find mergepath!
     try {
 
@@ -73,7 +77,7 @@ angular.module('app')
 
           if (name == lowerCasedDiseaseName){
 
-            input = i;
+            id = i;
             //console.log('selected disease for', lowerCasedDiseaseName, ' is id:', i);
             break;
 
@@ -90,11 +94,10 @@ angular.module('app')
 
     $scope.cleanMergePaths();
 
-    SELECTED_MERGEPATHID = input;
-    
-    //console.log(input);
+    SELECTED_MERGEPATHID = id;
 
-    $scope.mergePathIds.value = MERGEPATH_INITNODE_REF[input];
+    // set the name of it
+    $scope.mergePathIds.value = MERGEPATH_INITNODE_REF[id];
     $scope.$apply();
 
     $scope.resetMergePaths();

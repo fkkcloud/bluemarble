@@ -141,12 +141,16 @@ var animate = function (time) {
 
 		interactable_meshes = [];
 
-		EdgeManagerMergePaths[SELECTED_MERGEPATHID].run();
-		NodeManagerMergePaths[SELECTED_MERGEPATHID].run(time);
+		if (EdgeManagerMergePaths[SELECTED_MERGEPATHID])
+			EdgeManagerMergePaths[SELECTED_MERGEPATHID].run();
+		if (NodeManagerMergePaths[SELECTED_MERGEPATHID])
+			NodeManagerMergePaths[SELECTED_MERGEPATHID].run(time);
 
 		// set/get interactable objects
-		for (var a = 0; a < NodeManagerMergePaths[SELECTED_MERGEPATHID].nodes.length; a++){
-			interactable_meshes.push(NodeManagerMergePaths[SELECTED_MERGEPATHID].nodes[a].circle_shaded);
+		if ( NodeManagerMergePaths[SELECTED_MERGEPATHID]) {
+			for (var a = 0; a < NodeManagerMergePaths[SELECTED_MERGEPATHID].nodes.length; a++){
+				interactable_meshes.push(NodeManagerMergePaths[SELECTED_MERGEPATHID].nodes[a].circle_shaded);
+			}
 		}
 		
 		animate_interaction();
@@ -182,14 +186,18 @@ var selectMergePaths = function (mergePathId){
 	}
 
 	// turn on edges mergePathId
-	EdgeManagerMergePaths[mergePathId].toggleVisibility(true);
+	if (EdgeManagerMergePaths[mergePathId])
+		EdgeManagerMergePaths[mergePathId].toggleVisibility(true);
 
 	// turn on nodes mergePathId
-	NodeManagerMergePaths[mergePathId].toggleNodeVisibility(true);
-	NodeManagerMergePaths[mergePathId].toggleNodeTextVisibility(true);
+	if (NodeManagerMergePaths[mergePathId])
+		NodeManagerMergePaths[mergePathId].toggleNodeVisibility(true);
+	
+	if (NodeManagerMergePaths[mergePathId])
+		NodeManagerMergePaths[mergePathId].toggleNodeTextVisibility(true);
 
-	console.log(EdgeManagerMergePaths.length);
-	console.log(NodeManagerMergePaths.length);
+	//console.log(EdgeManagerMergePaths.length);
+	//console.log(NodeManagerMergePaths.length);
 
 }
 
